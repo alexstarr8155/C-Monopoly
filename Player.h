@@ -23,6 +23,8 @@ public:
 	std::vector<std::shared_ptr<Property>> getProperties() const;
 	
 	void updateNetWorth();
+	int getNetWorth () const;
+
 	void buy(std::shared_ptr<Property> p);
 	void pay(std::shared_ptr<Player> other, int amount);
 	void trade(std::shared_ptr<Player> other, std::shared_ptr<Property> mine, std::shared_ptr<Property> others);

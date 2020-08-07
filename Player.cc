@@ -3,7 +3,7 @@
 
 #include "Improvable.h"
 
-Player::Player (const std::string &name, int playerNum, int money): name{name}, playerNum{playerNum}, money{money} {}
+Player::Player (const std::string &name, int playerNum, int money): name{name}, playerNum{playerNum}, money{money}, netWorth{money} {}
 
 int Player::getPlayerNum() const {
 	return playerNum;
@@ -31,10 +31,13 @@ void Player::updateNetWorth() {
 	netWorth = worth + money;
 }
 
+int Player::getNetWorth () const {
+	return netWorth;
+}
+
 void Player::buy(std::shared_ptr<Property> p) {
 	owned.push_back(p);
-	std::shared_ptr<Player> tmp {this};
-	p->setOwner(tmp);
+	p->setOwner(playerNum);
 }
 
 void Player::pay(std::shared_ptr<Player> other, int amount) {

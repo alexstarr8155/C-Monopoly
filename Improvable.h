@@ -7,12 +7,14 @@ class ImprovableProperty : public Property {
 	int numImprovements;
 
 	public:
-		ImprovableProperty (std::string &name, int price, int base_rent);
-
+		ImprovableProperty (const std::string &name, int price, int base_rent);
+		
+		int getNumImprov () const;
 		void upgrade (int num);
 		void downgrade (int num);
-		int getValue () const;
+		int getValue () const override;
 		int getRent () const override;
+		void notify (Subject & whoNotified) override;
 };
 
 #endif

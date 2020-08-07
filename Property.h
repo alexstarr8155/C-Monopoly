@@ -13,19 +13,19 @@ class Property : public Cell {
 		int rent;
 		bool owned;
 		bool mortgaged;
-		std::shared_ptr<Player> owner;
+		int owner;
 	public:
-		Property (std::string & name, int price, int base_rent);
+		Property (const std::string & name, int price, int base_rent);
 		
 		int getPrice () const;
 		virtual int getRent () const = 0;
 		bool is_mortgaged () const;
-		void setOwner (std::shared_ptr <Player> p);
-		std::shared_ptr<Player> getOwner ();
+		void setOwner (int player);
+		int getOwner () const;
 
 		void mortgage ();
 		void unmortgage ();
-		virtual int getValue () const = 0; //returns the value of the property including all upgrades
+		virtual int getValue () const = 0;
 		void action (std::shared_ptr<Player> p, bool b);
 };
 

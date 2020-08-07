@@ -16,6 +16,8 @@ class Cell : public Subject, public Observer {
 		std::vector<bool> on_cell;
 	public:
 		Cell (const std::string &name);
+
+		std::string getName () const;
 		virtual void action (std::shared_ptr<Player> p, bool b) = 0;
 };
 
