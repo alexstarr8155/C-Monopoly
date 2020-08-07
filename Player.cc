@@ -1,20 +1,24 @@
 #include "Player.h"
 #include <algorithm>
 
-int Player::getPlayerNum() {
+#include "Improvable.h"
+
+Player::Player (const std::string &name, int playerNum, int money): name{name}, playerNum{playerNum}, money{money} {}
+
+int Player::getPlayerNum() const {
 	return playerNum;
 }
 
-std::string Player::getPlayerName() {
+std::string Player::getPlayerName() const {
 	return name;
 }
 
-int Player::getMoney() {
+int Player::getMoney() const {
 	return money;
 }
 
 //"Perhaps this should return a shared pointer instead?"
-std::vector<std::shared_ptr<Property>> Player::getProperties(){
+std::vector<std::shared_ptr<Property>> Player::getProperties() const{
 	return owned;
 }
 
@@ -29,7 +33,8 @@ void Player::updateNetWorth() {
 
 void Player::buy(std::shared_ptr<Property> p) {
 	owned.push_back(p);
-	p->setOwner(name);
+	std::shared_ptr<Player> tmp {this};
+	p->setOwner(tmp);
 }
 
 void Player::pay(std::shared_ptr<Player> other, int amount) {

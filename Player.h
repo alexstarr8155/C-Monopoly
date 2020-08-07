@@ -4,7 +4,7 @@
 #include "Subject.h"
 #include <string>
 
-class Property
+class Property;
 
 class Player : public Subject {
 
@@ -15,10 +15,13 @@ private:
 	std::string name;
 	std::vector<std::shared_ptr<Property>> owned;
 public:
-	int getPlayerNum();
-	std::string getPlayerName();
-	int getMoney();
-	std::vector<std::shared_ptr<Property>> getProperties();
+	Player (const std::string &name, int playerNum, int money);
+
+	int getPlayerNum() const;
+	std::string getPlayerName() const;
+	int getMoney() const;
+	std::vector<std::shared_ptr<Property>> getProperties() const;
+	
 	void updateNetWorth();
 	void buy(std::shared_ptr<Property> p);
 	void pay(std::shared_ptr<Player> other, int amount);

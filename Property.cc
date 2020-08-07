@@ -21,19 +21,19 @@ void Property::setOwner (shared_ptr<Player> p){
 	owner = p;
 }
 
-shared_ptr<Player> getOwner () const {
+shared_ptr<Player> Property::getOwner () {
 	return owner;
 }
 
-void mortgage () {
+void Property::mortgage () {
 	mortgaged = true;
 }
 
-void unmortgage () {
+void Property::unmortgage () {
 	mortgaged = false;
 }
 
-void action (shared_ptr<Player> p, bool p){
+void Property::action (shared_ptr<Player> p, bool b){
 	cout << "this is my action :)" << endl;
 }
 
