@@ -25,7 +25,7 @@ class Property : public Cell {
 
 		void mortgage ();
 		void unmortgage ();
-		virtual int getValue () const = 0;
+		virtual int getValue () const;
 		void action (std::shared_ptr<Player> p, bool b);
 };
 

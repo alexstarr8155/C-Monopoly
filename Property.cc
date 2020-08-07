@@ -34,6 +34,10 @@ void Property::unmortgage () {
 	mortgaged = false;
 }
 
+int Property::getValue () const {
+	return price;
+}
+
 void Property::action (shared_ptr<Player> p, bool b){
 	cout << "this is my action :)" << endl;
 }
