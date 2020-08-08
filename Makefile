@@ -8,9 +8,9 @@ DEPENDS = ${OBJECTS:.o=.d}
 .PHONY : all clean
 
 ${EXEC} : ${OBJECTS}
-        ${CXX} ${CXXFLAGS} $^ -o $@
+	${CXX} ${CXXFLAGS} $^ -o $@
 
 -include ${DEPENDS}
 
 clean :
-        rm -f ${DEPENDS} ${OBJECTS} ${EXEC}
+	rm -f ${DEPENDS} ${OBJECTS} ${EXEC}
