@@ -79,7 +79,7 @@ void BoardDisplay::display(Board game) {
 		printMany(' ', extraSpace);
 	}
 	std::cout << "|\n";
-	for (int i = 0; i < 5; ++i) {
+	for (int i = 0; i < 2; ++i) {
 		printEmptyTopBottom();
 	}
 	printEndTopBottom();
@@ -107,7 +107,7 @@ void BoardDisplay::display(Board game) {
                 printMany(' ', extraSpace);
                 std::cout << "|\n";
 
-		for (int i = 0; i < 5; ++i) {
+		for (int i = 0; i < 2; ++i) {
 			printEmptyMiddle();
 		}
 		if (i == 8) {
@@ -125,7 +125,7 @@ void BoardDisplay::display(Board game) {
                 printMany(' ', extraSpace);
         }
         std::cout << "|\n";
-        for (int i = 0; i < 5; ++i) {
+        for (int i = 0; i < 2; ++i) {
                 printEmptyTopBottom();
         }
         printEndTopBottom();
