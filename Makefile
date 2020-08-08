@@ -1,16 +1,22 @@
-CXX = g++
-CXXLFAGS = -std=c++14 -Wall -MMD -g
-OBJECTS = observer.o Subject.o Player.o Cell.o Property.o Improvable.o Gym.o Residence.o test.o 
+CXX=g++ 
+CXXFLAGS=-std=c++14 -Wall -O -g -MMD -Werror=vla # use -MMD to generate dependencies
+SOURCES=$(wildcard *.cc)   # list of all .cc files in the current directory
+OBJECTS=${SOURCES:.cc=.o}  # .o files depend upon .cc files with same names
+DEPENDS=${OBJECTS:.o=.d}   # .d file is list of dependencies for corresponding .cc file
+EXEC=test
 
-EXEC = test
-DEPENDS = ${OBJECTS:.o=.d}
+# First target in the makefile is the default target.
+$(EXEC): $(OBJECTS)
+	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(EXEC)
+#	strip ${EXEC}
 
-.PHONY : all clean
-
-${EXEC} : ${OBJECTS}
-	${CXX} ${CXXFLAGS} $^ -o $@
+%.o: %.cc 
+	$(CXX) -c -o $@ $< $(CXXFLAGS) 
 
 -include ${DEPENDS}
 
-clean :
-	rm -f ${DEPENDS} ${OBJECTS} ${EXEC}
+.PHONY: clean
+clean:
+	rm  -f $(OBJECTS) $(DEPENDS) $(EXEC)
+
+
