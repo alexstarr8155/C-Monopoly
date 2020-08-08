@@ -1,10 +1,6 @@
 #include "TempCell.h"
 
-TempCell::TempCell(std::string cellName) : cellName{cellName} {
-	this->houses = 0;
-	this->players = {};
-}
-
+TempCell::TempCell(std::string cellName, int houses, std::map<char, bool> players) : cellName{cellName}, houses{houses}, players{players} {}
 TempCell::~TempCell() {}
 
 std::string TempCell::getName() {
@@ -15,6 +11,6 @@ int TempCell::getHouses() {
 	return houses;
 }
 
-std::vector<bool> TempCell::getPlayers() {
+std::map<char, bool> TempCell::getPlayers() {
 	return players;
 }

@@ -5,7 +5,7 @@
 
 using namespace std;
 
-
+/*
 int main () {
 	auto p = make_shared<Player> ("James", 1, 1500);
 	
@@ -24,3 +24,4 @@ int main () {
 	}
 
 }
+*/

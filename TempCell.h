@@ -1,21 +1,21 @@
 #ifndef TEMP_CELL_H
 #define TEMP_CELL_H
-#include <vector>
+#include <map>
 #include <string>
 
 class TempCell {
 
 	std::string cellName;
 	int houses;
-	std::vector<bool> players;
+	std::map<char, bool> players;
 
 
 	public:
-		TempCell(std::string cellName);
+		TempCell(std::string cellName, int houses, std::map<char, bool> players);
 		~TempCell();
 		std::string getName();
 		int getHouses();
-		std::vector<bool> getPlayers();
+		std::map<char, bool> getPlayers();
 
 };
 
