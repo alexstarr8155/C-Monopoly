@@ -77,8 +77,10 @@ void printData(std::string name, int nameSize, int houses, std::map<char, bool> 
     int extraSpace = 0;
 
     if (line == 0 && houses != -1) {
+	extraSpace = width - houses;
         std::cout << "|";
-        printMany(' ', width);
+	printMany('I', houses);
+        printMany(' ', extraSpace);
     }
     else if (line == 0) {
         std::size_t found = name.find(" ", 5);
