@@ -58,6 +58,7 @@ void Property::action (shared_ptr<Player> p, bool b){
 	if (b){
 		owner = p;
 		p->buy(std::make_shared<Property>(*this));
+		set_ownership.at(name) = p->getPlayerChar ();
 		notifyObservers();
 	}
 	else if (owner){

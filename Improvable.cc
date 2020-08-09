@@ -27,8 +27,14 @@ int ImprovableProperty::getValue () const {
 
 
 int ImprovableProperty::getRent () const {
+
 	for (auto it = set_ownership.begin(); it != set_ownership.end(); ++it){
-		if (it->second != set_ownership.begin()->second){
+		
+		if (set_ownership.begin()->second == 'z'){
+			return rent;
+		}
+
+		if (it->second != (set_ownership.begin()->second) ){
 			return rent;
 		}
 	}
