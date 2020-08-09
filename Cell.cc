@@ -37,3 +37,7 @@ shared_ptr<Player> Cell::getOwner() {
 	cout << "I am getting Owner" << endl;
 	return nullptr;
 }
+
+
+
+
