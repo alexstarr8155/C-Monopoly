@@ -21,7 +21,7 @@ class Cell : public Subject, public Observer {
 
 		std::string getName () const;
 		/* change back to virtual after */
-		void action (std::shared_ptr<Player> p, bool b) {
+		virtual void action (std::shared_ptr<Player> p, bool b) {
 			std::cout << "I am performing an action" << std::endl;	
 		}
 		std::map<char, bool> who_on_cell ();
