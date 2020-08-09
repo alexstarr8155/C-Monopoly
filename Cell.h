@@ -26,6 +26,9 @@ class Cell : public Subject, public Observer {
 		}
 		std::map<char, bool> who_on_cell ();
 		int getNumImprov () const;
+		/* delete after */
+		void notify (Subject &whoNotified);
+		std::shared_ptr<Player> getOwner();
 };
 
 #endif
