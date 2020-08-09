@@ -9,6 +9,7 @@ class Property;
 class Player : public Subject {
 
 private:
+	int position;
 	char playerChar;
 	int netWorth;
 	int money;	
@@ -24,6 +25,9 @@ public:
 	
 	void updateNetWorth();
 	int getNetWorth () const;
+	int getPosition() const;
+	void move(int amount);
+	void moveTo(int pos);
 
 	void buy(std::shared_ptr<Property> p);
 	void pay(std::shared_ptr<Player> other, int amount);

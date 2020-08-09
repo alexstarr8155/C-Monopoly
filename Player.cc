@@ -3,7 +3,9 @@
 
 #include "Improvable.h"
 
-Player::Player (const std::string &name, char playerChar, int money): name{name}, playerChar{playerChar}, money{money}, netWorth{money} {}
+Player::Player (const std::string &name, char playerChar, int money): name{name}, playerChar{playerChar}, money{money}, netWorth{money} {
+	position = 0;
+}
 
 char Player::getPlayerChar() const {
 	return playerChar;
@@ -33,6 +35,18 @@ void Player::updateNetWorth() {
 
 int Player::getNetWorth () const {
 	return netWorth;
+}
+
+int Player::getPosition() const {
+	return position;
+}
+
+void Player::move(int amount) {
+	position = (position + amount) % 40;
+}
+
+void Player::moveTo(int pos) {
+	position = pos;
 }
 
 void Player::buy(std::shared_ptr<Property> p) {
