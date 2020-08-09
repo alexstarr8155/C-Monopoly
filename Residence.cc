@@ -1,4 +1,5 @@
 #include "Residence.h"
+using namespace std;
 
 Residences::Residences (const string &name, int price, int base_rent) : Property{name, price, base_rent} {
 	numImprovements = 0;
@@ -6,8 +7,4 @@ Residences::Residences (const string &name, int price, int base_rent) : Property
 
 int Residences::getRent () const {
 	return rent; //temp, add calc
-}
-
-void Residences::notify (Subject & whoNotified){
-	//implement
 }
