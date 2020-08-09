@@ -205,7 +205,7 @@ void BoardDisplay::display(Board game) {
 	printTopLine();
 
 	for (int i = 0; i < 4; ++i) {
-		for (int j = 1; j <= 11; ++j) {
+		for (int j = 20; j <= 30; ++j) {
 			std::string name = (game.board[j])->getName();
 			int nameSize = name.length();
 			int houses = (game.board[j])->getHouses();
@@ -225,7 +225,7 @@ void BoardDisplay::display(Board game) {
 		std::map<char, bool> players = {};
 
 		for (int j = 0; j < 4; ++j) {
-			index = 11 + (i*2) + 1;
+            index = (-1 * i) + 19;
 			name = (game.board[index])->getName();
 			nameSize = name.length();
 			houses = (game.board[index])->getHouses();
@@ -235,7 +235,7 @@ void BoardDisplay::display(Board game) {
 			std::cout << "|";
 			printMany(' ', middleSpace);
 
-			index = 11 + (i*2) + 2;
+			index = 50 - ((-1 * i) + 19);
             name = (game.board[index])->getName();
             nameSize = name.length();
             houses = (game.board[index])->getHouses();
@@ -254,7 +254,7 @@ void BoardDisplay::display(Board game) {
         int houses = 0;
         std::map<char, bool> players = {};
 
-        index = 18;
+        index = 16;
         name = (game.board[index])->getName();
         nameSize = name.length();
         houses = (game.board[index])->getHouses();
@@ -270,7 +270,7 @@ void BoardDisplay::display(Board game) {
             printMany(' ', middleSpace);
         }
 
-        index = 19;
+        index = 34;
         name = (game.board[index])->getName();
         nameSize = name.length();
         houses = (game.board[index])->getHouses();
@@ -288,7 +288,7 @@ void BoardDisplay::display(Board game) {
         int houses = 0;
         std::map<char, bool> players = {};
 
-        index = 20;
+        index = 15;
         name = (game.board[index])->getName();
         nameSize = name.length();
         houses = (game.board[index])->getHouses();
@@ -310,7 +310,7 @@ void BoardDisplay::display(Board game) {
             printLogo6();
         }
 
-        index = 21;
+        index = 35;
         name = (game.board[index])->getName();
         nameSize = name.length();
         houses = (game.board[index])->getHouses();
@@ -328,7 +328,7 @@ void BoardDisplay::display(Board game) {
         int houses = 0;
         std::map<char, bool> players = {};
 
-        index = 22;
+        index = 14;
         name = (game.board[index])->getName();
         nameSize = name.length();
         houses = (game.board[index])->getHouses();
@@ -344,7 +344,7 @@ void BoardDisplay::display(Board game) {
             printMany(' ', middleSpace);
         }
 
-        index = 23;
+        index = 36;
         name = (game.board[index])->getName();
         nameSize = name.length();
         houses = (game.board[index])->getHouses();
@@ -363,7 +363,7 @@ void BoardDisplay::display(Board game) {
         std::map<char, bool> players = {};
 
         for (int j = 0; j < 4; ++j) {
-            index = 23 + (i*2) + 1;
+            index = (-1 * i) + 13; 
             name = (game.board[index])->getName();
             nameSize = name.length();
             houses = (game.board[index])->getHouses();
@@ -373,7 +373,7 @@ void BoardDisplay::display(Board game) {
             std::cout << "|";
             printMany(' ', middleSpace);
 
-            index = 23 + (i*2) + 2;
+            index = 50 - ((-1 * i) + 13);
             name = (game.board[index])->getName();
             nameSize = name.length();
             houses = (game.board[index])->getHouses();
@@ -390,7 +390,7 @@ void BoardDisplay::display(Board game) {
     }
 	
     for (int i = 0; i < 4; ++i) {
-        for (int j = 30; j <= 40; ++j) {
+        for (int j = 10; j >= 0; --j) {
             std::string name = (game.board[j])->getName();
             int nameSize = name.length();
             int houses = (game.board[j])->getHouses();
