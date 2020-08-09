@@ -4,8 +4,10 @@
 #include "Property.h"
 
 class Residences : public Property {
-	int getRent () const override;
-	void notify (Subject & whoNotified) override;
+
+	public:
+		Residences (const std::string &name, int price, int base_rent);
+		int getRent () const override;
 };
 
 #endif
