@@ -1,3 +1,3 @@
-#include "observer.h"
+#include "Observer.h"
 
 Observer::~Observer () {};
