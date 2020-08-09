@@ -5,11 +5,11 @@
 
 using namespace std;
 
-/*
+
 int main () {
 	auto p = make_shared<Player> ("James", 1, 1500);
 	
-	cout << p->getPlayerName() << ", " << p->getPlayerNum() << ", " << p->getMoney() << ", " << p->getNetWorth() << endl;
+	cout << p->getPlayerName() << ", " << p->getMoney() << ", " << p->getNetWorth() << endl;
 
 	auto mc = make_shared<ImprovableProperty> ("MC", 350, 35);
 	
@@ -24,4 +24,3 @@ int main () {
 	}
 
 }
-*/

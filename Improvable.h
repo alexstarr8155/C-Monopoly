@@ -4,7 +4,6 @@
 #include "Property.h"
 
 class ImprovableProperty : public Property {
-	int numImprovements;
 
 	public:
 		ImprovableProperty (const std::string &name, int price, int base_rent);

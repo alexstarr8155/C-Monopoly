@@ -5,7 +5,6 @@
 using namespace std;
 
 Property::Property (const string & name, int price, int base_rent): Cell{name}, price{price}, rent{base_rent} {
-	owner = -1;
 	owned = false;
 	mortgaged = false;
 }
@@ -18,11 +17,11 @@ bool Property::is_mortgaged () const {
 	return mortgaged;
 }
 
-void Property::setOwner (int p){
+void Property::setOwner (shared_ptr<Player> p){
 	owner = p;
 }
 
-int Property::getOwner () const {
+shared_ptr<Player> Property::getOwner () {
 	return owner;
 }
 

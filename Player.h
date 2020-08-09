@@ -9,15 +9,15 @@ class Property;
 class Player : public Subject {
 
 private:
-	int playerNum;
+	char playerChar;
 	int netWorth;
 	int money;	
 	std::string name;
 	std::vector<std::shared_ptr<Property>> owned;
 public:
-	Player (const std::string &name, int playerNum, int money);
+	Player (const std::string &name, char playerChar, int money);
 
-	int getPlayerNum() const;
+	char getPlayerChar() const;
 	std::string getPlayerName() const;
 	int getMoney() const;
 	std::vector<std::shared_ptr<Property>> getProperties() const;

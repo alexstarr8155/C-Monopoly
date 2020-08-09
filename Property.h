@@ -13,15 +13,16 @@ class Property : public Cell {
 		int rent;
 		bool owned;
 		bool mortgaged;
-		int owner;
+		//int owner;
+		std::shared_ptr<Player> owner;
 	public:
 		Property (const std::string & name, int price, int base_rent);
 		
 		int getPrice () const;
 		virtual int getRent () const = 0;
 		bool is_mortgaged () const;
-		void setOwner (int player);
-		int getOwner () const;
+		void setOwner (std::shared_ptr<Player> p);
+		std::shared_ptr<Player> getOwner ();
 
 		void mortgage ();
 		void unmortgage ();

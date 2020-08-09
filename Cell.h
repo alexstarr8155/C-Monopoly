@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <string>
-#include <vector>
+#include <map>
 #include "Subject.h"
 #include "observer.h"
 
@@ -13,12 +13,15 @@ class Player;
 class Cell : public Subject, public Observer {
 	protected:
 		std::string name;
-		std::vector<bool> on_cell;
+		std::map<char, bool> on_cell;
+		int numImprovements;
 	public:
 		Cell (const std::string &name);
 
 		std::string getName () const;
 		virtual void action (std::shared_ptr<Player> p, bool b) = 0;
+		std::map<char, bool> who_on_cell ();
+		int getNumImprov () const;
 };
 
 #endif

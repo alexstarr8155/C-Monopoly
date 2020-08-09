@@ -1,6 +1,6 @@
 CXX = g++
 CXXLFAGS = -std=c++14 -Wall -MMD -g
-OBJECTS = Board.o BoardDisplay.o TempCell.o main.o
+OBJECTS = observer.o Subject.o Player.o Cell.o Property.o Improvable.o Gym.o Residence.o test.o 
 
 EXEC = test
 DEPENDS = ${OBJECTS:.o=.d}
