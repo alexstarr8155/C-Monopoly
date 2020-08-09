@@ -1,5 +1,5 @@
 #include "Subject.h"
-#include "observer.h"
+#include "Observer.h"
 
 void Subject::attach(std::shared_ptr<Observer> o) {
 	observers.push_back(o);

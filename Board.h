@@ -5,6 +5,9 @@
 #include <string>
 #include "Cell.h"
 #include "Property.h"
+#include "Improvable.h"
+#include "Gym.h"
+#include "Residence.h"
 #include "Player.h"
 
 class Board {

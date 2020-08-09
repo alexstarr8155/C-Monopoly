@@ -5,7 +5,7 @@
 #include <string>
 #include <map>
 #include "Subject.h"
-#include "observer.h"
+#include "Observer.h"
 
 
 class Player;

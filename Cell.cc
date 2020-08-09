@@ -11,7 +11,8 @@ Cell::Cell (const string & name): name{name} {
 		{'S', false},
 		{'$', false},
 		{'L', false},
-		{'T', false} };
+		{'T', false}
+	};
 }
 
 string Cell::getName () const {
