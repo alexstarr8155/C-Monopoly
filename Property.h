@@ -20,7 +20,7 @@ class Property : public Cell {
 		Property (const std::string & name, int price, int base_rent);
 		
 		int getPrice () const;
-		virtual int getRent () const = 0;
+		virtual int getRent () const;
 		bool is_mortgaged () const;
 		void setOwner (std::shared_ptr<Player> p);
 		std::shared_ptr<Player> getOwner ();
@@ -30,7 +30,7 @@ class Property : public Cell {
 		virtual int getValue () const;
 		void action (std::shared_ptr<Player> p, bool b);
 
-		void notify (Subject & s) override;
+		virtual void notify (Subject & s) override;
 };
 
 #endif 

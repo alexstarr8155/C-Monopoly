@@ -8,6 +8,10 @@ using namespace std;
 Property::Property (const string & name, int price, int base_rent): Cell{name}, price{price}, rent{base_rent} {
 	owned = false;
 	mortgaged = false;
+
+	set_ownership = {
+		{"MC", 'z'},
+		{"DC", 'z'} };
 }
 
 int Property::getPrice () const {
@@ -38,6 +42,9 @@ int Property::getValue () const {
 	return price;
 }
 
+int Property::getRent () const {
+	return rent;
+}
 
 // If b == True, then player wants to buy the property 
 // If b == False, then:
@@ -50,6 +57,7 @@ void Property::action (shared_ptr<Player> p, bool b){
 
 	if (b){
 		owner = p;
+		p->buy(std::make_shared<Property>(*this));
 		notifyObservers();
 	}
 	else if (owner){
@@ -60,5 +68,6 @@ void Property::action (shared_ptr<Player> p, bool b){
 
 
 void Property::notify (Subject & s) {
+	
 	set_ownership.at(s.getName()) = s.getOwner()->getPlayerChar();
 }

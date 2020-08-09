@@ -27,10 +27,12 @@ int ImprovableProperty::getValue () const {
 
 
 int ImprovableProperty::getRent () const {
-	return rent; //temp, add calculations later
-}
+	for (auto it = set_ownership.begin(); it != set_ownership.end(); ++it){
+		if (it->second != set_ownership.begin()->second){
+			return rent;
+		}
+	}
 
-void ImprovableProperty::notify (Subject &whoNotified) {
-	cout << "I have been notified!" << endl; //temp
-}	
+	return rent * 10; //temp, add calculations later
+}
 

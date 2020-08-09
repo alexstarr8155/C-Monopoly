@@ -12,8 +12,8 @@ class ImprovableProperty : public Property {
 		void upgrade (int num);
 		void downgrade (int num);
 		int getValue () const override;
-		int getRent () const override;
-		void notify (Subject & whoNotified) override;
+		virtual int getRent () const override;
+		
 };
 
 #endif
