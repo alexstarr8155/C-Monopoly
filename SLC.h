@@ -1,3 +1,6 @@
+#ifndef SLC_H
+#define SLC_H
+
 #include "Cell.h"
 #include "Player.h"
 
@@ -13,3 +16,5 @@ class SLC : public Cell{
 
 
 };
+
+#endif
