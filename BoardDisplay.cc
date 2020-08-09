@@ -18,7 +18,7 @@ void printMany(char c, int n) {
 
 void printEmptyTopBottom() {
     for (int i = 0; i < 11; ++i) {
-            std::cout << "|";
+    std::cout << "|";
 	printMany(' ', width);
     }
     std::cout << "|\n";
@@ -79,7 +79,7 @@ void printData(std::string name, int nameSize, int houses, std::map<char, bool> 
     if (line == 0 && houses != -1) {
 	extraSpace = width - houses;
         std::cout << "|";
-	printMany('I', houses);
+	    printMany('I', houses);
         printMany(' ', extraSpace);
     }
     else if (line == 0) {
@@ -109,10 +109,10 @@ void printData(std::string name, int nameSize, int houses, std::map<char, bool> 
 		std::cout << "|";
 		for (auto &player : players) {
         	if (player.second) {
-                	std::cout << player.first;
+                std::cout << player.first;
         	}
         	else {
-                	std::cout << " ";
+                std::cout << " ";
        		}
         }
 	}		
