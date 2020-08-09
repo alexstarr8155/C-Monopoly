@@ -3,14 +3,17 @@
 #include <memory>
 #include <map>
 #include <string>
-#include "TempCell.h"
+#include "Cell.h"
+#include "Property.h"
+#include "Player.h"
 
 class Board {
 
-	std::map<int, std::shared_ptr<TempCell>> board;
+	std::map<char, std::shared_ptr<Player>> players;
+	std::map<int, std::shared_ptr<Cell>> board;
 
 	public:
-		Board();
+		Board(int playerNum);
 		~Board();
 		friend class BoardDisplay;
 };
