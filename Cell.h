@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <map>
+#include <iostream>
 #include "Subject.h"
 #include "Observer.h"
 
@@ -19,7 +20,10 @@ class Cell : public Subject, public Observer {
 		Cell (const std::string &name);
 
 		std::string getName () const;
-		virtual void action (std::shared_ptr<Player> p, bool b) = 0;
+		/* change back to virtual after */
+		void action (std::shared_ptr<Player> p, bool b) {
+			std::cout << "I am performing an action" << std::endl;	
+		}
 		std::map<char, bool> who_on_cell ();
 		int getNumImprov () const;
 };
