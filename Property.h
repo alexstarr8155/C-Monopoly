@@ -2,6 +2,7 @@
 #define _PROPERTY_H_
 
 #include "Cell.h"
+#include <map>
 
 // In the case of a property, it's observers are not only the board,
 // 	but also any other property in it's set. Ex: If this cell was 
@@ -13,8 +14,8 @@ class Property : public Cell {
 		int rent;
 		bool owned;
 		bool mortgaged;
-		//int owner;
 		std::shared_ptr<Player> owner;
+		std::map<std::string, char> set_ownership; // string is property name, char is player on property
 	public:
 		Property (const std::string & name, int price, int base_rent);
 		
@@ -28,6 +29,8 @@ class Property : public Cell {
 		void unmortgage ();
 		virtual int getValue () const;
 		void action (std::shared_ptr<Player> p, bool b);
+
+		void notify (Subject & s) override;
 };
 
 #endif 

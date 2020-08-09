@@ -6,7 +6,7 @@
 
 class Property;
 
-class Player : public Subject {
+class Player {
 
 private:
 	int position;

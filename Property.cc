@@ -1,4 +1,5 @@
 #include "Property.h"
+#include "Player.h"
 
 #include <iostream>
 
@@ -37,7 +38,27 @@ int Property::getValue () const {
 	return price;
 }
 
+
+// If b == True, then player wants to buy the property 
+// If b == False, then:
+// 			If this is owned, then p pays rent to owner
+// 			If not, then nothing happens
+//
+// on_cell is always updated
 void Property::action (shared_ptr<Player> p, bool b){
-	cout << "this is my action :)" << endl;
+	on_cell.at(p->getPlayerChar()) = true;
+
+	if (b){
+		owner = p;
+		notifyObservers();
+	}
+	else if (owner){
+		p->pay(owner, getRent());
+	}
+
 }
 
+
+void Property::notify (Subject & s) {
+	set_ownership.at(s.getName()) = s.getOwner()->getPlayerChar();
+}

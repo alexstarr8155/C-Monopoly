@@ -3,6 +3,15 @@ using namespace std;
 
 Cell::Cell (const string & name): name{name} {
 	numImprovements = -1;
+	on_cell = {
+		{'G', false},
+		{'B', false},
+		{'D', false},
+		{'P', false},
+		{'S', false},
+		{'$', false},
+		{'L', false},
+		{'T', false} };
 }
 
 string Cell::getName () const {
