@@ -208,8 +208,8 @@ void BoardDisplay::display(Board game) {
 		for (int j = 20; j <= 30; ++j) {
 			std::string name = (game.board[j])->getName();
 			int nameSize = name.length();
-			int houses = (game.board[j])->getHouses();
-			std::map<char, bool> players = (game.board[j])->getPlayers();
+			int houses = (game.board[j])->getNumImprov();
+			std::map<char, bool> players = (game.board[j])->who_on_cell();
 
             printData(name, nameSize, houses, players, i);
 		}
@@ -228,8 +228,8 @@ void BoardDisplay::display(Board game) {
             index = (-1 * i) + 19;
 			name = (game.board[index])->getName();
 			nameSize = name.length();
-			houses = (game.board[index])->getHouses();
-			players = (game.board[index])->getPlayers();
+			houses = (game.board[index])->getNumImprov();
+			players = (game.board[index])->who_on_cell();
 
 			printData(name, nameSize, houses, players, j);
 			std::cout << "|";
@@ -238,8 +238,8 @@ void BoardDisplay::display(Board game) {
 			index = 50 - ((-1 * i) + 19);
             name = (game.board[index])->getName();
             nameSize = name.length();
-            houses = (game.board[index])->getHouses();
-			players = (game.board[index])->getPlayers();
+            houses = (game.board[index])->getNumImprov();
+			players = (game.board[index])->who_on_cell();
 
             printData(name, nameSize, houses, players, j);
             std::cout << "|\n";
@@ -257,8 +257,8 @@ void BoardDisplay::display(Board game) {
         index = 16;
         name = (game.board[index])->getName();
         nameSize = name.length();
-        houses = (game.board[index])->getHouses();
-        players = (game.board[index])->getPlayers();
+        houses = (game.board[index])->getNumImprov();
+        players = (game.board[index])->who_on_cell();
 
         printData(name, nameSize, houses, players, j);
         std::cout << "|";
@@ -273,8 +273,8 @@ void BoardDisplay::display(Board game) {
         index = 34;
         name = (game.board[index])->getName();
         nameSize = name.length();
-        houses = (game.board[index])->getHouses();
-        players = (game.board[index])->getPlayers();
+        houses = (game.board[index])->getNumImprov();
+        players = (game.board[index])->who_on_cell();
 
         printData(name, nameSize, houses, players, j);
         std::cout << "|\n";
@@ -291,8 +291,8 @@ void BoardDisplay::display(Board game) {
         index = 15;
         name = (game.board[index])->getName();
         nameSize = name.length();
-        houses = (game.board[index])->getHouses();
-        players = (game.board[index])->getPlayers();
+        houses = (game.board[index])->getNumImprov();
+        players = (game.board[index])->who_on_cell();
 
         printData(name, nameSize, houses, players, j);
         std::cout << "|";
@@ -313,8 +313,8 @@ void BoardDisplay::display(Board game) {
         index = 35;
         name = (game.board[index])->getName();
         nameSize = name.length();
-        houses = (game.board[index])->getHouses();
-        players = (game.board[index])->getPlayers();
+        houses = (game.board[index])->getNumImprov();
+        players = (game.board[index])->who_on_cell();
 
         printData(name, nameSize, houses, players, j);
         std::cout << "|\n";
@@ -331,8 +331,8 @@ void BoardDisplay::display(Board game) {
         index = 14;
         name = (game.board[index])->getName();
         nameSize = name.length();
-        houses = (game.board[index])->getHouses();
-        players = (game.board[index])->getPlayers();
+        houses = (game.board[index])->getNumImprov();
+        players = (game.board[index])->who_on_cell();
 
         printData(name, nameSize, houses, players, j);
         std::cout << "|";
@@ -347,8 +347,8 @@ void BoardDisplay::display(Board game) {
         index = 36;
         name = (game.board[index])->getName();
         nameSize = name.length();
-        houses = (game.board[index])->getHouses();
-        players = (game.board[index])->getPlayers();
+        houses = (game.board[index])->getNumImprov();
+        players = (game.board[index])->who_on_cell();
 
         printData(name, nameSize, houses, players, j);
         std::cout << "|\n";
@@ -366,8 +366,8 @@ void BoardDisplay::display(Board game) {
             index = (-1 * i) + 13; 
             name = (game.board[index])->getName();
             nameSize = name.length();
-            houses = (game.board[index])->getHouses();
-            players = (game.board[index])->getPlayers();
+            houses = (game.board[index])->getNumImprov();
+            players = (game.board[index])->who_on_cell();
 
             printData(name, nameSize, houses, players, j);
             std::cout << "|";
@@ -376,8 +376,8 @@ void BoardDisplay::display(Board game) {
             index = 50 - ((-1 * i) + 13);
             name = (game.board[index])->getName();
             nameSize = name.length();
-            houses = (game.board[index])->getHouses();
-            players = (game.board[index])->getPlayers();
+            houses = (game.board[index])->getNumImprov();
+            players = (game.board[index])->who_on_cell();
 
             printData(name, nameSize, houses, players, j);
             std::cout << "|\n";
@@ -393,8 +393,8 @@ void BoardDisplay::display(Board game) {
         for (int j = 10; j >= 0; --j) {
             std::string name = (game.board[j])->getName();
             int nameSize = name.length();
-            int houses = (game.board[j])->getHouses();
-            std::map<char, bool> players = (game.board[j])->getPlayers();
+            int houses = (game.board[j])->getNumImprov();
+            std::map<char, bool> players = (game.board[j])->who_on_cell();
 
             printData(name, nameSize, houses, players, i);
         }
