@@ -1,6 +1,9 @@
 #include "SLC.h"
 #include <stdlib.h>
 
+SLC::SLC () : Cell{"SLC"} {}
+
+
 void SLC::action(std::shared_ptr<Player> p, bool b) {
 	int chance = rand() % 24;
 
