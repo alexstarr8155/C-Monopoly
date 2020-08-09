@@ -18,7 +18,7 @@ void printMany(char c, int n) {
 
 void printEmptyTopBottom() {
     for (int i = 0; i < 11; ++i) {
-            std::cout << "|";
+    std::cout << "|";
 	printMany(' ', width);
     }
     std::cout << "|\n";
