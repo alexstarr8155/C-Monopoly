@@ -15,7 +15,6 @@ class Subject {
 	public:
 		void attach(std::shared_ptr<Observer> o);
 		virtual void notifyObservers();
-		virtual std::string getName() const = 0;
 		virtual std::shared_ptr<Player> getOwner() = 0;
 };
 

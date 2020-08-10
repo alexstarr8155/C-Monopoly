@@ -5,13 +5,11 @@
 #include <string>
 #include <map>
 #include <iostream>
-#include "Subject.h"
-#include "Observer.h"
 
 
 class Player;
 
-class Cell : public Subject, public Observer {
+class Cell {
 	protected:
 		std::string name;
 		std::map<char, bool> on_cell;
@@ -21,14 +19,9 @@ class Cell : public Subject, public Observer {
 
 		std::string getName () const;
 		/* change back to virtual after */
-		virtual void action (std::shared_ptr<Player> p, bool b) {
-			std::cout << "I am performing an action" << std::endl;	
-		}
+		virtual void action (std::shared_ptr<Player> p, bool b) = 0;
 		std::map<char, bool> who_on_cell ();
 		int getNumImprov () const;
-		/* delete after */
-		void notify (Subject &whoNotified);
-		std::shared_ptr<Player> getOwner();
 };
 
 #endif

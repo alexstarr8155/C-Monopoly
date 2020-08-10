@@ -28,16 +28,3 @@ int Cell::getNumImprov () const {
 }
 
 
-/* delete this after */
-void Cell::notify (Subject &whoNotified) {
-	cout << "I am notifying" << endl;
-}
-
-shared_ptr<Player> Cell::getOwner() {
-	cout << "I am getting Owner" << endl;
-	return nullptr;
-}
-
-
-
-

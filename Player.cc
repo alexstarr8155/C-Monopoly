@@ -50,6 +50,7 @@ void Player::moveTo(int pos) {
 }
 
 void Player::buy(std::shared_ptr<Property> p) {
+	money -= p->getPrice();
 	owned.push_back(p);
 }
 

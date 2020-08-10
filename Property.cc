@@ -5,17 +5,19 @@
 
 using namespace std;
 
-Property::Property (const string & name, int price, int base_rent): Cell{name}, price{price}, rent{base_rent} {
+Property::Property (const string & name, int purchase, int upgrade, vector<string> set):
+       	Cell{name}, purchase_cost{purchase}, up_cost{upgrade} {
+
 	owned = false;
 	mortgaged = false;
-
-	set_ownership = {
-		{"MC", 'z'},
-		{"DC", 'z'} };
+	
+	for (auto it = set.begin(); it != set.end(); ++it){
+		set_ownership.emplace ((*it), 'z'); //'z' is the default/null owner
+	}
 }
 
 int Property::getPrice () const {
-	return price;
+	return purchase_cost;
 }
 
 bool Property::is_mortgaged () const {
@@ -39,11 +41,12 @@ void Property::unmortgage () {
 }
 
 int Property::getValue () const {
-	return price;
+	return purchase_cost;
 }
 
+
 int Property::getRent () const {
-	return rent;
+	return 0;
 }
 
 // If b == True, then player wants to buy the property 
@@ -56,6 +59,7 @@ void Property::action (shared_ptr<Player> p, bool b){
 	on_cell.at(p->getPlayerChar()) = true;
 
 	if (b){
+		owned = true;
 		owner = p;
 		p->buy(std::make_shared<Property>(*this));
 		set_ownership.at(name) = p->getPlayerChar ();
@@ -68,7 +72,19 @@ void Property::action (shared_ptr<Player> p, bool b){
 }
 
 
-void Property::notify (Subject & s) {
-	
-	set_ownership.at(s.getName()) = s.getOwner()->getPlayerChar();
+
+// Observer and Subject method implementations
+void Property::attach(shared_ptr<Property> o) {
+	observers.push_back(o);
+}
+
+void Property::notifyObservers() {
+
+	for (int i = 0; i < observers.size(); i++) {
+		observers[i]->notify(*this);
+	}
+}
+
+void Property::notify (Property & whoNotified) {
+	set_ownership.at(whoNotified.getName()) = whoNotified.getOwner()->getPlayerChar();
 }
