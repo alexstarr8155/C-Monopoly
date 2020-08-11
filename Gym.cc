@@ -2,7 +2,7 @@
 using namespace std;
 
 Gym::Gym (const string &name, vector<string> set) : Property{name, 150, set} {
-	numImprovements = 0;
+	numImprovements = -1;
 }
 
 int Gym::getRent () const {
