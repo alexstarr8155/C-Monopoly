@@ -37,7 +37,7 @@ void Player::goToTims() {
 	inTims = true;
 	moveTo(10);	
 }
-void getOutOfTims(bool bail) {
+void Player::getOutOfTims(bool bail) {
 
 	if (!inTims) {
 		return;
@@ -57,7 +57,7 @@ void Player::addMoney(int amount) {
 
 void Player::removeMoney(int amount) {
 	if (amount > money) {
-		throw "Not enough money"
+		throw "Not enough money";
 	}
 	money -= amount;
 }
