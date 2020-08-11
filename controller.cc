@@ -117,9 +117,43 @@ int main(int argc, char *argv[]) {
 				// "Trade Prop with Prop"
 			}
 
-		}
+		} else if (cmd.compare("improve") == 0) {
+			std::string prop;
+			std::cin >> prop;
 
-		// "Other command incomplete, will do later"
+			std::string buy;
+			std::cin >> buy;
+
+			bool buy = buy.compare("buy") == 0;
+
+			if (buy) {
+			
+			} else {
+			
+			}
+		} else if (cmd.compare("mortgage") == 0) {
+			std::string prop;
+			std::cin >> prop;
+
+			//"Mortgage Property
+		} else if (cmd.compare("unmortgage") == 0) {
+			std::string prop;
+			std::cin >> prop;
+
+			//"unmortgage property
+		} else if (cmd.compare("bankrupt") == 0) {
+			//"Declare bankruptcy"
+		} else if (cmd.compare("assets") == 0) {
+			// "Display the assets of the current player"
+		} else if (cmd.compare("all") == 0) {
+			//"Display the assets of all players"
+		} else if (cmd.compare("save") == 0) {
+			std::string filename;
+			std::cin >> filename;
+			// "Save the game"
+		} else {
+			std::cout << "Invalid command, try again"
+		}
 
 	}
 
