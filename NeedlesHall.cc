@@ -1,7 +1,7 @@
 #include "NeedlesHall.h"
 #include <stdlib.h>
 
-NeedlesHall::NeedlesHall (): Cell{"Needles Hall"} {}
+NeedlesHall::NeedlesHall (): Cell{"NEEDLES HALL"} {}
 
 void NeedlesHall::action(std::shared_ptr<Player> p, bool b) {
 	
