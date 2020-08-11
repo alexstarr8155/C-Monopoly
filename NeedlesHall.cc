@@ -1,10 +1,12 @@
 #include "NeedlesHall.h"
+#include "Player.h"
 #include <stdlib.h>
 
 NeedlesHall::NeedlesHall (): Cell{"NEEDLES HALL"} {}
 
 void NeedlesHall::action(std::shared_ptr<Player> p, bool b) {
-	
+	on_cell.at(p->getPlayerChar()) = true;	
+
 	int chance = rand() % 18;
 
 	if (chance < 1) {

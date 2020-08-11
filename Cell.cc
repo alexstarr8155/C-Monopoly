@@ -1,4 +1,5 @@
 #include "Cell.h"
+#include "Player.h"
 using namespace std;
 
 Cell::Cell (const string & name): name{name} {
@@ -17,6 +18,10 @@ Cell::Cell (const string & name): name{name} {
 
 string Cell::getName () const {
 	return name;
+}
+
+void Cell::leave (shared_ptr<Player> p){ 
+	on_cell.at(p->getPlayerChar ()) = false;
 }
 
 map<char, bool> Cell::who_on_cell () {

@@ -5,6 +5,9 @@ SLC::SLC () : Cell{"SLC"} {}
 
 
 void SLC::action(std::shared_ptr<Player> p, bool b) {
+	
+	std::cout << "This is a temp msg to let you know you landed on SLC" << std::endl;
+	
 	int chance = rand() % 24;
 
 	if (chance < 3) {
