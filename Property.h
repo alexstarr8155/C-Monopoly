@@ -22,7 +22,7 @@ class Property : public Cell {
 		//Observers
 		std::vector<Property*> observers;
 	public:
-		Property (const std::string & name, int purchase_cost, int up_cost, std::vector<std::string> set);
+		Property (const std::string & name, int purchase_cost, std::vector<std::string> set);
 		
 		int getPrice () const;
 		virtual int getRent () const;
