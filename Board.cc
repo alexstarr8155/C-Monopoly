@@ -29,175 +29,241 @@ Board::Board(int playerNum) {
     std::vector<std::string> set = {};
     std::vector<int> tuitionFee = {};
 
-    std::shared_ptr<Cell> property0 = std::make_shared<CollectOSAP>();
-    board[0] = property0;
-
     set = {"AL", "ML"};
     tuitionFee = {2, 10, 30, 90, 160, 250};
-    std::shared_ptr<Cell> property1 = std::make_shared<ImprovableProperty>("AL", 40, 50, set, tuitionFee);
-    board[1] = property1;
-
-    std::shared_ptr<Cell> property2 = std::make_shared<SLC>();
-    board[2] = property2;
+    auto AL = std::make_shared<ImprovableProperty>("AL", 40, 50, set, tuitionFee);
 
     set = {"AL", "ML"};
     tuitionFee = {4, 20, 60, 180, 320, 450};
-    std::shared_ptr<Cell> property3 = std::make_shared<ImprovableProperty>("ML", 60, 50, set, tuitionFee);
-    board[3] = property3;
+    auto ML = std::make_shared<ImprovableProperty>("ML", 60, 50, set, tuitionFee);
 
-    std::shared_ptr<Cell> property4 = std::make_shared<Tuition>();
-    board[4] = property4;
-
-    set = {"MKV", "UWP", "V1", "REV"};
-    std::shared_ptr<Cell> property5 = std::make_shared<Residences>("MKV", set);
-    board[5] = property5;
+    AL->attach(ML.get());
+    ML->attach(AL.get());
 
     set = {"ECH", "PAS", "HH"};
     tuitionFee = {6, 30, 90, 270, 400, 550};
-    std::shared_ptr<Cell> property6 = std::make_shared<ImprovableProperty>("ECH", 100, 50, set, tuitionFee);
-    board[6] = property6;
-
-    std::shared_ptr<Cell> property7 = std::make_shared<NeedlesHall>();
-    board[7] = property7;
+    auto ECH = std::make_shared<ImprovableProperty>("ECH", 100, 50, set, tuitionFee);
 
     set = {"ECH", "PAS", "HH"};
     tuitionFee = {6, 30, 90, 270, 400, 550};
-    std::shared_ptr<Cell> property8 = std::make_shared<ImprovableProperty>("PAS", 100, 50, set, tuitionFee);
-    board[8] = property8;
+    auto PAS = std::make_shared<ImprovableProperty>("PAS", 100, 50, set, tuitionFee);
 
     set = {"ECH", "PAS", "HH"};
     tuitionFee = {8, 40, 100, 300, 450, 600};
-    std::shared_ptr<Cell> property9 = std::make_shared<ImprovableProperty>("HH", 120, 50, set, tuitionFee);
-    board[9] = property9;
+    auto HH = std::make_shared<ImprovableProperty>("HH", 120, 50, set, tuitionFee);
 
-    std::shared_ptr<Cell> property10 = std::make_shared<Tims>();
-    board[10] = property10;
+    ECH->attach(PAS.get());
+    ECH->attach(HH.get());
 
-    set = {"RCH", "DWE", "CPH"};
-    tuitionFee = {10, 50, 150, 450, 625, 750};
-    std::shared_ptr<Cell> property11 = std::make_shared<ImprovableProperty>("RCH", 140, 100, set, tuitionFee);
-    board[11] = property11;
+    PAS->attach(ECH.get());
+    PAS->attach(HH.get());
 
-    set = {"PAC", "CIF"};
-    std::shared_ptr<Cell> property12 = std::make_shared<Gym>("PAC", set);
-    board[12] = property12;
+    HH->attach(ECH.get());
+    HH->attach(PAS.get());
 
     set = {"RCH", "DWE", "CPH"};
     tuitionFee = {10, 50, 150, 450, 625, 750};
-    std::shared_ptr<Cell> property13 = std::make_shared<ImprovableProperty>("DWE", 140, 100, set, tuitionFee);
-    board[13] = property13;
+    auto RCH = std::make_shared<ImprovableProperty>("RCH", 140, 100, set, tuitionFee);
+
+    set = {"RCH", "DWE", "CPH"};
+    tuitionFee = {10, 50, 150, 450, 625, 750};
+    auto DWE = std::make_shared<ImprovableProperty>("DWE", 140, 100, set, tuitionFee);
 
     set = {"RCH", "DWE", "CPH"};
     tuitionFee = {12, 60, 180, 500, 700, 900};
-    std::shared_ptr<Cell> property14 = std::make_shared<ImprovableProperty>("CPH", 160, 100, set, tuitionFee);
-    board[14] = property14;
+    auto CPH = std::make_shared<ImprovableProperty>("CPH", 160, 100, set, tuitionFee);
 
-    set = {"MKV", "UWP", "V1", "REV"};
-    std::shared_ptr<Cell> property15 = std::make_shared<Residences>("UWP", set);
-    board[15] = property15;
+    RCH->attach(DWE.get());
+    RCH->attach(CPH.get());
 
-    set = {"LHI", "BMH", "OPT"};
-    tuitionFee = {14, 70, 200, 550, 750, 950};
-    std::shared_ptr<Cell> property16 = std::make_shared<ImprovableProperty>("LHI", 180, 100, set, tuitionFee);
-    board[16] = property16;
+    DWE->attach(RCH.get());
+    DWE->attach(CPH.get());
 
-    std::shared_ptr<Cell> property17 = std::make_shared<SLC>();
-    board[17] = property17;
+    CPH->attach(RCH.get());
+    CPH->attach(DWE.get());
 
     set = {"LHI", "BMH", "OPT"};
     tuitionFee = {14, 70, 200, 550, 750, 950};
-    std::shared_ptr<Cell> property18 = std::make_shared<ImprovableProperty>("BMH", 180, 100, set, tuitionFee);
-    board[18] = property18;
+    auto LHI = std::make_shared<ImprovableProperty>("LHI", 180, 100, set, tuitionFee);
+
+    set = {"LHI", "BMH", "OPT"};
+    tuitionFee = {14, 70, 200, 550, 750, 950};
+    auto BMH = std::make_shared<ImprovableProperty>("BMH", 180, 100, set, tuitionFee);
 
     set = {"LHI", "BMH", "OPT"};
     tuitionFee = {16, 80, 220, 600, 800, 1000};
-    std::shared_ptr<Cell> property19 = std::make_shared<ImprovableProperty>("OPT", 200, 100, set, tuitionFee);
-    board[19] = property19;
+    auto OPT = std::make_shared<ImprovableProperty>("OPT", 200, 100, set, tuitionFee);
 
-    std::shared_ptr<Cell> property20 = std::make_shared<GooseNesting>();
-    board[20] = property20;
+    LHI->attach(BMH.get());
+    LHI->attach(OPT.get());
 
-    set = {"EV1", "EV2", "EV3"};
-    tuitionFee = {18, 90, 250, 700, 875, 1050};
-    std::shared_ptr<Cell> property21 = std::make_shared<ImprovableProperty>("EV1", 220, 150, set, tuitionFee);
-    board[21] = property21;
+    BMH->attach(LHI.get());
+    BMH->attach(OPT.get());
 
-    std::shared_ptr<Cell> property22 = std::make_shared<NeedlesHall>();
-    board[22] = property22;
+    OPT->attach(LHI.get());
+    OPT->attach(BMH.get());
 
     set = {"EV1", "EV2", "EV3"};
     tuitionFee = {18, 90, 250, 700, 875, 1050};
-    std::shared_ptr<Cell> property23 = std::make_shared<ImprovableProperty>("EV2", 220, 150, set, tuitionFee);
-    board[23] = property23;
+    auto EV1 = std::make_shared<ImprovableProperty>("EV1", 220, 150, set, tuitionFee);
+
+    set = {"EV1", "EV2", "EV3"};
+    tuitionFee = {18, 90, 250, 700, 875, 1050};
+    auto EV2 = std::make_shared<ImprovableProperty>("EV2", 220, 150, set, tuitionFee);
 
     set = {"EV1", "EV2", "EV3"};
     tuitionFee = {20, 100, 300, 750, 925, 1100};
-    std::shared_ptr<Cell> property24 = std::make_shared<ImprovableProperty>("EV3", 240, 150, set, tuitionFee);
-    board[24] = property24;
+    auto EV3 = std::make_shared<ImprovableProperty>("EV3", 240, 150, set, tuitionFee);
 
-    set = {"MKV", "UWP", "V1", "REV"};
-    std::shared_ptr<Cell> property25 = std::make_shared<Residences>("V1", set);
-    board[25] = property25;
+    EV1->attach(EV2.get());
+    EV1->attach(EV3.get());
+
+    EV2->attach(EV1.get());
+    EV2->attach(EV3.get());
+
+    EV3->attach(EV1.get());
+    EV3->attach(EV2.get());
 
     set = {"PHYS", "B1", "B2"};
     tuitionFee = {22, 110, 330, 800, 975, 1150};
-    std::shared_ptr<Cell> property26 = std::make_shared<ImprovableProperty>("PHYS", 260, 150, set, tuitionFee);
-    board[26] = property26;
+    auto PHYS = std::make_shared<ImprovableProperty>("PHYS", 260, 150, set, tuitionFee);
 
     set = {"PHYS", "B1", "B2"};
     tuitionFee = {22, 110, 330, 800, 975, 1150};
-    std::shared_ptr<Cell> property27 = std::make_shared<ImprovableProperty>("B1", 260, 150, set, tuitionFee);
-    board[27] = property27;
-
-    set = {"PAC", "CIF"};
-    std::shared_ptr<Cell> property28 = std::make_shared<Gym>("CIF", set);
-    board[28] = property28;
+    auto B1 = std::make_shared<ImprovableProperty>("B1", 260, 150, set, tuitionFee);
 
     set = {"PHYS", "B1", "B2"};
     tuitionFee = {24, 120, 360, 850, 1025, 1200};
-    std::shared_ptr<Cell> property29 = std::make_shared<ImprovableProperty>("B2", 280, 150, set, tuitionFee);
-    board[29] = property29;
+    auto B2 = std::make_shared<ImprovableProperty>("B2", 280, 150, set, tuitionFee);    
 
-    std::shared_ptr<Cell> property30 = std::make_shared<GoToTims>();
-    board[30] = property30;
+    PHYS->attach(B1.get());
+    PHYS->attach(B2.get());
+
+    B1->attach(PHYS.get());
+    B1->attach(B2.get());
+
+    B2->attach(PHYS.get());
+    B2->attach(B1.get());
 
     set = {"EIT", "ESC", "C2"};
     tuitionFee = {26, 130, 390, 900, 1100, 1275};
-    std::shared_ptr<Cell> property31 = std::make_shared<ImprovableProperty>("EIT", 300, 200, set, tuitionFee);
-    board[31] = property31;
+    auto EIT = std::make_shared<ImprovableProperty>("EIT", 300, 200, set, tuitionFee);
 
     set = {"EIT", "ESC", "C2"};
     tuitionFee = {26, 130, 390, 900, 1100, 1275};
-    std::shared_ptr<Cell> property32 = std::make_shared<ImprovableProperty>("ESC", 300, 200, set, tuitionFee);
-    board[32] = property32;
-
-    std::shared_ptr<Cell> property33 = std::make_shared<SLC>();
-    board[33] = property33;
+    auto ESC = std::make_shared<ImprovableProperty>("ESC", 300, 200, set, tuitionFee);
 
     set = {"EIT", "ESC", "C2"};
     tuitionFee = {28, 150, 450, 1000, 1200, 1400};
-    std::shared_ptr<Cell> property34 = std::make_shared<ImprovableProperty>("C2", 320, 200, set, tuitionFee);
-    board[34] = property34;
+    auto C2 = std::make_shared<ImprovableProperty>("C2", 320, 200, set, tuitionFee);
 
-    set = {"MKV", "UWP", "V1", "REV"};
-    std::shared_ptr<Cell> property35 = std::make_shared<Residences>("REV", set);
-    board[35] = property35;
+    EIT->attach(ESC.get());
+    EIT->attach(C2.get());
 
-    std::shared_ptr<Cell> property36 = std::make_shared<NeedlesHall>();
-    board[36] = property36;
+    ESC->attach(EIT.get());
+    ESC->attach(C2.get());
+
+    C2->attach(EIT.get());
+    C2->attach(ESC.get());
 
     set = {"MC", "DC"};
     tuitionFee = {35, 175, 500, 1100, 1300, 1500};
-    std::shared_ptr<Cell> property37 = std::make_shared<ImprovableProperty>("MC", 350, 200, set, tuitionFee);
-    board[37] = property37;
-
-    std::shared_ptr<Cell> property38 = std::make_shared<CoopFee>();
-    board[38] = property38;
+    auto MC = std::make_shared<ImprovableProperty>("MC", 350, 200, set, tuitionFee);
 
     set = {"MC", "DC"};
     tuitionFee = {50, 200, 600, 1400, 1700, 2000};
-    std::shared_ptr<Cell> property39 = std::make_shared<ImprovableProperty>("DC", 400, 200, set, tuitionFee);
-    board[39] = property39;
+    auto DC = std::make_shared<ImprovableProperty>("DC", 400, 200, set, tuitionFee);
+
+    MC->attach(DC.get());
+    DC->attach(MC.get());
+
+    set = {"MKV", "UWP", "V1", "REV"};
+    auto MKV = std::make_shared<Residences>("MKV", set);
+
+    set = {"MKV", "UWP", "V1", "REV"};
+    auto UWP = std::make_shared<Residences>("UWP", set);
+
+    set = {"MKV", "UWP", "V1", "REV"};
+    auto V1 = std::make_shared<Residences>("V1", set);
+
+    set = {"MKV", "UWP", "V1", "REV"};
+    auto REV = std::make_shared<Residences>("REV", set);
+
+    MKV->attach(UWP.get());
+    MKV->attach(V1.get());
+    MKV->attach(REV.get());
+
+    UWP->attach(MKV.get());
+    UWP->attach(V1.get());
+    UWP->attach(REV.get());
+
+    V1->attach(MKV.get());
+    V1->attach(UWP.get());
+    V1->attach(REV.get());
+
+    REV->attach(MKV.get());
+    REV->attach(UWP.get());
+    REV->attach(V1.get());
+
+    set = {"PAC", "CIF"};
+    auto PAC = std::make_shared<Gym>("PAC", set);
+
+    set = {"PAC", "CIF"};
+    auto CIF = std::make_shared<Gym>("CIF", set);    
+
+    PAC->attach(CIF.get());
+    CIF->attach(PAC.get());
+
+    auto collectOsap = std::make_shared<CollectOSAP>();
+    auto SLC = std::make_shared<SLC>();
+    auto tuition = std::make_shared<Tuition>();
+    auto needlesHall = std::make_shared<NeedlesHall>();
+    auto DCTimsLine = std::make_shared<Tims>();
+    auto gooseNesting = std::make_shared<GooseNesting>();
+    auto goToTims = std::make_shared<GoToTims>();
+    auto coopFee = std::make_shared<CoopFee>();
+    
+
+    board[0] = collectOsap;
+    board[1] = AL;
+    board[2] = SLC;
+    board[3] = ML;
+    board[4] = tuition;
+    board[5] = MKV;
+    board[6] = ECH;
+    board[7] = needlesHall;
+    board[8] = PAS;
+    board[9] = HH;
+    board[10] = DCTimsLine;
+    board[11] = RCH;
+    board[12] = PAC;
+    board[13] = DWE;
+    board[14] = CPH;
+    board[15] = UWP;
+    board[16] = LHI;
+    board[17] = SLC;
+    board[18] = BMH;
+    board[19] = OPT;
+    board[20] = gooseNesting;
+    board[21] = EV1;
+    board[22] = needlesHall;
+    board[23] = EV2;
+    board[24] = EV3;
+    board[25] = V1;
+    board[26] = PHYS;
+    board[27] = B1;
+    board[28] = CIF;
+    board[29] = B2;
+    board[30] = goToTims;
+    board[31] = EIT;
+    board[32] = ESC;
+    board[33] = SLC;
+    board[34] = C2;
+    board[35] = REV;
+    board[36] = needlesHall;
+    board[37] = MC;
+    board[38] = coopFee;
+    board[39] = DC;
 }
 
 Board::~Board() {}
