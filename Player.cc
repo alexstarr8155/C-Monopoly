@@ -33,6 +33,35 @@ void Player::updateNetWorth() {
 	netWorth = worth + money;
 }
 
+void Player::goToTims() {
+	inTims = true;
+	moveTo(10);	
+}
+void getOutOfTims(bool bail) {
+
+	if (!inTims) {
+		return;
+	}
+
+	if (bail && hasTimsCard) {
+		hasTimsCard = false;
+	} else if (bail) {
+		removeMoney(50);
+	}
+	inTims = false;
+}
+
+void Player::addMoney(int amount) {
+	money += amount;
+} 
+
+void Player::removeMoney(int amount) {
+	if (amount > money) {
+		throw "Not enough money"
+	}
+	money -= amount;
+}
+
 int Player::getNetWorth () const {
 	return netWorth;
 }

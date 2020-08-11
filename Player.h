@@ -14,7 +14,8 @@ private:
 	int position;
 	char playerChar;
 	int netWorth;
-	int money;	
+	int money;
+	bool inTims = false;	
 	std::string name;
 	std::vector<Property *> owned;
 public:
@@ -25,6 +26,12 @@ public:
 	int getMoney() const;
 	std::vector<Property *> getProperties() const;
 	
+	void goToTims();
+	void getOutOfTims();
+
+	void addMoney(int amount);
+	void removeMoney(int amount);
+
 	void updateNetWorth();
 	int getNetWorth () const;
 	int getPosition() const;
