@@ -71,6 +71,10 @@ int Player::getPosition() const {
 }
 
 void Player::move(int amount) {
+	if (position + amount >= 40) {
+		money += 200;
+	}
+
 	position = (position + amount) % 40;
 }
 
