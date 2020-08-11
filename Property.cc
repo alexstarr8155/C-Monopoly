@@ -44,11 +44,10 @@ int Property::getValue () const {
 	return purchase_cost;
 }
 
-
-int Property::getRent () const {
+/*int Property::getRent () const {
 	return 0;
 }
-
+*/
 // If b == True, then player wants to buy the property 
 // If b == False, then:
 // 			If this is owned, then p pays rent to owner

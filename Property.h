@@ -25,7 +25,7 @@ class Property : public Cell {
 		Property (const std::string & name, int purchase_cost, std::vector<std::string> set);
 		
 		int getPrice () const;
-		virtual int getRent () const;
+		virtual int getRent () const = 0;
 		bool is_mortgaged () const;
 		void setOwner (std::shared_ptr<Player> p);
 		std::shared_ptr<Player> getOwner ();
