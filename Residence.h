@@ -5,11 +5,9 @@
 
 class Residences : public Property {
 	
-	int base_rent;
-
 	public:
-		Residences (const std::string &name, int price, int base_rent, std::vector<std::string> set);
-		int getRent () const override;
+		Residences (const std::string &name, std::vector<std::string> set);
+		virtual int getRent () const override;
 };
 
 #endif

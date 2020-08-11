@@ -1,4 +1,5 @@
 #include "Improvable.h"
+#include "Player.h"
 
 #include <iostream>
 
@@ -27,23 +28,27 @@ void ImprovableProperty::downgrade (int num){
 }
 
 int ImprovableProperty::getValue () const {
-	return purchase_cost; //temp, add calc later
+	return purchase_cost + improv_cost * numImprovements; 
 }
 
 
 int ImprovableProperty::getRent () const {
 	
+	if (numImprovements > 0) {
+		return tuition.at(numImprovements);
+	}
+
 	if (set_ownership.begin()->second == 'z') {
 		return tuition.at(0);
 	}
 
 	for (auto it = set_ownership.begin(); it != set_ownership.end(); ++it){
 		
-		if (it->second != (set_ownership.begin()->second) ){
+		if (it->second != owner->getPlayerChar()){
 			return tuition.at(0);
 		}
 	}
 
-	return tuition.at(0) * 2; //temp, add calculations later
+	return tuition.at(0) * 2;
 }
 

@@ -49,7 +49,7 @@ Board::Board(int playerNum) {
     board[4] = property4;
 
     set = {"MKV", "UWP", "V1", "REV"};
-    std::shared_ptr<Cell> property5 = std::make_shared<Residences>("MKV", 200, 25, set);
+    std::shared_ptr<Cell> property5 = std::make_shared<Residences>("MKV", set);
     board[5] = property5;
 
     set = {"ECH", "PAS", "HH"};
@@ -79,7 +79,7 @@ Board::Board(int playerNum) {
     board[11] = property11;
 
     set = {"PAC", "CIF"};
-    std::shared_ptr<Cell> property12 = std::make_shared<Gym>("PAC", 150, 0, set);
+    std::shared_ptr<Cell> property12 = std::make_shared<Gym>("PAC", set);
     board[12] = property12;
 
     set = {"RCH", "DWE", "CPH"};
@@ -93,7 +93,7 @@ Board::Board(int playerNum) {
     board[14] = property14;
 
     set = {"MKV", "UWP", "V1", "REV"};
-    std::shared_ptr<Cell> property15 = std::make_shared<Residences>("UWP", 200, 25, set);
+    std::shared_ptr<Cell> property15 = std::make_shared<Residences>("UWP", set);
     board[15] = property15;
 
     set = {"LHI", "BMH", "OPT"};
@@ -136,7 +136,7 @@ Board::Board(int playerNum) {
     board[24] = property24;
 
     set = {"MKV", "UWP", "V1", "REV"};
-    std::shared_ptr<Cell> property25 = std::make_shared<Residences>("V1", 200, 25, set);
+    std::shared_ptr<Cell> property25 = std::make_shared<Residences>("V1", set);
     board[25] = property25;
 
     set = {"PHYS", "B1", "B2"};
@@ -150,7 +150,7 @@ Board::Board(int playerNum) {
     board[27] = property27;
 
     set = {"PAC", "CIF"};
-    std::shared_ptr<Cell> property28 = std::make_shared<Gym>("CIF", 150, 0, set);
+    std::shared_ptr<Cell> property28 = std::make_shared<Gym>("CIF", set);
     board[28] = property28;
 
     set = {"PHYS", "B1", "B2"};
@@ -180,7 +180,7 @@ Board::Board(int playerNum) {
     board[34] = property34;
 
     set = {"MKV", "UWP", "V1", "REV"};
-    std::shared_ptr<Cell> property35 = std::make_shared<Residences>("REV", 200, 25, set);
+    std::shared_ptr<Cell> property35 = std::make_shared<Residences>("REV", set);
     board[35] = property35;
 
     std::shared_ptr<Cell> property36 = std::make_shared<NeedlesHall>();
