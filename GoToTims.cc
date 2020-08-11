@@ -3,7 +3,7 @@
 
 using namespace std;
 
-GoToTims::GoToTims (const string &name): Cell{name} {}
+GoToTims::GoToTims (): Cell{"Go To Tims"} {}
 
 void GoToTims::action (shared_ptr<Player> p, bool b) {
 	p->goToTims();

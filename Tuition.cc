@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Tuition::Tuition (const string &name): Cell{name} {};
+Tuition::Tuition (): Cell{"Tuition"} {};
 
 void Tuition::action (shared_ptr<Player> p, bool b) {
 

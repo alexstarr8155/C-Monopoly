@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Tims::Tims(const string &name): Cell{name} {}
+Tims::Tims(): Cell{"Tims Line"} {}
 
 void Tims::action (shared_ptr<Player> p, bool b) {
 
