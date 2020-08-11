@@ -20,7 +20,7 @@ class Property : public Cell {
 
 
 		//Observers
-		std::vector<std::shared_ptr<Property>> observers;
+		std::vector<Property*> observers;
 	public:
 		Property (const std::string & name, int purchase_cost, int up_cost, std::vector<std::string> set);
 		
@@ -37,7 +37,7 @@ class Property : public Cell {
 
 
 		// Subject methods
-		void attach (std::shared_ptr<Property> neighbour);
+		void attach (Property * neighbour);
 		void notifyObservers ();
 		// Observer methods
 		virtual void notify (Property & whoNotified);

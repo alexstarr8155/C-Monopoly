@@ -20,7 +20,7 @@ int Player::getMoney() const {
 }
 
 //"Perhaps this should return a shared pointer instead?"
-std::vector<std::shared_ptr<Property>> Player::getProperties() const{
+std::vector<Property *> Player::getProperties() const{
 	return owned;
 }
 
@@ -49,7 +49,7 @@ void Player::moveTo(int pos) {
 	position = pos;
 }
 
-void Player::buy(std::shared_ptr<Property> p) {
+void Player::buy(Property * p) {
 	money -= p->getPrice();
 	owned.push_back(p);
 }
@@ -63,7 +63,7 @@ void Player::pay(std::shared_ptr<Player> other, int amount) {
 	}
 }
 
-void Player::trade(std::shared_ptr<Player> other, int money, std::shared_ptr<Property> others) {
+/* void Player::trade(std::shared_ptr<Player> other, int money, std::shared_ptr<Property> others) {
 
 	auto it = find(other->owned.begin(), other->owned.end(), others);
 
@@ -114,7 +114,7 @@ void Player::trade(std::shared_ptr<Player> other, std::shared_ptr<Property> mine
 
 }
 
-
+*/
 
 
 

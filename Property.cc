@@ -61,7 +61,7 @@ void Property::action (shared_ptr<Player> p, bool b){
 	if (b){
 		owned = true;
 		owner = p;
-		p->buy(std::make_shared<Property>(*this));
+		p->buy(this);
 		set_ownership.at(name) = p->getPlayerChar ();
 		notifyObservers();
 	}
@@ -74,7 +74,7 @@ void Property::action (shared_ptr<Player> p, bool b){
 
 
 // Observer and Subject method implementations
-void Property::attach(shared_ptr<Property> o) {
+void Property::attach(Property * o) {
 	observers.push_back(o);
 }
 
