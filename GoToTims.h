@@ -6,5 +6,6 @@
 class GoToTims : public Cell {
 	
 	public:
-		GoToTims (std::string & name);
-
+		GoToTims (const std::string & name);
+		virtual void action (std::shared_ptr<Player> p, bool b) override;
+}
