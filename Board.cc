@@ -215,7 +215,7 @@ Board::Board(int playerNum) {
     CIF->attach(PAC.get());
 
     auto collectOsap = std::make_shared<CollectOSAP>();
-    auto SLC = std::make_shared<SLC>();
+    auto slc = std::make_shared<SLC>();
     auto tuition = std::make_shared<Tuition>();
     auto needlesHall = std::make_shared<NeedlesHall>();
     auto DCTimsLine = std::make_shared<Tims>();
@@ -226,7 +226,7 @@ Board::Board(int playerNum) {
 
     board[0] = collectOsap;
     board[1] = AL;
-    board[2] = SLC;
+    board[2] = slc;
     board[3] = ML;
     board[4] = tuition;
     board[5] = MKV;
@@ -241,7 +241,7 @@ Board::Board(int playerNum) {
     board[14] = CPH;
     board[15] = UWP;
     board[16] = LHI;
-    board[17] = SLC;
+    board[17] = slc;
     board[18] = BMH;
     board[19] = OPT;
     board[20] = gooseNesting;
@@ -257,7 +257,7 @@ Board::Board(int playerNum) {
     board[30] = goToTims;
     board[31] = EIT;
     board[32] = ESC;
-    board[33] = SLC;
+    board[33] = slc;
     board[34] = C2;
     board[35] = REV;
     board[36] = needlesHall;
