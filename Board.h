@@ -4,10 +4,6 @@
 #include <map>
 #include <string>
 #include "Cell.h"
-#include "Property.h"
-#include "Improvable.h"
-#include "Gym.h"
-#include "Residence.h"
 #include "Player.h"
 
 class Board {
@@ -15,9 +11,14 @@ class Board {
 	std::map<char, std::shared_ptr<Player>> players;
 	std::map<int, std::shared_ptr<Cell>> board;
 
+	bool rollDouble;
+
 	public:
 		Board(int playerNum);
 		~Board();
+
+		int roll();
+
 		friend class BoardDisplay;
 };
 

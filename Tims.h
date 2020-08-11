@@ -1,13 +1,13 @@
-#ifndef _GOTOTIMS_H_
-#define _GOTOTIMS_H_
+#ifndef _TIMS_H_
+#define _TIMS_H_
 
 #include "Cell.h"
 
-class GoToTims : public Cell {
-	
+class Tims: public Cell {
 	public:
-		GoToTims ();
+		Tims();
 		virtual void action (std::shared_ptr<Player> p, bool b) override;
+
 };
 
 #endif

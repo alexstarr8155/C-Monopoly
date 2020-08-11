@@ -6,6 +6,7 @@
 class ImprovableProperty : public Property {
 	
 	std::vector<int> tuition;
+	int improv_cost;
 
 	public:
 		ImprovableProperty (const std::string &name, int purch_cost, int up_cost, std::vector<std::string> set, std::vector<int> tuition);

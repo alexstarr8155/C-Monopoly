@@ -1,12 +1,11 @@
-#ifndef _GOTOTIMS_H_
-#define _GOTOTIMS_H_
+#ifndef _COLLECTOSAP_H_
+#define _COLLECTOSAP_H_
 
 #include "Cell.h"
 
-class GoToTims : public Cell {
-	
+class CollectOSAP: public Cell {
 	public:
-		GoToTims ();
+		CollectOSAP ();
 		virtual void action (std::shared_ptr<Player> p, bool b) override;
 };
 

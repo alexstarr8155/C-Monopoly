@@ -6,7 +6,7 @@ using namespace std;
 
 
 ImprovableProperty::ImprovableProperty (const string &name, int p, int u, vector<string> set, vector<int> tuition):
-       	Property{name, p, u, set} {
+       	Property{name, p, set}, improv_cost{u} {
 
 	for (auto it = tuition.begin (); it != tuition.end (); ++ it) {
 		this->tuition.emplace_back(*it);

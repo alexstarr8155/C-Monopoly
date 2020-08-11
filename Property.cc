@@ -5,8 +5,8 @@
 
 using namespace std;
 
-Property::Property (const string & name, int purchase, int upgrade, vector<string> set):
-       	Cell{name}, purchase_cost{purchase}, up_cost{upgrade} {
+Property::Property (const string & name, int purchase, vector<string> set):
+       	Cell{name}, purchase_cost{purchase} {
 
 	owned = false;
 	mortgaged = false;
