@@ -18,7 +18,7 @@ class Cell {
 		Cell (const std::string &name);
 
 		std::string getName () const;
-		/* change back to virtual after */
+		
 		virtual void action (std::shared_ptr<Player> p, bool b) = 0;
 		std::map<char, bool> who_on_cell ();
 		int getNumImprov () const;
