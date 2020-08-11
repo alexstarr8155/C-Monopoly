@@ -35,7 +35,7 @@ void setupPlayers(std::map<const std::string, Player> & players) {
 			std::cin >> piece;
 
 			while (find(allowedPieces.begin(), allowedPieces.end(), piece) == allowedPieces.end() || 
-					find(takenPieces.begin(), takenPieces.end(), piece) != takenPieces.end() && !std::cin.eof()) {
+					(find(takenPieces.begin(), takenPieces.end(), piece) != takenPieces.end() && !std::cin.eof())) {
 
 				if (std::cin.eof()) {
 					break;
@@ -67,12 +67,12 @@ int main(int argc, char *argv[]) {
 	
 //	Board board;
 
+	std::map<const std::string, Player> players;
 	if (argc > 1) {
 		// "Load file given"
 	} else {
 		// "Starting game input needed"
 		
-		std::map<const std::string, Player> players;
 		setupPlayers(players);
 	}
 
@@ -86,7 +86,7 @@ int main(int argc, char *argv[]) {
 		} else if (cmd.compare("next") == 0) {
 			// "Assign turn to next player if cannot roll"
 			// "I believe this is a call to board"
-		} else if (cmd.comapare("trade") == 0) {
+		} else if (cmd.compare("trade") == 0) {
 			std::string otherPlayer;
 			std::cin >> otherPlayer;
 
@@ -95,7 +95,7 @@ int main(int argc, char *argv[]) {
 			int g = -1;
 
 			try {
-				g = std::stoi(give)
+				g = std::stoi(give);
 			} catch (...) {}
 
 			std::string receive;
@@ -124,9 +124,9 @@ int main(int argc, char *argv[]) {
 			std::string buy;
 			std::cin >> buy;
 
-			bool buy = buy.compare("buy") == 0;
+			bool b = buy.compare("buy") == 0;
 
-			if (buy) {
+			if (b) {
 			
 			} else {
 			
@@ -152,7 +152,7 @@ int main(int argc, char *argv[]) {
 			std::cin >> filename;
 			// "Save the game"
 		} else {
-			std::cout << "Invalid command, try again"
+			std::cout << "Invalid command, try again";
 		}
 
 	}
