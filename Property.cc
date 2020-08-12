@@ -90,6 +90,7 @@ void Property::action (shared_ptr<Player> p, bool b) {
 				owner = p;
 				set_ownership.at(name) = p->getPlayerChar();
 				notifyObservers();
+				break;
 			}
 			else if (in == "N" || in == "n"){
 				break;
@@ -100,7 +101,11 @@ void Property::action (shared_ptr<Player> p, bool b) {
 			}
 		}
 	}
+	else if (p->getPlayerChar() == owner->getPlayerChar()){
+		return;
+	}
 	else {
+		cout << p->getPlayerName () << " is paying " << owner->getPlayerName() << " $" << getRent() << endl;
 		p->pay(owner, getRent());
 	}
 }
