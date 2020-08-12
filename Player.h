@@ -41,9 +41,9 @@ public:
 
 	void buy(Property *p);
 	void pay(std::shared_ptr<Player> other, int amount);
-	//void trade(std::shared_ptr<Player> other, std::shared_ptr<Property> mine, std::shared_ptr<Property> others);
-	///void trade(std::shared_ptr<Player> other, std::shared_ptr<Property> mine, int money);
-	//void trade(std::shared_ptr<Player> other, int money, std::shared_ptr<Property> others);
+	void trade(std::shared_ptr<Player> other, std::shared_ptr<Property> mine, std::shared_ptr<Property> others);
+	void trade(std::shared_ptr<Player> other, std::shared_ptr<Property> mine, int money);
+	void trade(std::shared_ptr<Player> other, int money, std::shared_ptr<Property> others);
 
 };
 

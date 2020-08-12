@@ -1,10 +1,9 @@
 #include "CollectOSAP.h"
 #include "Player.h"
 
-CollectOSAP::CollectOSAP (int playerNum): Cell{"COLLECT OSAP"} {
-	std::vector<char> playerChar = {'G', 'B', 'D', 'P', 'S', '$', 'L', 'T'};
-	for (int i = 0; i < playerNum; ++i) {
-		on_cell[playerChar[i]] = true;
+CollectOSAP::CollectOSAP (std::vector<char>& chars): Cell{"COLLECT OSAP"} {
+	for (int i = 0; i < chars.size(); ++i) {
+		on_cell[chars[i]] = true;
 	}
 }
 

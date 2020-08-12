@@ -2,10 +2,11 @@
 #define _COLLECTOSAP_H_
 
 #include "Cell.h"
+#include <vector>
 
 class CollectOSAP: public Cell {
 	public:
-		CollectOSAP (int playerNum);
+		CollectOSAP (std::vector<char> & chars);
 		virtual void action (std::shared_ptr<Player> p, bool b) override;
 };
 

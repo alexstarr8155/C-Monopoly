@@ -237,7 +237,15 @@ void Board::initBoard() {
     PAC->attach(CIF.get());
     CIF->attach(PAC.get());
 
-    auto collectOsap = std::make_shared<CollectOSAP>(playerNum);
+
+
+    std::vector<char> chars;
+    for (int i = 0; i < players.size(); i++) {
+    	chars.push_back(players[i]->getPlayerChar());
+    }
+
+
+    auto collectOsap = std::make_shared<CollectOSAP>(chars);
     auto slc = std::make_shared<SLC>();
     auto slc1 = std::make_shared<SLC>();
     auto slc2 = std::make_shared<SLC>();
