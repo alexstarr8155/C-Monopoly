@@ -24,6 +24,8 @@ class Board {
 		int roll();
 		void move();
 		void playRound();
+		int getCurrPlayer();
+		void save(std::string fileName);
 
 		friend class BoardDisplay;
 };

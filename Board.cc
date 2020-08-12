@@ -1,5 +1,5 @@
-#include <map>
-#include <string>
+#include <iostream>
+#include <fstream>
 #include <cstdlib>
 #include <ctime>
 #include "Board.h"
@@ -15,8 +15,6 @@
 #include "GooseNesting.h"
 #include "Tuition.h"
 #include "CollectOSAP.h"
-
-#include <iostream>
 
 Board::Board(int playerNum) : playerNum{playerNum} {
 
@@ -349,5 +347,18 @@ void Board::playRound() {
 		std::cout << "Player " << (i+1) << " is at position " << playerPosition << std::endl;
 		board[playerPosition]->action(players[i], false);
 	}
+}
+
+int Board::getCurrPlayer() {
+	return currPlayer;
+}
+
+void Board::save(std::string fileName) {
+	
+	std::ofstream outfile{"output.txt"};
+	outfile << playerNum << std::endl;
+
+	//for (int i = 0; i < playerNum; ++i) {
+	//	outfile << players[i]->getPlayerName(); << " " << 
 }
 
