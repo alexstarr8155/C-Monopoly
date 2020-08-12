@@ -5,7 +5,7 @@
 #include "Board.h"
 #include "Player.h"
 
-void setupPlayers(std::map<const std::string, Player> & players) {
+void setupPlayers(std::map<const std::string, std::shared_ptr<Player>> & players) {
 		std::cout << "Enter the Number of Players: ";
 		int numPlayers = 0;
 		std::cin >> numPlayers;
@@ -57,8 +57,8 @@ void setupPlayers(std::map<const std::string, Player> & players) {
 				break;
 			}
 
-			Player p(name, piece, 1500);
-			players.insert(players.begin(), std::pair<std::string, Player>(name, p));
+			auto p = std::make_shared<Player> (name, piece, 1500);
+			players.insert(players.begin(), std::pair<std::string, std::shared_ptr<Player>>(name, p));
 		}
 
 }
@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
 	
 //	Board board;
 
-	std::map<const std::string, Player> players;
+	std::map<const std::string, std::shared_ptr<Player>> players;
 	if (argc > 1) {
 		// "Load file given"
 	} else {
@@ -76,13 +76,17 @@ int main(int argc, char *argv[]) {
 		setupPlayers(players);
 	}
 
+	Board board(players);
+
 	while (players.size() > 1 && !std::cin.eof()) {
 		
 		std::string cmd;
 		std::cin >> cmd;
 
 		if (cmd.compare("roll") == 0) {
-			//"Roll with board"
+		
+			board.move();
+
 		} else if (cmd.compare("next") == 0) {
 			// "Assign turn to next player if cannot roll"
 			// "I believe this is a call to board"

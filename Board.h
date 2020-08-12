@@ -9,16 +9,20 @@
 class Board {
 	
 	int playerNum;
+	int currPlayer;
 	std::map<int, std::shared_ptr<Player>> players;
 	std::map<int, std::shared_ptr<Cell>> board;
 
 	bool rollDouble;
 
 	public:
+		Board(std::map<const std::string, std::shared_ptr<Player>> & players);
 		Board(int playerNum);
+		Board();
 		~Board();
 		
 		int roll();
+		void move();
 		void playRound();
 
 		friend class BoardDisplay;

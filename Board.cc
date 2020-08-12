@@ -16,6 +16,8 @@
 #include "Tuition.h"
 #include "CollectOSAP.h"
 
+#include <iostream>
+
 Board::Board(int playerNum) : playerNum{playerNum} {
 
     std::vector<char> playerChar = {'G', 'B', 'D', 'P', 'S', '$', 'L', 'T'};
@@ -25,6 +27,27 @@ Board::Board(int playerNum) : playerNum{playerNum} {
         std::shared_ptr<Player> player = std::make_shared<Player>(playerStr[i], playerChar[i], 1500);
         players[i] = player;
     }
+    Board();
+}
+
+Board::Board(std::map<const std::string, std::shared_ptr<Player>> & p) {
+	
+	this->playerNum = p.size();
+
+	int count = 0;
+	for (auto it = p.begin(); it != p.end(); it++) {
+		players[count] = it->second;
+		count++;
+	}
+
+	Board();
+}
+
+Board::Board(){
+/*
+*/
+
+    currPlayer = 0;
 
     std::vector<std::string> set = {};
     std::vector<int> tuitionFee = {};
@@ -214,6 +237,8 @@ Board::Board(int playerNum) : playerNum{playerNum} {
     PAC->attach(CIF.get());
     CIF->attach(PAC.get());
 
+    std::cout << playerNum << std::endl;
+
     auto collectOsap = std::make_shared<CollectOSAP>(playerNum);
     auto slc = std::make_shared<SLC>();
     auto tuition = std::make_shared<Tuition>();
@@ -283,6 +308,20 @@ int Board::roll() {
     }
 
     return (dice1 + dice2);
+}
+
+void Board::move() {
+	int i = currPlayer;
+	int playerPosition = players[i]->getPosition();
+	std::cout << "Player " << (i+1) << " is at position " << playerPosition << std::endl;
+	board[playerPosition]->leave(players[i]);
+	int diceRoll = roll();
+	std::cout << "Player " << (i+1) << " rolled a " << diceRoll << std::endl;
+	players[i]->move(diceRoll);
+	playerPosition = players[i]->getPosition();
+	std::cout << "Player " << (i+1) << " is at position " << playerPosition << std::endl;
+	board[playerPosition]->action(players[i], false);
+
 }
 
 void Board::playRound() {
