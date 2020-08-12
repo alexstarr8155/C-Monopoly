@@ -380,7 +380,7 @@ void Board::save(std::string fileName) {
 	}
 	
 	for (int i = 0; i < 40; ++i) {
-		if (i != 0 && i != 2 && i != 4 && i != 7 && i != 10 && i != 17 && i != 20 && i != 22 && i != 30 && i != 33 && i != 38) {
+		if (i != 0 && i != 2 && i != 4 && i != 7 && i != 10 && i != 17 && i != 20 && i != 22 && i != 30 && i != 33 && i != 36 && i != 38) {
 			std::string cellName = board[i]->getName();
 			std::shared_ptr<Player> cellOwner =  board[i]->getOwner();
 			int cellImprovements = board[i]->getNumImprov();
