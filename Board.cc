@@ -239,8 +239,12 @@ void Board::initBoard() {
 
     auto collectOsap = std::make_shared<CollectOSAP>(playerNum);
     auto slc = std::make_shared<SLC>();
+    auto slc1 = std::make_shared<SLC>();
+    auto slc2 = std::make_shared<SLC>();
     auto tuition = std::make_shared<Tuition>();
     auto needlesHall = std::make_shared<NeedlesHall>();
+    auto needlesHall1 = std::make_shared<NeedlesHall>();
+    auto needlesHall2 = std::make_shared<NeedlesHall>();
     auto DCTimsLine = std::make_shared<Tims>();
     auto gooseNesting = std::make_shared<GooseNesting>();
     auto goToTims = std::make_shared<GoToTims>();
@@ -264,12 +268,12 @@ void Board::initBoard() {
     board[14] = CPH;
     board[15] = UWP;
     board[16] = LHI;
-    board[17] = slc;
+    board[17] = slc1;
     board[18] = BMH;
     board[19] = OPT;
     board[20] = gooseNesting;
     board[21] = EV1;
-    board[22] = needlesHall;
+    board[22] = needlesHall1;
     board[23] = EV2;
     board[24] = EV3;
     board[25] = V1;
@@ -280,10 +284,10 @@ void Board::initBoard() {
     board[30] = goToTims;
     board[31] = EIT;
     board[32] = ESC;
-    board[33] = slc;
+    board[33] = slc2;
     board[34] = C2;
     board[35] = REV;
-    board[36] = needlesHall;
+    board[36] = needlesHall2;
     board[37] = MC;
     board[38] = coopFee;
     board[39] = DC;
