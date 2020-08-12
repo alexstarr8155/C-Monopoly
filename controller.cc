@@ -11,8 +11,13 @@ void setupPlayers(std::map<const std::string, std::shared_ptr<Player>> & players
 		int numPlayers = 0;
 		std::cin >> numPlayers;
 		//std::cout << std::endl;
+		
+		if (numPlayers < 2 || numPlayers > 8) {
+			throw "Number of players must be between 2 and 8";
+		}
 
 		std::vector<char> takenPieces;
+		std::vector<std::string> takenNames;
 		std::vector<char> allowedPieces = {'G', 'B', 'D', 'P', 'S', '$', 'L', 'T'};
 		for (int i = 1; i <= numPlayers; i++) {
 			std::string suffix = "th";
@@ -30,28 +35,40 @@ void setupPlayers(std::map<const std::string, std::shared_ptr<Player>> & players
 			std::string temp;
 			std::cin >> temp;
 
-			const std::string name = temp;
-		
+			//std::cout << players.size() << std::endl;
+
 			char piece;
 			std::cin >> piece;
 
 			while (find(allowedPieces.begin(), allowedPieces.end(), piece) == allowedPieces.end() || 
-					(find(takenPieces.begin(), takenPieces.end(), piece) != takenPieces.end() && !std::cin.eof())) {
+					(find(takenPieces.begin(), takenPieces.end(), piece) != takenPieces.end() && !std::cin.eof()) ||
+					(players.find(temp) != players.end()) || temp.compare("BANK") == 0) {
+
 
 				if (std::cin.eof()) {
 					break;
 				}
-				std::cout << "Invalid or Duplicate piece, choose one of: ";
 
-				for (int i = 0; i < allowedPieces.size(); i++) {
-					if (find(takenPieces.begin(), takenPieces.end(), allowedPieces[i]) == takenPieces.end()) {
-						std::cout << allowedPieces[i] << " ";
+				if (temp.compare("BANK") == 0) {
+					std::cout << "Player's name cannot be BANK, choose name, followed by character: ";
+					std::cin >> temp;
+				} else if (players.find(temp) != players.end()) {
+					std::cout << "Someone already has that name, choose another name, followed by character: ";
+					std::cin >> temp;
+				} else {
+					std::cout << "Invalid or Duplicate piece, choose one of: ";
+
+					for (int i = 0; i < allowedPieces.size(); i++) {
+						if (find(takenPieces.begin(), takenPieces.end(), allowedPieces[i]) == takenPieces.end()) {
+							std::cout << allowedPieces[i] << " ";
+						}
 					}
+
+					std::cin >> piece;
 				}
-
-				std::cin >> piece;
 			}
-
+			
+			const std::string name = temp;	
 			takenPieces.push_back(piece);
 
 			if (std::cin.eof()) {
