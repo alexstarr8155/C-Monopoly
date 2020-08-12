@@ -155,31 +155,49 @@ int main(int argc, char *argv[]) {
 				// "Trade Prop with Prop"
 			}
 
-		} else if (cmd.compare("improve") == 0) {
-			std::string prop;
-			std::cin >> prop;
+		} 
+		else if (cmd.compare("improve") == 0) {
+			std::string propName;
+			std::cin >> propName;
 
 			std::string buy;
 			std::cin >> buy;
 
-			bool b = buy.compare("buy") == 0;
+			auto currPlayer = board.getCurrPlayer();
+			auto props = currPlayer->getProperties();
+			
+			Property* prop;
 
-			if (b) {
-			
-			} else {
-			
+			for (auto it = props.begin(); it != props.end(); ++it){
+				if ((*it)->getName() == propName){
+					prop = (*it);
+				}
 			}
-		} else if (cmd.compare("mortgage") == 0) {
+			
+			if (!prop) {
+				std::cout << "You don't own that property" << std::endl;
+			}
+			else if (buy == "buy") {
+				prop->upgrade(1);
+			}
+			else if (buy == "sell") {
+				prop->downgrade(1);
+			}
+			
+		} 
+		else if (cmd.compare("mortgage") == 0) {
 			std::string prop;
 			std::cin >> prop;
 
 			//"Mortgage Property
-		} else if (cmd.compare("unmortgage") == 0) {
+		} 
+		else if (cmd.compare("unmortgage") == 0) {
 			std::string prop;
 			std::cin >> prop;
 
 			//"unmortgage property
-		} else if (cmd.compare("bankrupt") == 0) {
+		} 
+		else if (cmd.compare("bankrupt") == 0) {
 			//"Declare bankruptcy"
 		} 
 		else if (cmd.compare("assets") == 0) {
