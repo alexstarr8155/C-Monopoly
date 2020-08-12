@@ -54,7 +54,7 @@ int Property::getValue () const {
 // 			If not, then nothing happens
 //
 // on_cell is always updated
-void Property::action (shared_ptr<Player> p, bool b){
+/*void Property::action (shared_ptr<Player> p, bool b){
 	on_cell.at(p->getPlayerChar()) = true;
 
 	if (b){
@@ -68,6 +68,41 @@ void Property::action (shared_ptr<Player> p, bool b){
 		p->pay(owner, getRent());
 	}
 
+}*/
+
+void Property::action (shared_ptr<Player> p, bool b) {
+	on_cell.at(p->getPlayerChar()) = true;
+
+	if (!owned) {
+		cout << "Would you like to buy " << name << "? (Y/N)" << endl;
+		string in;
+		cin >> in;
+		while (true){
+			if (in == "Y" || in == "y"){
+				try {
+					p->buy(this);
+				}
+				catch (...) {
+					cout << "Not enough money" << endl;
+					break;
+				}
+				owned = true;
+				owner = p;
+				set_ownership.at(name) = p->getPlayerChar();
+				notifyObservers();
+			}
+			else if (in == "N" || in == "n"){
+				break;
+				// auction the property
+			}
+			else {
+				cout << "Please enter Y/N" << endl;
+			}
+		}
+	}
+	else {
+		p->pay(owner, getRent());
+	}
 }
 
 
