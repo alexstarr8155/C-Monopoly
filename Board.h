@@ -7,8 +7,9 @@
 #include "Player.h"
 
 class Board {
-
-	std::map<char, std::shared_ptr<Player>> players;
+	
+	int playerNum;
+	std::map<int, std::shared_ptr<Player>> players;
 	std::map<int, std::shared_ptr<Cell>> board;
 
 	bool rollDouble;
@@ -16,8 +17,9 @@ class Board {
 	public:
 		Board(int playerNum);
 		~Board();
-
+		
 		int roll();
+		void playRound();
 
 		friend class BoardDisplay;
 };
