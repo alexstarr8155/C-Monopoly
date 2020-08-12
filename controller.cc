@@ -4,6 +4,7 @@
 #include <algorithm>
 #include "Board.h"
 #include "Player.h"
+#include "Property.h"
 #include "BoardDisplay.h"
 
 void setupPlayers(std::map<const std::string, std::shared_ptr<Player>> & players) {
@@ -79,6 +80,17 @@ void setupPlayers(std::map<const std::string, std::shared_ptr<Player>> & players
 			players.insert(players.begin(), std::pair<std::string, std::shared_ptr<Player>>(name, p));
 		}
 
+}
+
+void printAssets (std::shared_ptr<Player> p){
+	std::cout << p->getPlayerName() << ":" << std::endl;
+	std::cout << "$" << p->getMoney() << std::endl;
+	
+	std::cout << "Properties:" << std::endl;
+	auto prop = p->getProperties();
+	for (auto it = prop.begin(); it != prop.end(); ++it){
+		std::cout << (*it)->getName() << std::endl;
+	}
 }
 
 int main(int argc, char *argv[]) {
@@ -169,11 +181,18 @@ int main(int argc, char *argv[]) {
 			//"unmortgage property
 		} else if (cmd.compare("bankrupt") == 0) {
 			//"Declare bankruptcy"
-		} else if (cmd.compare("assets") == 0) {
+		} 
+		else if (cmd.compare("assets") == 0) {
 			// "Display the assets of the current player"
-		} else if (cmd.compare("all") == 0) {
+			printAssets(board.getCurrPlayer());
+		} 
+		else if (cmd.compare("all") == 0) {
 			//"Display the assets of all players"
-		} else if (cmd.compare("save") == 0) {
+			for (auto it = players.begin(); it != players.end(); ++it){
+				printAssets(it->second);
+			}
+		} 
+		else if (cmd.compare("save") == 0) {
 			std::string filename;
 			std::cin >> filename;
 			// "Save the game"
@@ -182,7 +201,6 @@ int main(int argc, char *argv[]) {
 				std::cout << "Invalid command, try again";
 			}
 		}
-
 	}
 
 }
