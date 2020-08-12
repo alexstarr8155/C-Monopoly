@@ -27,12 +27,10 @@ Board::Board(int playerNum) : playerNum{playerNum} {
         std::shared_ptr<Player> player = std::make_shared<Player>(playerStr[i], playerChar[i], 1500);
         players[i] = player;
     }
-    Board();
+    initBoard();
 }
 
-Board::Board(std::map<const std::string, std::shared_ptr<Player>> & p) {
-	
-	this->playerNum = p.size();
+Board::Board(std::map<const std::string, std::shared_ptr<Player>> & p, int num) : playerNum{num} {
 
 	int count = 0;
 	for (auto it = p.begin(); it != p.end(); it++) {
@@ -40,12 +38,14 @@ Board::Board(std::map<const std::string, std::shared_ptr<Player>> & p) {
 		count++;
 	}
 
-	Board();
+
+	initBoard();
 }
 
-Board::Board(){
+void Board::initBoard() {
 /*
 */
+
 
     currPlayer = 0;
 
@@ -237,8 +237,6 @@ Board::Board(){
     PAC->attach(CIF.get());
     CIF->attach(PAC.get());
 
-    std::cout << playerNum << std::endl;
-
     auto collectOsap = std::make_shared<CollectOSAP>(playerNum);
     auto slc = std::make_shared<SLC>();
     auto tuition = std::make_shared<Tuition>();
@@ -321,7 +319,7 @@ void Board::move() {
 	playerPosition = players[i]->getPosition();
 	std::cout << "Player " << (i+1) << " is at position " << playerPosition << std::endl;
 	board[playerPosition]->action(players[i], false);
-
+	currPlayer = (currPlayer + 1) % playerNum;
 }
 
 void Board::playRound() {

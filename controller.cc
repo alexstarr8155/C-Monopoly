@@ -4,6 +4,7 @@
 #include <algorithm>
 #include "Board.h"
 #include "Player.h"
+#include "BoardDisplay.h"
 
 void setupPlayers(std::map<const std::string, std::shared_ptr<Player>> & players) {
 		std::cout << "Enter the Number of Players: ";
@@ -76,7 +77,10 @@ int main(int argc, char *argv[]) {
 		setupPlayers(players);
 	}
 
-	Board board(players);
+	Board board(players, players.size());
+	BoardDisplay display;
+
+	display.display(board);
 
 	while (players.size() > 1 && !std::cin.eof()) {
 		
@@ -86,6 +90,7 @@ int main(int argc, char *argv[]) {
 		if (cmd.compare("roll") == 0) {
 		
 			board.move();
+			display.display(board);
 
 		} else if (cmd.compare("next") == 0) {
 			// "Assign turn to next player if cannot roll"
@@ -156,7 +161,9 @@ int main(int argc, char *argv[]) {
 			std::cin >> filename;
 			// "Save the game"
 		} else {
-			std::cout << "Invalid command, try again";
+			if (!std::cin.eof()) {
+				std::cout << "Invalid command, try again";
+			}
 		}
 
 	}

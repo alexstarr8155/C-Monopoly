@@ -16,11 +16,11 @@ class Board {
 	bool rollDouble;
 
 	public:
-		Board(std::map<const std::string, std::shared_ptr<Player>> & players);
+		Board(std::map<const std::string, std::shared_ptr<Player>> & players, int num);
 		Board(int playerNum);
-		Board();
 		~Board();
-		
+	
+		void initBoard();	
 		int roll();
 		void move();
 		void playRound();
