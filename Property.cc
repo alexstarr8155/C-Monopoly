@@ -24,6 +24,7 @@ bool Property::is_mortgaged () const {
 	return mortgaged;
 }
 
+/* the commented is moved to Cell
 void Property::setOwner (shared_ptr<Player> p){
 	owner = p;
 }
@@ -31,6 +32,7 @@ void Property::setOwner (shared_ptr<Player> p){
 shared_ptr<Player> Property::getOwner () {
 	return owner;
 }
+*/
 
 void Property::mortgage () {
 	mortgaged = true;
@@ -42,6 +44,14 @@ void Property::unmortgage () {
 
 int Property::getValue () const {
 	return purchase_cost;
+}
+
+void Property::upgrade (int num){
+        numImprovements += num;
+}
+
+void Property::downgrade (int num){
+        numImprovements -= num;
 }
 
 /*int Property::getRent () const {

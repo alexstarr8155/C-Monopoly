@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include <cstdlib>
 #include <ctime>
 #include "Board.h"
@@ -364,8 +365,33 @@ void Board::save(std::string fileName) {
 		int timsCups = players[i]->getTimsCards();
 		int money = players[i]->getMoney();
 		int position = players[i]->getPosition();
-		outfile << playerName << " " << playerChar << " " << timsCups << " " << money << " " << position << std::endl;
-	}
 
+		if (position == 10) {
+			if (players[i]->getInTims()) {
+				outfile << playerName << " " << playerChar << " " << timsCups << " " << money << position << 1 << players[i]->getTurnsInTims() << std::endl;
+			}
+			else {
+				outfile << playerName << " " << playerChar << " " << timsCups << " " << money << position << 0 << std::endl;
+			}
+		}
+		else {
+			outfile << playerName << " " << playerChar << " " << timsCups << " " << money << " " << position << std::endl;
+		}
+	}
+	
+	for (int i = 0; i < 40; ++i) {
+		if (i != 0 && i != 2 && i != 4 && i != 7 && i != 10 && i != 17 && i != 20 && i != 22 && i != 30 && i != 33 && i != 38) {
+			std::string cellName = board[i]->getName();
+			std::shared_ptr<Player> cellOwner =  board[i]->getOwner();
+			int cellImprovements = board[i]->getNumImprov();
+
+			if (cellOwner == nullptr) {
+				outfile << cellName << " BANK " << cellImprovements << std::endl;
+			}
+			else {
+				outfile << cellName << " " << cellOwner->getPlayerName() << " " << cellImprovements << std::endl;
+			}
+		}
+	}
 }
 

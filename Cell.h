@@ -14,6 +14,7 @@ class Cell {
 		std::string name;
 		std::map<char, bool> on_cell;
 		int numImprovements;
+		std::shared_ptr<Player> owner;
 	public:
 		Cell (const std::string &name);
 
@@ -24,6 +25,10 @@ class Cell {
 
 		std::map<char, bool> who_on_cell ();
 		int getNumImprov () const;
+
+		void setOwner (std::shared_ptr<Player> p);
+                std::shared_ptr<Player> getOwner ();
+
 };
 
 #endif

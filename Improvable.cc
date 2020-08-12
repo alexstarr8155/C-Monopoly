@@ -19,6 +19,7 @@ int ImprovableProperty::getNumImprov () const {
 	return numImprovements;
 }
 
+/* commented was moved to property
 void ImprovableProperty::upgrade (int num){
 	numImprovements += num;
 }
@@ -26,6 +27,7 @@ void ImprovableProperty::upgrade (int num){
 void ImprovableProperty::downgrade (int num){
 	numImprovements -= num;
 }
+*/
 
 int ImprovableProperty::getValue () const {
 	return purchase_cost + improv_cost * numImprovements; 

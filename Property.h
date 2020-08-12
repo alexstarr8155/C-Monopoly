@@ -15,7 +15,7 @@ class Property : public Cell {
 		int up_cost;
 		bool owned;
 		bool mortgaged;
-		std::shared_ptr<Player> owner;
+		//std::shared_ptr<Player> owner; moved to cell
 		std::map<std::string, char> set_ownership; // string is property name, char is player on property
 
 
@@ -27,14 +27,16 @@ class Property : public Cell {
 		int getPrice () const;
 		virtual int getRent () const = 0;
 		bool is_mortgaged () const;
-		void setOwner (std::shared_ptr<Player> p);
-		std::shared_ptr<Player> getOwner ();
+		//void setOwner (std::shared_ptr<Player> p); moved to cell
+		//std::shared_ptr<Player> getOwner (); moved to cell
 
 		void mortgage ();
 		void unmortgage ();
 		virtual int getValue () const;
 		void action (std::shared_ptr<Player> p, bool b);
-
+		
+		void upgrade (int num);
+                void downgrade (int num);
 
 		// Subject methods
 		void attach (Property * neighbour);
