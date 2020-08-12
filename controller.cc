@@ -93,8 +93,7 @@ int main(int argc, char *argv[]) {
 			display.display(board);
 
 		} else if (cmd.compare("next") == 0) {
-			// "Assign turn to next player if cannot roll"
-			// "I believe this is a call to board"
+			
 		} else if (cmd.compare("trade") == 0) {
 			std::string otherPlayer;
 			std::cin >> otherPlayer;
@@ -118,10 +117,11 @@ int main(int argc, char *argv[]) {
 
 			if (g != -1 && r != -1) {
 				// "Trade with int version"	
+
 			} else if (g != -1) {
 				// "Trade int for Property"
 			} else if (r != -1) {
-				// "Trade Property with in"
+				// "Trade Property with int"
 			} else {
 				// "Trade Prop with Prop"
 			}
