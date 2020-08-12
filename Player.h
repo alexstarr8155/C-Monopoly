@@ -16,7 +16,7 @@ private:
 	int netWorth;
 	int money;
 	bool inTims = false;
-	bool hasTimsCard = false;	
+	int hasTimsCard = 0;	
 	std::string name;
 	std::vector<Property *> owned;
 public:

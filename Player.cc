@@ -43,8 +43,8 @@ void Player::getOutOfTims(bool bail) {
 		return;
 	}
 
-	if (bail && hasTimsCard) {
-		hasTimsCard = false;
+	if (bail && (hasTimsCard > 0)) {
+		hasTimsCard--;
 	} else if (bail) {
 		removeMoney(50);
 	}
@@ -83,6 +83,9 @@ void Player::moveTo(int pos) {
 }
 
 void Player::buy(Property * p) {
+	if (p->getPrice() > money){
+		throw "Not enough money";
+	}
 	money -= p->getPrice();
 	owned.push_back(p);
 }
