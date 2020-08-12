@@ -349,8 +349,8 @@ void Board::playRound() {
 	}
 }
 
-int Board::getCurrPlayer() {
-	return currPlayer;
+std::shared_ptr<Player> Board::getCurrPlayer() {
+	return players[currPlayer];
 }
 
 void Board::save(std::string fileName) {
@@ -359,6 +359,7 @@ void Board::save(std::string fileName) {
 	outfile << playerNum << std::endl;
 
 	//for (int i = 0; i < playerNum; ++i) {
-	//	outfile << players[i]->getPlayerName(); << " " << 
+	//	std::string playerName = players[i]->getPlayerName();
+	//	char  
 }
 
