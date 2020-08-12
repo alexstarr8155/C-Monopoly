@@ -16,6 +16,7 @@ private:
 	int netWorth;
 	int money;
 	bool inTims = false;
+	int turnsInTims = 0; // will have to add this to jail time
 	int hasTimsCard = 0;	
 	std::string name;
 	std::vector<Property *> owned;
@@ -30,6 +31,8 @@ public:
 	void goToTims();
 	void getOutOfTims(bool b);
 	int getTimsCards();
+	bool getInTims();
+	int getTurnsInTims();
 
 	void addMoney(int amount);
 	void removeMoney(int amount);

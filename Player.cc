@@ -55,6 +55,14 @@ int Player::getTimsCards() {
 	return hasTimsCard;
 }
 
+bool Player::getInTims() {
+	return inTims;
+}
+
+int Player::getTurnsInTims() {
+	return turnsInTims;
+}
+
 void Player::addMoney(int amount) {
 	money += amount;
 } 

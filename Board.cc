@@ -362,6 +362,10 @@ void Board::save(std::string fileName) {
 		std::string playerName = players[i]->getPlayerName();
 		char playerChar = players[i]->getPlayerChar();
 		int timsCups = players[i]->getTimsCards();
+		int money = players[i]->getMoney();
+		int position = players[i]->getPosition();
+		outfile << playerName << " " << playerChar << " " << timsCups << " " << money << " " << position << std::endl;
 	}
+
 }
 
