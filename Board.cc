@@ -358,8 +358,10 @@ void Board::save(std::string fileName) {
 	std::ofstream outfile{"output.txt"};
 	outfile << playerNum << std::endl;
 
-	//for (int i = 0; i < playerNum; ++i) {
-	//	std::string playerName = players[i]->getPlayerName();
-	//	char  
+	for (int i = 0; i < playerNum; ++i) {
+		std::string playerName = players[i]->getPlayerName();
+		char playerChar = players[i]->getPlayerChar();
+		int timsCups = players[i]->getTimsCards();
+	}
 }
 

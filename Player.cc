@@ -51,6 +51,10 @@ void Player::getOutOfTims(bool bail) {
 	inTims = false;
 }
 
+int Player::getTimsCards() {
+	return hasTimsCard;
+}
+
 void Player::addMoney(int amount) {
 	money += amount;
 } 
