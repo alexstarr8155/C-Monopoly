@@ -20,7 +20,9 @@ class Board {
 		Board(std::map<const std::string, std::shared_ptr<Player>> & players, int num);
 		Board(std::string fileName);
 		~Board();
-	
+		
+		std::map<const std::string, std::shared_ptr<Player>> getPlayers();
+
 		void initBoard();	
 		int roll();
 		void move();
