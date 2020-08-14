@@ -110,6 +110,7 @@ Property* getProperty(std::string propName, Board& board) {
 
 int main(int argc, char *argv[]) {
 
+	Board *temp;
 	std::vector<std::string> args;
 
 	for (int i = 0; i < argc; i++) {
@@ -124,14 +125,17 @@ int main(int argc, char *argv[]) {
 		testingMode = true;
 	}
 	if ((argc > 2 && args[1].compare("-testing") == 0) || (argc > 1 && args[1].compare("-testing") != 0)) {
-		//"Load Game"
+		
+		std::string filename = args[2];
+		temp = new Board(filename);
+
 	} else {
 		// "Starting game input needed"
-		
+		temp = new Board(players, players.size());
 		setupPlayers(players);
 	}
 
-	Board board(players, players.size());
+	Board board = *temp;
 	BoardDisplay display(board);
 
 	display.display();
@@ -294,7 +298,7 @@ int main(int argc, char *argv[]) {
 			}
 		}
 	}
-
+	delete temp;
 }
 
 
