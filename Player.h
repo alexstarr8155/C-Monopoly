@@ -56,6 +56,7 @@ public:
 	void setTimsCups(int timsCups);
 	void setInTims(bool inTims);
 	void setTurnsInTims(int turnsInTims);
+	void addProperty(Property *property);
 
 };
 

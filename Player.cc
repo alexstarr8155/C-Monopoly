@@ -194,5 +194,9 @@ void Player::setTurnsInTims(int turnsInTims) {
 	this->turnsInTims = turnsInTims;
 }
 
+void Player::addProperty(Property *property) {
+	(this->owned).push_back(property)
+}
+
 
 
