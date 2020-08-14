@@ -28,8 +28,9 @@ class Cell {
 		void setNumImprov (int num);
 
 		virtual void setOwner (std::shared_ptr<Player> p);
-                std::shared_ptr<Player> getOwner ();
+		std::shared_ptr<Player> getOwner ();
 
+		void setOnCell(char playerChar);
 };
 
 #endif

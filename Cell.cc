@@ -37,9 +37,13 @@ void Cell::setNumImprov (int num) {
 }
 
 void Cell::setOwner (shared_ptr<Player> p){
-        owner = p;
+	owner = p;
 }
 
 shared_ptr<Player> Cell::getOwner () {
-        return owner;
+	return owner;
+}
+
+void Cell::setOnCell(char playerChar) {
+	on_cell[playerChar] = true;
 }

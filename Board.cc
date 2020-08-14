@@ -69,6 +69,8 @@ Board::Board(std::string fileName) {
         players[i]->setTimsCups(timsCups);
         players[i]->setInTims(inTims);
         players[i]->setTurnsInTims(turnsInTims);
+
+        board[position]->setOnCell(players[i]->getPlayerChar());
     }
 
     for (int i = 0; i < 40; i++) {
@@ -80,8 +82,6 @@ Board::Board(std::string fileName) {
             infile >> name;
             infile >> owner;
             infile >> improvements;
-		
-	    //std::cout << name << ", " << owner << ", " << improvements << std::endl;
 
             std::shared_ptr<Player> player = nullptr;
             for (int i = 0; i < playerNum; i++) {
@@ -117,7 +117,6 @@ Board::Board(std::map<const std::string, std::shared_ptr<Player>> & p, int num) 
 		players[count] = it->second;
 		count++;
 	}
-
 
 	initBoard();
 }
@@ -314,12 +313,7 @@ void Board::initBoard() {
     PAC->attach(CIF.get());
     CIF->attach(PAC.get());
 
-    std::vector<char> chars;
-    for (int i = 0; i < players.size(); i++) {
-    	chars.push_back(players[i]->getPlayerChar());
-    }
-
-    auto collectOsap = std::make_shared<CollectOSAP>(chars);
+    auto collectOsap = std::make_shared<CollectOSAP>();
     auto slc = std::make_shared<SLC>(this);
     auto slc1 = std::make_shared<SLC>(this);
     auto slc2 = std::make_shared<SLC>(this);
@@ -331,6 +325,10 @@ void Board::initBoard() {
     auto gooseNesting = std::make_shared<GooseNesting>();
     auto goToTims = std::make_shared<GoToTims>();
     auto coopFee = std::make_shared<CoopFee>();
+
+    for (int i = 0; i < players.size(); i++) {
+        collectOsap->setOnCell(players[i]->getPlayerChar());
+    }
     
     board[0] = collectOsap;
     board[1] = AL;

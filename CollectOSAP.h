@@ -6,7 +6,7 @@
 
 class CollectOSAP: public Cell {
 	public:
-		CollectOSAP (std::vector<char> & chars);
+		CollectOSAP ();
 		virtual void action (std::shared_ptr<Player> p, bool b) override;
 };
 
