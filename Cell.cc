@@ -36,7 +36,8 @@ void Cell::setNumImprov (int num) {
 	numImprovements = num;
 }
 
-void Cell::setOwner (shared_ptr<Player> p){
+
+void Cell::setOwner (std::shared_ptr<Player> p) {
 	owner = p;
 }
 

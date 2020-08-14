@@ -56,6 +56,9 @@ void Property::downgrade (){
         cout << name << " Cannont be downgraded" << endl;
 }
 
+void Property::setOwner(Player* p) {
+	owner = std::make_shared<Player>(*p);
+}
 
 void Property::setOwner (shared_ptr<Player> p) {
 	owner = p;

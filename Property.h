@@ -37,7 +37,8 @@ class Property : public Cell {
 		
 		virtual void upgrade ();
                 virtual void downgrade ();
-		
+	
+		void setOwner(Player* p);	
 		void setOwner (std::shared_ptr<Player> p) override;
 
 		// Subject methods

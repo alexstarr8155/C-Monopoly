@@ -127,6 +127,8 @@ void Player::trade(std::shared_ptr<Player> other, int money, Property* others) {
 		pay(other, money);
 		owned.push_back(others);
 		other->owned.erase(it);
+
+		others->setOwner(this);
 	}
 }
 
@@ -142,6 +144,8 @@ void Player::trade(std::shared_ptr<Player> other, Property* mine, int money) {
 		this->money += money;
 		other->owned.push_back(*it);
 		owned.erase(it);
+
+		mine->setOwner(other);
 	}
 }
 
@@ -177,6 +181,9 @@ void Player::trade(std::shared_ptr<Player> other, Property* mine, Property* othe
 				other->owned.erase(it);
 			}
 		}
+
+		mine->setOwner(other);
+		others->setOwner(this);
 
 		//owned.erase(first);
 		//other->owned.erase(second);
