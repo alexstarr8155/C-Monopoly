@@ -166,17 +166,17 @@ void Player::trade(std::shared_ptr<Player> other, Property* mine, Property* othe
 	auto first = find(owned.begin(), owned.end(), mine);
 	auto second = find(other->owned.begin(), other->owned.end(), others);
 
-	std::cout << "    " << mine->getName() << ", " << others->getName() << std::endl;
+	//std::cout << "    " << mine->getName() << ", " << others->getName() << std::endl;
 
 	if (first == owned.end()) {
 		//"Throw some exception, since this player does not have the property to trade"
-		std::cout << "First = ownded.end()" << std::endl;
+//		std::cout << "First = ownded.end()" << std::endl;
 	} else if (second == other->owned.end()) {
 		//"Throw some exception, since other player does own its property ro trade"
-		std::cout << "Second = other->owned.end()" << std::endl;
+//		std::cout << "Second = other->owned.end()" << std::endl;
 	} else {
 	
-		std::cout << (*first)->getName() << ", " << (*second)->getName() << std::endl;
+	//	std::cout << (*first)->getName() << ", " << (*second)->getName() << std::endl;
 
 		owned.push_back(others);
 		other->owned.push_back(mine);

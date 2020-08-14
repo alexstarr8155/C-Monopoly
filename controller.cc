@@ -354,9 +354,9 @@ int main(int argc, char *argv[]) {
 					curr->pay(creditor, curr->getMoney());
 				}
 
-				std::cout << "A" << std::endl;
+				//std::cout << "A" << std::endl;
 				board->removePlayer(curr);
-				std::cout << "B" << std::endl;
+				//std::cout << "B" << std::endl;
 
 				for (auto it = players.begin(); it != players.end(); ++it) {
 					if (it->second->getPlayerName().compare(curr->getPlayerName()) == 0) {
@@ -368,7 +368,7 @@ int main(int argc, char *argv[]) {
 			}
 			
 			int numPlayers = players.size();
-			std::cout << numPlayers << std::endl;
+			//std::cout << numPlayers << std::endl;
 			int nextPlayer = (board->getCurrPlayerInt() + 1) % numPlayers;
 			board->setCurrPlayer(nextPlayer);
 

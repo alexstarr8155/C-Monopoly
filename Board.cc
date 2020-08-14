@@ -445,11 +445,11 @@ void Board::removePlayer(std::shared_ptr<Player> player) {
 	}
 
 */
-	std::cout << currPlayer << ", " << players.size() << std::endl;
-	for (int i = currPlayer; i < players.size(); i = i+1) {
-		std::cout << "D" << std::endl;
+	//std::cout << currPlayer << ", " << players.size() << std::endl;
+	for (int i = currPlayer; i < playerNum; i = i+1) {
+	//	std::cout << "D" << std::endl;
 		players[i] = std::move(players[i+1]);
-		std::cout << "E" << std::endl;
+	//	std::cout << "E" << std::endl;
 	}
 	playerNum--;
 }
