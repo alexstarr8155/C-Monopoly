@@ -505,29 +505,37 @@ std::shared_ptr<Player> Board::getCurrPlayer() {
 	return players[currPlayer];
 }
 
+void savePlayer(int i) {
+    std::string playerName = players[i]->getPlayerName();
+    char playerChar = players[i]->getPlayerChar();
+    int timsCups = players[i]->getTimsCards();
+    int money = players[i]->getMoney();
+    int position = players[i]->getPosition();
+
+    if (position == 10) {
+        if (players[i]->getInTims()) {
+            outfile << playerName << " " << playerChar << " " << timsCups << " " << money << position << 1 << players[i]->getTurnsInTims() << std::endl;
+        }
+        else {
+            outfile << playerName << " " << playerChar << " " << timsCups << " " << money << position << 0 << std::endl;
+        }
+    }
+    else {
+        outfile << playerName << " " << playerChar << " " << timsCups << " " << money << " " << position << std::endl;
+    }
+}
+
 void Board::save(std::string fileName) {
 	
 	std::ofstream outfile{"output.txt"};
 	outfile << playerNum << std::endl;
 
-	for (int i = 0; i < playerNum; ++i) {
-		std::string playerName = players[i]->getPlayerName();
-		char playerChar = players[i]->getPlayerChar();
-		int timsCups = players[i]->getTimsCards();
-		int money = players[i]->getMoney();
-		int position = players[i]->getPosition();
+	for (int i = currPlayer; i < playerNum; ++i) {
+        savePlayer(i);
+    }
 
-		if (position == 10) {
-			if (players[i]->getInTims()) {
-				outfile << playerName << " " << playerChar << " " << timsCups << " " << money << position << 1 << players[i]->getTurnsInTims() << std::endl;
-			}
-			else {
-				outfile << playerName << " " << playerChar << " " << timsCups << " " << money << position << 0 << std::endl;
-			}
-		}
-		else {
-			outfile << playerName << " " << playerChar << " " << timsCups << " " << money << " " << position << std::endl;
-		}
+    for (int i = 0; i < currPlayer; ++i) {
+		savePlayer(i);
 	}
 	
 	for (int i = 0; i < 40; ++i) {
