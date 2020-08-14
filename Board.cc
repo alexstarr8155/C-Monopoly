@@ -20,7 +20,12 @@
 #include "Tuition.h"
 #include "CollectOSAP.h"
 
-Board::Board(int playerNum) : playerNum{playerNum} {
+Board::Board(std::string fileName) {
+
+    std::ifstream infile{fileName};
+
+    this->playerNum = 0;
+    infile >> (this->playerNum);
 
     std::vector<char> playerChar = {'G', 'B', 'D', 'P', 'S', '$', 'L', 'T'};
     std::vector<std::string> playerStr = {"Goose", "GRT Bus", "Tim Hortons Doughnut", "Professor", "Student", "Money", "Laptop", "Pink Tie"};
@@ -29,7 +34,65 @@ Board::Board(int playerNum) : playerNum{playerNum} {
         std::shared_ptr<Player> player = std::make_shared<Player>(playerStr[i], playerChar[i], 1500);
         players[i] = player;
     }
+
     initBoard();
+
+    for (int i = 0; i < playerNum; ++i) {
+        std::string name = "";
+        char playerChar = '\0';
+        int timsCups = 0;
+        int money = 0;
+        int position = 0;
+        bool inTims = false;
+        int turnsInTims = 0;
+
+        infile >> name;
+        infile >> playerChar;
+        infile >> timsCups;
+        infile >> money;
+        infile >> position;
+
+        if (position == 10) {
+            int temp = 0;
+            infile >> temp;
+
+            if (temp == 1) {
+                inTims = true;
+                infile >> turnsInTims;
+            }
+        }
+
+        players[i]->setName(name);
+        players[i]->setPlayerChar(playerChar);
+        players[i]->setMoney(money);
+        players[i]->setPosition(position);
+        players[i]->setTimsCups(timsCups);
+        players[i]->setInTims(inTims);
+        players[i]->setTurnsInTims(turnsInTims);
+    }
+
+    for (int i = 0; i < 40; i++) {
+        if (i != 0 && i != 2 && i != 4 && i != 7 && i != 10 && i != 17 && i != 20 && i != 22 && i != 30 && i != 33 && i != 36 && i != 38) {
+            std::string name = "";
+            std::string owner = "";
+            int improvements = 0;
+
+            infile >> name;
+            infile >> owner;
+            infile >> improvements;
+
+            std::shared_ptr<Player> player = nullptr;
+            for (int i = 0; i < playerNum; i++) {
+                if (players[i]->getName() == owner) {
+                    player = players[i];
+                }
+            }
+
+            player->addProperty(board[i]);
+            board[i]->setOwner(player);
+            board[i]->setNumImprov(improvements);
+        }
+    }
 }
 
 Board::Board(std::map<const std::string, std::shared_ptr<Player>> & p, int num) : playerNum{num} {
