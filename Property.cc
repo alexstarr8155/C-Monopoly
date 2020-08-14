@@ -40,7 +40,7 @@ void Property::mortgage () {
 }
 
 void Property::unmortgage () {
-	owner->removeMoney(purchase_cost/2);
+	owner->removeMoney(purchase_cost*60);
 	mortgaged = false;
 }
 
