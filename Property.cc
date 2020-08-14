@@ -48,11 +48,11 @@ int Property::getValue () const {
 	return purchase_cost;
 }
 
-void Property::upgrade (int num){
+void Property::upgrade (){
         cout << name << " Cannot be upgraded" << endl;
 }
 
-void Property::downgrade (int num){
+void Property::downgrade (){
         cout << name << " Cannont be downgraded" << endl;
 }
 

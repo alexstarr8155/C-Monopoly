@@ -5,6 +5,8 @@
 
 class ImprovableProperty : public Property {
 	
+	bool completeSet () const;
+
 	std::vector<int> tuition;
 	int improv_cost;
 
@@ -13,8 +15,8 @@ class ImprovableProperty : public Property {
 		
 		int getNumImprov () const;
 		virtual void mortgage();
-		virtual void upgrade (int num) override;
-		virtual void downgrade (int num) override;
+		virtual void upgrade () override;
+		virtual void downgrade () override;
 		int getValue () const override;
 		virtual int getRent () const override;
 		

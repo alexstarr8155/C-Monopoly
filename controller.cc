@@ -213,10 +213,10 @@ int main(int argc, char *argv[]) {
 				std::cout << "You don't own that property" << std::endl;
 			}
 			else if (buy == "buy") {
-				prop->upgrade(1);
+				prop->upgrade();
 			}
 			else if (buy == "sell") {
-				prop->downgrade(1);
+				prop->downgrade();
 			}
 
 			display.display();

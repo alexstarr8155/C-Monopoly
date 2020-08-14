@@ -20,12 +20,33 @@ int ImprovableProperty::getNumImprov () const {
 }
 
 
-void ImprovableProperty::upgrade (int num){
-	numImprovements += num;
+void ImprovableProperty::upgrade (){
+	if (completeSet() && numImprovements < 5){
+		try {
+			owner->removeMoney(improv_cost);
+			numImprovements++;
+		}
+		catch (...) {
+			cout << owner->getPlayerName() << " does not have enough money to improve " << name << endl;
+		}
+	}
+	else if (!completeSet()){
+		cout << "You need the whole set to improve a property" << endl;
+	}
+	else if (numImprovements >= 5){
+		cout << "You cannot improve any more" << endl;
+	}
+
 }
 
-void ImprovableProperty::downgrade (int num){
-	numImprovements -= num;
+void ImprovableProperty::downgrade (){
+	if (numImprovements > 0) {
+		numImprovements--;
+	}
+	else { 
+		cout << "There are no improvements on this property" << endl;
+	}
+
 }
 
 
@@ -33,6 +54,15 @@ int ImprovableProperty::getValue () const {
 	return purchase_cost + improv_cost * numImprovements; 
 }
 
+
+bool ImprovableProperty::completeSet () const {
+	for (auto it = set_ownership.begin(); it != set_ownership.end(); ++it){
+		if (it->second != owner->getPlayerChar()){
+			return false;
+		}
+	}
+	return true;
+}
 
 int ImprovableProperty::getRent () const {
 	
@@ -43,12 +73,16 @@ int ImprovableProperty::getRent () const {
 	if (set_ownership.begin()->second == 'z') {
 		return tuition.at(0);
 	}
-
+/*
 	for (auto it = set_ownership.begin(); it != set_ownership.end(); ++it){
 		
 		if (it->second != owner->getPlayerChar()){
 			return tuition.at(0);
 		}
+	}
+*/
+	if (!completeSet()){
+		return tuition.at(0);
 	}
 
 	return tuition.at(0) * 2;

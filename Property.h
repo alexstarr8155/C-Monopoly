@@ -35,8 +35,8 @@ class Property : public Cell {
 		virtual int getValue () const;
 		void action (std::shared_ptr<Player> p, bool b);
 		
-		virtual void upgrade (int num);
-                virtual void downgrade (int num);
+		virtual void upgrade ();
+                virtual void downgrade ();
 		
 		void setOwner (std::shared_ptr<Player> p) override;
 
