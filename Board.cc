@@ -19,6 +19,7 @@
 #include "GooseNesting.h"
 #include "Tuition.h"
 #include "CollectOSAP.h"
+#include "BankruptException.h"
 
 Board::Board(std::string fileName) {
 
@@ -411,8 +412,11 @@ void Board::moveBy(int diceRoll) {
 	//temp.display();
 	try {
 		board[playerPosition]->action(players[i], false);
-	}
-	catch (...) {
+	} catch (BankruptException b) {
+		
+		throw b;
+
+	} catch (...) {
 		auction(playerPosition, currPlayer);
 	}
 }

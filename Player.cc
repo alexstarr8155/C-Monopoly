@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <iostream>
 #include "Improvable.h"
+#include "BankruptException.h"
 
 Player::Player (const std::string &name, char playerChar, int money): name{name}, playerChar{playerChar}, money{money}, netWorth{money} {
 	position = 0;
@@ -69,7 +70,8 @@ void Player::addMoney(int amount) {
 
 void Player::removeMoney(int amount) {
 	if (amount > money) {
-		throw "Not enough money";
+		money -= amount;
+		throw BankruptException(amount - money, nullptr);
 	}
 	money -= amount;
 }
@@ -98,19 +100,31 @@ void Player::moveTo(int pos) {
 	position = pos;
 }
 
+bool Player::allPropertiesAreMortgaged() {
+	
+	bool mortgaged = true;
+	for (auto it = owned.begin(); it != owned.end(); ++it) {
+		mortgaged = mortgaged && (*it)->is_mortgaged();
+	}
+
+	return mortgaged;
+
+}
+
 void Player::buy(Property * p) {
 	if (p->getPrice() > money){
 		throw "Not enough money";
 	}
-	money -= p->getPrice();
+	removeMoney(p->getPrice());
 	owned.push_back(p);
 }
 
 void Player::pay(std::shared_ptr<Player> other, int amount) {
 	if (amount > money) {
-		//"Throw some exception to disallow this transaction"
-	} else {
 		money -= amount;
+		throw BankruptException(amount - money, other);
+	} else {
+		removeMoney(amount);
 		other->money += amount;
 	}
 }
@@ -140,7 +154,7 @@ void Player::trade(std::shared_ptr<Player> other, Property* mine, int money) {
 	} else if (it == owned.end()) {// "Checking if other play owns this property"
 		// "Throw some exception since other person does not own this property"
 	} else {
-		other->money -= money;
+		other->removeMoney(money);
 		this->money += money;
 		other->owned.push_back(*it);
 		owned.erase(it);

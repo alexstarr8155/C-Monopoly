@@ -43,6 +43,8 @@ public:
 	void move(int amount);
 	void moveTo(int pos);
 
+	bool allPropertiesAreMortgaged();
+
 	void buy(Property *p);
 	void pay(std::shared_ptr<Player> other, int amount);
 	void trade(std::shared_ptr<Player> other, Property* mine, Property* others);

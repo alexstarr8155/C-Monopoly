@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Property.h"
 #include "BoardDisplay.h"
+#include "BankruptException.h"
 
 Property* getProperty(std::string, std::shared_ptr<Player>);
 
@@ -148,28 +149,51 @@ int main(int argc, char *argv[]) {
 	} else {
 		// "Starting game input needed"
 		setupPlayers(players);
-
 		board = new Board(players, players.size());
 	}
 
 	
 	BoardDisplay display(*board);
-
 	display.display();
+
+	bool locked = false;
+	bool canDeclare = false;
+
+	std::shared_ptr<Player> creditor = nullptr;
+	int amountOwed = 0;
 
 	while (players.size() > 1 && !std::cin.eof()) {
 		
 		std::string cmd;
 		std::cin >> cmd;
 
+		std::shared_ptr<Player> curr = board->getCurrPlayer();
+
+		if (curr->getMoney() >= 0 && locked) {
+			std::cout << "You have raised enough money" << std::endl;
+
+			if (creditor != nullptr) {
+				creditor.addMoney(amountOwed);
+			}
+
+			locked = false;
+		}
+
+		if (curr->allPropertiesAreMortgaged() && curr->getMoney() < 0) {
+			canDeclare = true;
+			std::cout << "You have mortgaged all your properties, unless you can raise enough money through trading, you must declare bankruptcy" << std::endl;
+		} else 	if (locked) {
+			std::cout << "You are in insolvency you may only trade, mortgage, or sell improvements: $" << (-1 * curr->getMoney()) << " still owed" <<  std::endl;
+		}
+
 		//"For testing purposes"
-		if (cmd.compare("r") == 0) {
+		if (cmd.compare("r") == 0 && !locked) {
 			int n;
 			std::cin >> n;
 
 			board->moveBy(n);
 			display.display();
-		} else if (cmd.compare("roll") == 0) {
+		} else if (cmd.compare("roll") == 0 && !locked) {
 			
 			if (testingMode) {
 				int d1, d2;
@@ -184,12 +208,18 @@ int main(int argc, char *argv[]) {
 				
 
 			} else {
-				board->move();
+				try {
+					board->move();
+				} catch (BankruptException b) {
+					locked = true;
+					creditor = b.getCreditor();
+					amountOwed = b.getOwed();
+				}
 			}
 
 			display.display();
 
-		} else if (cmd.compare("next") == 0) {
+		} else if (cmd.compare("next") == 0 && !locked) {
 			
 			int numPlayers = players.size();
 			int nextPlayer = (board->getCurrPlayerInt() + 1) % numPlayers;
@@ -262,7 +292,7 @@ int main(int argc, char *argv[]) {
 			if (!prop) {
 				std::cout << "You don't own that property" << std::endl;
 			}
-			else if (buy == "buy") {
+			else if (buy == "buy" && !locked) {
 				prop->upgrade();
 			}
 			else if (buy == "sell") {
@@ -272,7 +302,7 @@ int main(int argc, char *argv[]) {
 			display.display();
 			
 		} 
-		else if (cmd.compare("mortgage") == 0) {
+		else if (cmd.compare("mortgage") == 0 && !locked) {
 			std::string prop;
 			std::cin >> prop;
 			Property* p = getProperty(prop, *board);
@@ -293,7 +323,13 @@ int main(int argc, char *argv[]) {
 			//"unmortgage property
 		} 
 		else if (cmd.compare("bankrupt") == 0) {
-			//"Declare bankruptcy"
+			
+			if (!canDeclare) {
+				std::cout << "You are not allowed to declare bankruptcy as of now" << std::endl;
+			} else {
+				
+			}
+
 		} 
 		else if (cmd.compare("assets") == 0) {
 			// "Display the assets of the current player"

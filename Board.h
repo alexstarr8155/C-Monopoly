@@ -31,6 +31,7 @@ class Board {
 		void playRound();
 		int getCurrPlayerInt() const;
 		void setCurrPlayer (int i);
+		void raiseFunds(int needed);
 		void auction (int loc, int from);
 		std::shared_ptr<Player> getCurrPlayer();
 		void save(std::string fileName);
