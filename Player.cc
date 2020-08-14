@@ -125,7 +125,7 @@ void Player::trade(std::shared_ptr<Player> other, int money, Property* others) {
 		// "Throw some exception since other person does not own this property"
 	} else {
 		pay(other, money);
-		owned.push_back(*it);
+		owned.push_back(others);
 		other->owned.erase(it);
 	}
 }

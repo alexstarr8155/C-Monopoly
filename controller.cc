@@ -7,6 +7,8 @@
 #include "Property.h"
 #include "BoardDisplay.h"
 
+Property* getProperty(std::string, std::shared_ptr<Player>);
+
 void setupPlayers(std::map<const std::string, std::shared_ptr<Player>> & players) {
 		std::cout << "Enter the Number of Players: ";
 		int numPlayers = 0;
@@ -94,7 +96,12 @@ void printAssets (std::shared_ptr<Player> p){
 }
 
 Property* getProperty(std::string propName, Board& board) {
-	auto currPlayer = board.getCurrPlayer();
+	std::shared_ptr<Player> currPlayer = board.getCurrPlayer();
+	return getProperty(propName, currPlayer);
+}
+
+Property* getProperty(std::string propName, std::shared_ptr<Player> currPlayer) {
+	//auto currPlayer = board.getCurrPlayer();
 	auto props = currPlayer->getProperties();
 	
 	Property* prop;
@@ -116,7 +123,7 @@ int main(int argc, char *argv[]) {
 
 	for (int i = 0; i < argc; i++) {
 		std::string temp(argv[i]);
-		std::cout << i << ", " << argv[i] << std::endl;
+		//std::cout << i << ", " << argv[i] << std::endl;
 		args.push_back(temp);
 	}
 	
@@ -222,11 +229,11 @@ int main(int argc, char *argv[]) {
 
 			Player* curr = board->getCurrPlayer().get();
 			Property* pGive = getProperty(give, *board);
-			Property* pReceive = getProperty(receive, *board);
+			Property* pReceive = getProperty(receive, other);
 
 			if (g != -1 && r != -1) {
 				// "Trade with int version"
-				std::cout << other->getPlayerName() << std::endl;
+				//std::cout << other->getPlayerName() << std::endl;
 				
 
 				curr->addMoney(r-g);
