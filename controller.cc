@@ -149,6 +149,18 @@ int main(int argc, char *argv[]) {
 			std::string otherPlayer;
 			std::cin >> otherPlayer;
 
+			std::shared_ptr<Player> other = nullptr;
+			for (auto it = players.begin(); it != players.end(); it++) {
+				if ((it->second)->getPlayerName().compare(otherPlayer)) {
+					other = it->second;
+					break;	
+				}
+			}
+			if (other == nullptr) {
+				std::cout << "That is not a valid other player" << std::endl;
+				break;
+			}
+			
 			std::string give;
 			std::cin >> give;
 			int g = -1;
@@ -165,16 +177,23 @@ int main(int argc, char *argv[]) {
 				r = std::stoi(receive);
 			} catch (...) {}
 
+			Player* curr = board.getCurrPlayer().get();
+			Property* pGive = getProperty(give, board);
+			Property* pReceive = getProperty(receive, board);
 
 			if (g != -1 && r != -1) {
 				// "Trade with int version"	
-
+				curr->addMoney(r);
+				other->removeMoney(g);
 			} else if (g != -1) {
 				// "Trade int for Property"
+				curr->trade(other, g, pReceive);
 			} else if (r != -1) {
 				// "Trade Property with int"
+				curr->trade(other, pGive, r);
 			} else {
-				// "Trade Prop with Prop"
+
+				curr->trade(other, pGive, pReceive);
 			}
 
 		} 
