@@ -109,12 +109,22 @@ Property* getProperty(std::string propName, Board& board) {
 }
 
 int main(int argc, char *argv[]) {
+
+	std::vector<std::string> args;
+
+	for (int i = 0; i < argc; i++) {
+		std::string temp(argv[i]);
+		args.push_back(temp);
+	}
 	
 //	Board board;
-
 	std::map<const std::string, std::shared_ptr<Player>> players;
-	if (argc > 1) {
-		// "Load file given"
+	bool testingMode = false;
+	if (argc > 1 && args[1].compare("-testing") == 0) {
+		testingMode = true;
+	}
+	if ((argc > 2 && args[1].compare("-testing") == 0) || (argc > 1 && args[1].compare("-testing") != 0)) {
+		//"Load Game"
 	} else {
 		// "Starting game input needed"
 		
@@ -140,11 +150,30 @@ int main(int argc, char *argv[]) {
 			display.display();
 		} else if (cmd.compare("roll") == 0) {
 			
-			board.move();
+			if (testingMode) {
+				int d1, d2;
+				std::cin >> d1;
+				std::cin >> d2;
+
+				board.moveBy(d1 + d2);
+				
+				int numPlayers = players.size();
+				//int nextPlayer = (board.getCurrPlayerInt() + 1) % numPlayers;
+				//board.setCurrPlayer(nextPlayer);
+				
+
+			} else {
+				board.move();
+			}
+
 			display.display();
 
 		} else if (cmd.compare("next") == 0) {
 			
+			int numPlayers = players.size();
+			//int nextPlayer = (board.getCurrPlayerInt + 1) % numPlayers;
+			//board.setCurrPlayer(nextPlayer);
+
 		} else if (cmd.compare("trade") == 0) {
 			std::string otherPlayer;
 			std::cin >> otherPlayer;
@@ -158,7 +187,7 @@ int main(int argc, char *argv[]) {
 			}
 			if (other == nullptr) {
 				std::cout << "That is not a valid other player" << std::endl;
-				break;
+				continue;
 			}
 			
 			std::string give;
