@@ -132,8 +132,9 @@ int main(int argc, char *argv[]) {
 
 	} else {
 		// "Starting game input needed"
-		board = new Board(players, players.size());
 		setupPlayers(players);
+
+		board = new Board(players, players.size());
 	}
 
 	
