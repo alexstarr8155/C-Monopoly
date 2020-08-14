@@ -196,6 +196,8 @@ int main(int argc, char *argv[]) {
 			else if (buy == "sell") {
 				prop->downgrade(1);
 			}
+
+			display.display();
 			
 		} 
 		else if (cmd.compare("mortgage") == 0) {
@@ -203,7 +205,11 @@ int main(int argc, char *argv[]) {
 			std::cin >> prop;
 			Property* p = getProperty(prop, board);
 
-			p->mortgage();
+			try {
+				p->mortgage();
+			} catch (...) {
+				std::cout << "There are improvements on this property, sell them before mortgaging" << std::endl;
+			}
 			
 		} 
 		else if (cmd.compare("unmortgage") == 0) {
