@@ -29,6 +29,7 @@ class Board {
 		void playRound();
 		std::shared_ptr<Player> getCurrPlayer();
 		void save(std::string fileName);
+		void load(std::string fileName);
 
 		friend class BoardDisplay;
 };

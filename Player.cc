@@ -166,7 +166,33 @@ void Player::trade(std::shared_ptr<Player> other, Property* mine, Property* othe
 
 }
 
+void Player::setName(std::string name) {
+	this->name = name;
+}
 
+void Player::setPlayerChar(char playerChar) {
+	this->playerChar = playerChar;
+}
+
+void Player::setMoney(int money) {
+	this->money = money;
+}
+
+void Player::setPosition(int position) {
+	this->position = position;
+}
+
+void Player::setTimsCups(int timsCups) {
+	this->hasTimsCard = timsCups;
+}
+
+void Player::setInTims(bool inTims) {
+	this->inTims = inTims;
+}
+
+void Player::setTurnsInTims(int turnsInTims) {
+	this->turnsInTims = turnsInTims;
+}
 
 
 

@@ -49,6 +49,14 @@ public:
 	void trade(std::shared_ptr<Player> other, Property* mine, int money);
 	void trade(std::shared_ptr<Player> other, int money, Property* others);
 
+	void setName(std::string name);
+	void setPlayerChar(char playerChar);
+	void setMoney(int money);
+	void setPosition(int position);
+	void setTimsCups(int timsCups);
+	void setInTims(bool inTims);
+	void setTurnsInTims(int turnsInTims);
+
 };
 
 #endif

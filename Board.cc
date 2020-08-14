@@ -38,7 +38,6 @@ Board::Board(std::map<const std::string, std::shared_ptr<Player>> & p, int num) 
 		count++;
 	}
 
-
 	initBoard();
 }
 
