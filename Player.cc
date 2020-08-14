@@ -111,9 +111,9 @@ void Player::pay(std::shared_ptr<Player> other, int amount) {
 	}
 }
 
-void Player::trade(std::shared_ptr<Player> other, int money, std::shared_ptr<Property> others) {
+void Player::trade(std::shared_ptr<Player> other, int money, Property* others) {
 
-	auto it = find(other->owned.begin(), other->owned.end(), others.get());
+	auto it = find(other->owned.begin(), other->owned.end(), others);
 
 	if (money > this->money) { // "Checking if the current player has enough money for the trade"
 		//"Throw some exception to disallow this trade"
@@ -126,8 +126,8 @@ void Player::trade(std::shared_ptr<Player> other, int money, std::shared_ptr<Pro
 	}
 }
 
-void Player::trade(std::shared_ptr<Player> other, std::shared_ptr<Property> mine, int money) {
-	auto it = find(owned.begin(), owned.end(), mine.get());
+void Player::trade(std::shared_ptr<Player> other, Property* mine, int money) {
+	auto it = find(owned.begin(), owned.end(), mine);
 
 	if (money > other->money) { // "Checking if the current player has enough money for the trade"
 		//"Throw some exception to disallow this trade"
@@ -141,10 +141,10 @@ void Player::trade(std::shared_ptr<Player> other, std::shared_ptr<Property> mine
 	}
 }
 
-void Player::trade(std::shared_ptr<Player> other, std::shared_ptr<Property> mine, std::shared_ptr<Property> others) {
+void Player::trade(std::shared_ptr<Player> other, Property* mine, Property* others) {
 	
-	auto first = find(owned.begin(), owned.end(), mine.get());
-	auto second = find(other->owned.begin(), other->owned.end(), others.get());
+	auto first = find(owned.begin(), owned.end(), mine);
+	auto second = find(other->owned.begin(), other->owned.end(), others);
 
 	if (first == owned.end()) {
 		//"Throw some exception, since this player does not have the property to trade"
