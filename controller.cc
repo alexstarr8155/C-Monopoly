@@ -110,7 +110,8 @@ Property* getProperty(std::string propName, Board& board) {
 
 int main(int argc, char *argv[]) {
 
-	Board *temp;
+	Board *board;
+
 	std::vector<std::string> args;
 
 	for (int i = 0; i < argc; i++) {
@@ -127,16 +128,16 @@ int main(int argc, char *argv[]) {
 	if ((argc > 2 && args[1].compare("-testing") == 0) || (argc > 1 && args[1].compare("-testing") != 0)) {
 		
 		std::string filename = args[2];
-		temp = new Board(filename);
+		board = new Board(filename);
 
 	} else {
 		// "Starting game input needed"
-		temp = new Board(players, players.size());
+		board = new Board(players, players.size());
 		setupPlayers(players);
 	}
 
-	Board board = *temp;
-	BoardDisplay display(board);
+	
+	BoardDisplay display(*board);
 
 	display.display();
 
@@ -150,7 +151,7 @@ int main(int argc, char *argv[]) {
 			int n;
 			std::cin >> n;
 
-			board.moveBy(n);
+			board->moveBy(n);
 			display.display();
 		} else if (cmd.compare("roll") == 0) {
 			
@@ -159,15 +160,15 @@ int main(int argc, char *argv[]) {
 				std::cin >> d1;
 				std::cin >> d2;
 
-				board.moveBy(d1 + d2);
+				board->moveBy(d1 + d2);
 				
 				int numPlayers = players.size();
-				int nextPlayer = (board.getCurrPlayerInt() + 1) % numPlayers;
-				board.setCurrPlayer(nextPlayer);
+				int nextPlayer = (board->getCurrPlayerInt() + 1) % numPlayers;
+				board->setCurrPlayer(nextPlayer);
 				
 
 			} else {
-				board.move();
+				board->move();
 			}
 
 			display.display();
@@ -175,8 +176,8 @@ int main(int argc, char *argv[]) {
 		} else if (cmd.compare("next") == 0) {
 			
 			int numPlayers = players.size();
-			int nextPlayer = (board.getCurrPlayerInt() + 1) % numPlayers;
-			board.setCurrPlayer(nextPlayer);
+			int nextPlayer = (board->getCurrPlayerInt() + 1) % numPlayers;
+			board->setCurrPlayer(nextPlayer);
 
 		} else if (cmd.compare("trade") == 0) {
 			std::string otherPlayer;
@@ -210,9 +211,9 @@ int main(int argc, char *argv[]) {
 				r = std::stoi(receive);
 			} catch (...) {}
 
-			Player* curr = board.getCurrPlayer().get();
-			Property* pGive = getProperty(give, board);
-			Property* pReceive = getProperty(receive, board);
+			Player* curr = board->getCurrPlayer().get();
+			Property* pGive = getProperty(give, *board);
+			Property* pReceive = getProperty(receive, *board);
 
 			if (g != -1 && r != -1) {
 				// "Trade with int version"
@@ -240,7 +241,7 @@ int main(int argc, char *argv[]) {
 			std::string buy;
 			std::cin >> buy;	
 			
-			Property* prop = getProperty(propName, board);
+			Property* prop = getProperty(propName, *board);
 
 			if (!prop) {
 				std::cout << "You don't own that property" << std::endl;
@@ -258,7 +259,7 @@ int main(int argc, char *argv[]) {
 		else if (cmd.compare("mortgage") == 0) {
 			std::string prop;
 			std::cin >> prop;
-			Property* p = getProperty(prop, board);
+			Property* p = getProperty(prop, *board);
 
 			try {
 				p->mortgage();
@@ -270,7 +271,7 @@ int main(int argc, char *argv[]) {
 		else if (cmd.compare("unmortgage") == 0) {
 			std::string prop;
 			std::cin >> prop;
-			Property * p = getProperty(prop, board);
+			Property * p = getProperty(prop, *board);
 
 			p->unmortgage();
 			//"unmortgage property
@@ -280,7 +281,7 @@ int main(int argc, char *argv[]) {
 		} 
 		else if (cmd.compare("assets") == 0) {
 			// "Display the assets of the current player"
-			printAssets(board.getCurrPlayer());
+			printAssets(board->getCurrPlayer());
 		} 
 		else if (cmd.compare("all") == 0) {
 			//"Display the assets of all players"
@@ -291,14 +292,14 @@ int main(int argc, char *argv[]) {
 		else if (cmd.compare("save") == 0) {
 			std::string filename;
 			std::cin >> filename;
-			board.save(filename);
+			board->save(filename);
 		} else {
 			if (!std::cin.eof()) {
 				std::cout << "Invalid command, try again: ";
 			}
 		}
 	}
-	delete temp;
+	delete board;
 }
 
 
