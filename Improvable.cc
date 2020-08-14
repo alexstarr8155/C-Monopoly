@@ -42,6 +42,7 @@ void ImprovableProperty::upgrade (){
 void ImprovableProperty::downgrade (){
 	if (numImprovements > 0) {
 		numImprovements--;
+		owner->addMoney(improv_cost / 2);
 	}
 	else { 
 		cout << "There are no improvements on this property" << endl;
