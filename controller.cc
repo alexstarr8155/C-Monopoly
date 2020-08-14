@@ -302,6 +302,7 @@ int main(int argc, char *argv[]) {
 			std::string filename;
 			std::cin >> filename;
 			board->save(filename);
+			break;
 		} else {
 			if (!std::cin.eof()) {
 				std::cout << "Invalid command, try again: ";
