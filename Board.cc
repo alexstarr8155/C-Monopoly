@@ -3,6 +3,8 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
+#include <algorithm>
+#include <stdexcept>
 #include "Board.h"
 #include "BoardDisplay.h"
 #include "Property.h"
@@ -37,6 +39,7 @@ Board::Board(std::map<const std::string, std::shared_ptr<Player>> & p, int num) 
 		players[count] = it->second;
 		count++;
 	}
+
 
 	initBoard();
 }
@@ -326,8 +329,12 @@ void Board::moveBy(int diceRoll) {
 
 	//BoardDisplay temp(*this);
 	//temp.display();
-
-	board[playerPosition]->action(players[i], false);
+	try {
+		board[playerPosition]->action(players[i], false);
+	}
+	catch (...) {
+		auction(playerPosition, currPlayer);
+	}
 }
 
 void Board::move(){
@@ -336,11 +343,78 @@ void Board::move(){
 	currPlayer = (currPlayer + 1) % playerNum;
 }
 
+int Board::getCurrPlayerInt () const {
+	return currPlayer;
+}
+
+void Board::setCurrPlayer (int i) {
+	currPlayer = i;
+}
+
+
+void Board::auction(int loc, int from) {
+	std::vector<int> playersInAuc;
+	for (int i = 0; i < players.size(); ++i) {
+		playersInAuc.emplace_back(i);
+	}
+
+	int currentPlayer = playersInAuc.at(0);
+	int currPlayerIndex = 0;
+	int currentBid = 0;
+	while (playersInAuc.size() > 1){
+
+		std::cout << players[currentPlayer]->getPlayerName() << ": Enter an amount to raise the bid, or press W to withdraw" << std::endl;
+		std::string in;
+		std::cin >> in;
+		
+		while (true){
+			
+			if (in == "W" || in == "w") {
+				auto it = std::find(playersInAuc.begin(), playersInAuc.end(), currentPlayer);
+				playersInAuc.erase(it);
+				break;
+			}
+			else {
+				try {
+					int amount = std::stoi(in);
+					if (amount < currentBid){
+						std::cout << "You need to raise the bid, not lower it!" << std::endl;
+					}
+					else {
+						currentBid = amount;
+						break;
+					}
+				}
+				catch (...){
+					std::cout << "Please enter one of the options" << std::endl;
+				}
+			}
+		}
+
+		currPlayerIndex++;
+		if (currPlayerIndex >= playersInAuc.size()){
+			currPlayerIndex = 0;
+		}
+		currentPlayer = playersInAuc.at(currPlayerIndex);
+	}
+	board[loc]->setOwner(players[currentPlayer]);
+	players[currentPlayer]->removeMoney(currentBid);
+	players[currentPlayer]->addProperty(static_cast<Property *>(board[loc].get()));
+}
+
+
+
+
 void Board::moveTo(int loc){
 	int i = currPlayer;
 	board[players[i]->getPosition()]->leave(players[i]);
 	players[i]->moveTo(loc);
-	board[loc]->action(players[i], false);
+	try {
+		board[loc]->action(players[i], false);
+	}
+	catch (std::invalid_argument){
+		auction(loc, i);
+	}
 }
 
 void Board::playRound() {
@@ -356,7 +430,12 @@ void Board::playRound() {
 		players[i]->move(diceRoll);
 		playerPosition = players[i]->getPosition();
 		std::cout << "Player " << (i+1) << " is at position " << playerPosition << std::endl;
-		board[playerPosition]->action(players[i], false);
+		try {
+			board[playerPosition]->action(players[i], false);
+		}
+		catch (std::invalid_argument){
+			auction(playerPosition, currPlayer);
+		}
 	}
 }
 

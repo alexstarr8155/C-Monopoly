@@ -2,7 +2,7 @@
 #include "Player.h"
 
 #include <iostream>
-
+#include <stdexcept>
 using namespace std;
 
 Property::Property (const string & name, int purchase, vector<string> set):
@@ -84,8 +84,8 @@ void Property::action (shared_ptr<Player> p, bool b) {
 				break;
 			}
 			else if (in == "N" || in == "n"){
-				break;
 				// auction the property
+				throw invalid_argument("Auction time!");
 			}
 			else {
 				cout << "Please enter Y/N" << endl;

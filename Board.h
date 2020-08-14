@@ -27,6 +27,9 @@ class Board {
 		void moveBy(int diceRoll);
 		void moveTo(int loc);
 		void playRound();
+		int getCurrPlayerInt() const;
+		void setCurrPlayer (int i);
+		void auction (int loc, int from);
 		std::shared_ptr<Player> getCurrPlayer();
 		void save(std::string fileName);
 		void load(std::string fileName);
