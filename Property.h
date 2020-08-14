@@ -35,8 +35,10 @@ class Property : public Cell {
 		virtual int getValue () const;
 		void action (std::shared_ptr<Player> p, bool b);
 		
-		void upgrade (int num);
-                void downgrade (int num);
+		virtual void upgrade (int num);
+                virtual void downgrade (int num);
+		
+		void setOwner (std::shared_ptr<Player> p) override;
 
 		// Subject methods
 		void attach (Property * neighbour);

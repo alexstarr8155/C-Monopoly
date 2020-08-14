@@ -49,38 +49,17 @@ int Property::getValue () const {
 }
 
 void Property::upgrade (int num){
-        numImprovements += num;
+        cout << name << " Cannot be upgraded" << endl;
 }
 
 void Property::downgrade (int num){
-        numImprovements -= num;
+        cout << name << " Cannont be downgraded" << endl;
 }
 
-/*int Property::getRent () const {
-	return 0;
+
+void Property::setOwner (shared_ptr<Player> p) {
+	owner = p;
 }
-*/
-// If b == True, then player wants to buy the property 
-// If b == False, then:
-// 			If this is owned, then p pays rent to owner
-// 			If not, then nothing happens
-//
-// on_cell is always updated
-/*void Property::action (shared_ptr<Player> p, bool b){
-	on_cell.at(p->getPlayerChar()) = true;
-
-	if (b){
-		owned = true;
-		owner = p;
-		p->buy(this);
-		set_ownership.at(name) = p->getPlayerChar ();
-		notifyObservers();
-	}
-	else if (owner){
-		p->pay(owner, getRent());
-	}
-
-}*/
 
 void Property::action (shared_ptr<Player> p, bool b) {
 	on_cell.at(p->getPlayerChar()) = true;
