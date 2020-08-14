@@ -116,6 +116,7 @@ int main(int argc, char *argv[]) {
 
 	for (int i = 0; i < argc; i++) {
 		std::string temp(argv[i]);
+		std::cout << i << ", " << argv[i] << std::endl;
 		args.push_back(temp);
 	}
 	
@@ -127,8 +128,15 @@ int main(int argc, char *argv[]) {
 	}
 	if ((argc > 2 && args[1].compare("-testing") == 0) || (argc > 1 && args[1].compare("-testing") != 0)) {
 		
-		std::string filename = args[2];
+		std::string filename;
+		if (argc > 2) {
+			filename = args[2];
+		} else {
+			filename = args[1];
+		}
+
 		board = new Board(filename);
+		players = board->getPlayers();
 
 	} else {
 		// "Starting game input needed"

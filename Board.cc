@@ -80,6 +80,8 @@ Board::Board(std::string fileName) {
             infile >> name;
             infile >> owner;
             infile >> improvements;
+		
+	    //std::cout << name << ", " << owner << ", " << improvements << std::endl;
 
             std::shared_ptr<Player> player = nullptr;
             for (int i = 0; i < playerNum; i++) {
@@ -95,6 +97,17 @@ Board::Board(std::string fileName) {
             board[i]->setNumImprov(improvements);
         }
     }
+}
+
+std::map<const std::string, std::shared_ptr<Player>> Board::getPlayers() {
+	
+	std::map<const std::string, std::shared_ptr<Player>> map;
+
+	for (auto it = players.begin(); it != players.end(); it++) {
+		map[it->second->getPlayerName()] = it->second;
+	}
+	return map;
+
 }
 
 Board::Board(std::map<const std::string, std::shared_ptr<Player>> & p, int num) : playerNum{num} {
