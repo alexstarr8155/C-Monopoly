@@ -158,8 +158,8 @@ int main(int argc, char *argv[]) {
 				board.moveBy(d1 + d2);
 				
 				int numPlayers = players.size();
-				//int nextPlayer = (board.getCurrPlayerInt() + 1) % numPlayers;
-				//board.setCurrPlayer(nextPlayer);
+				int nextPlayer = (board.getCurrPlayerInt() + 1) % numPlayers;
+				board.setCurrPlayer(nextPlayer);
 				
 
 			} else {
@@ -171,8 +171,8 @@ int main(int argc, char *argv[]) {
 		} else if (cmd.compare("next") == 0) {
 			
 			int numPlayers = players.size();
-			//int nextPlayer = (board.getCurrPlayerInt + 1) % numPlayers;
-			//board.setCurrPlayer(nextPlayer);
+			int nextPlayer = (board.getCurrPlayerInt() + 1) % numPlayers;
+			board.setCurrPlayer(nextPlayer);
 
 		} else if (cmd.compare("trade") == 0) {
 			std::string otherPlayer;
