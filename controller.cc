@@ -107,19 +107,26 @@ int main(int argc, char *argv[]) {
 	}
 
 	Board board(players, players.size());
-	BoardDisplay display;
+	BoardDisplay display(board);
 
-	display.display(board);
+	display.display();
 
 	while (players.size() > 1 && !std::cin.eof()) {
 		
 		std::string cmd;
 		std::cin >> cmd;
 
-		if (cmd.compare("roll") == 0) {
-		
+		//"For testing purposes"
+		if (cmd.compare("r") == 0) {
+			int n;
+			std::cin >> n;
+
+			board.moveBy(n);
+			display.display();
+		} else if (cmd.compare("roll") == 0) {
+			
 			board.move();
-			display.display(board);
+			display.display();
 
 		} else if (cmd.compare("next") == 0) {
 			
