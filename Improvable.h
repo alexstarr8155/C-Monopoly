@@ -13,8 +13,8 @@ class ImprovableProperty : public Property {
 		
 		int getNumImprov () const;
 		virtual void mortgage();
-		//void upgrade (int num); moved to Property
-		//void downgrade (int num); moved to Property
+		virtual void upgrade (int num) override;
+		virtual void downgrade (int num) override;
 		int getValue () const override;
 		virtual int getRent () const override;
 		
