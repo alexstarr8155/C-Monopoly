@@ -43,9 +43,6 @@ Board::Board(std::map<const std::string, std::shared_ptr<Player>> & p, int num) 
 }
 
 void Board::initBoard() {
-/*
-*/
-
 
     currPlayer = 0;
 
@@ -237,13 +234,10 @@ void Board::initBoard() {
     PAC->attach(CIF.get());
     CIF->attach(PAC.get());
 
-
-
     std::vector<char> chars;
     for (int i = 0; i < players.size(); i++) {
     	chars.push_back(players[i]->getPlayerChar());
     }
-
 
     auto collectOsap = std::make_shared<CollectOSAP>(chars);
     auto slc = std::make_shared<SLC>(this);
@@ -258,7 +252,6 @@ void Board::initBoard() {
     auto goToTims = std::make_shared<GoToTims>();
     auto coopFee = std::make_shared<CoopFee>();
     
-
     board[0] = collectOsap;
     board[1] = AL;
     board[2] = slc;
