@@ -35,10 +35,12 @@ shared_ptr<Player> Property::getOwner () {
 */
 
 void Property::mortgage () {
+	owner->addMoney(purchase_cost/2);
 	mortgaged = true;
 }
 
 void Property::unmortgage () {
+	owner->removeMoney(purchase_cost/2);
 	mortgaged = false;
 }
 

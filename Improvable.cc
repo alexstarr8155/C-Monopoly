@@ -54,3 +54,17 @@ int ImprovableProperty::getRent () const {
 	return tuition.at(0) * 2;
 }
 
+void ImprovableProperty::mortgage() {
+	
+	if (getNumImprov() > 0) {
+		throw "There are improvements on the property, sell them before mortgaging";
+	}
+	Property::mortgage();
+
+}
+
+
+
+
+
+

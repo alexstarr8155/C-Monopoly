@@ -12,6 +12,7 @@ class ImprovableProperty : public Property {
 		ImprovableProperty (const std::string &name, int purch_cost, int up_cost, std::vector<std::string> set, std::vector<int> tuition);
 		
 		int getNumImprov () const;
+		virtual void mortgage();
 		//void upgrade (int num); moved to Property
 		//void downgrade (int num); moved to Property
 		int getValue () const override;

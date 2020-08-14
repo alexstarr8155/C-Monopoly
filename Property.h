@@ -30,7 +30,7 @@ class Property : public Cell {
 		//void setOwner (std::shared_ptr<Player> p); moved to cell
 		//std::shared_ptr<Player> getOwner (); moved to cell
 
-		void mortgage ();
+		virtual void mortgage ();
 		void unmortgage ();
 		virtual int getValue () const;
 		void action (std::shared_ptr<Player> p, bool b);

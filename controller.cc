@@ -93,6 +93,21 @@ void printAssets (std::shared_ptr<Player> p){
 	}
 }
 
+Property* getProperty(std::string propName, Board& board) {
+	auto currPlayer = board.getCurrPlayer();
+	auto props = currPlayer->getProperties();
+	
+	Property* prop;
+
+	for (auto it = props.begin(); it != props.end(); ++it){
+		if ((*it)->getName() == propName){
+			prop = (*it);
+		}
+	}
+
+	return prop;
+}
+
 int main(int argc, char *argv[]) {
 	
 //	Board board;
@@ -168,19 +183,10 @@ int main(int argc, char *argv[]) {
 			std::cin >> propName;
 
 			std::string buy;
-			std::cin >> buy;
-
-			auto currPlayer = board.getCurrPlayer();
-			auto props = currPlayer->getProperties();
+			std::cin >> buy;	
 			
-			Property* prop;
+			Property* prop = getProperty(propName, board);
 
-			for (auto it = props.begin(); it != props.end(); ++it){
-				if ((*it)->getName() == propName){
-					prop = (*it);
-				}
-			}
-			
 			if (!prop) {
 				std::cout << "You don't own that property" << std::endl;
 			}
@@ -195,13 +201,17 @@ int main(int argc, char *argv[]) {
 		else if (cmd.compare("mortgage") == 0) {
 			std::string prop;
 			std::cin >> prop;
+			Property* p = getProperty(prop, board);
 
-			//"Mortgage Property
+			p->mortgage();
+			
 		} 
 		else if (cmd.compare("unmortgage") == 0) {
 			std::string prop;
 			std::cin >> prop;
+			Property * p = getProperty(prop, board);
 
+			p->unmortgage();
 			//"unmortgage property
 		} 
 		else if (cmd.compare("bankrupt") == 0) {
@@ -220,7 +230,7 @@ int main(int argc, char *argv[]) {
 		else if (cmd.compare("save") == 0) {
 			std::string filename;
 			std::cin >> filename;
-			// "Save the game"
+			board.save(filename);
 		} else {
 			if (!std::cin.eof()) {
 				std::cout << "Invalid command, try again";
