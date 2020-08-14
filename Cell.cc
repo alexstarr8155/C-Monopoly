@@ -34,6 +34,7 @@ int Cell::getNumImprov () const {
 
 void Cell::setOwner (shared_ptr<Player> p){
         owner = p;
+	notifyObservers();
 }
 
 shared_ptr<Player> Cell::getOwner () {
