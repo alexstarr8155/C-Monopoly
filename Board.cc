@@ -87,7 +87,10 @@ Board::Board(std::string fileName) {
                     player = players[i];
                 }
             }
-            player->addProperty(static_cast<Property *>(board[i].get()));
+
+            if (player != nullptr) {
+                player->addProperty(static_cast<Property *>(board[i].get()));
+            }
             board[i]->setOwner(player);
             board[i]->setNumImprov(improvements);
         }
