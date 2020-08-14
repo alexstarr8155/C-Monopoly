@@ -151,7 +151,7 @@ int main(int argc, char *argv[]) {
 
 			std::shared_ptr<Player> other = nullptr;
 			for (auto it = players.begin(); it != players.end(); it++) {
-				if ((it->second)->getPlayerName().compare(otherPlayer)) {
+				if ((it->second)->getPlayerName().compare(otherPlayer) == 0) {
 					other = it->second;
 					break;	
 				}
@@ -182,9 +182,12 @@ int main(int argc, char *argv[]) {
 			Property* pReceive = getProperty(receive, board);
 
 			if (g != -1 && r != -1) {
-				// "Trade with int version"	
-				curr->addMoney(r);
-				other->removeMoney(g);
+				// "Trade with int version"
+				std::cout << other->getPlayerName() << std::endl;
+				
+
+				curr->addMoney(r-g);
+				other->removeMoney(r-g);
 			} else if (g != -1) {
 				// "Trade int for Property"
 				curr->trade(other, g, pReceive);
@@ -258,7 +261,7 @@ int main(int argc, char *argv[]) {
 			board.save(filename);
 		} else {
 			if (!std::cin.eof()) {
-				std::cout << "Invalid command, try again";
+				std::cout << "Invalid command, try again: ";
 			}
 		}
 	}
