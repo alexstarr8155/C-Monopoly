@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <ctime>
 #include "Board.h"
+#include "BoardDisplay.h"
 #include "Property.h"
 #include "Improvable.h"
 #include "Gym.h"
@@ -245,9 +246,9 @@ void Board::initBoard() {
 
 
     auto collectOsap = std::make_shared<CollectOSAP>(chars);
-    auto slc = std::make_shared<SLC>();
-    auto slc1 = std::make_shared<SLC>();
-    auto slc2 = std::make_shared<SLC>();
+    auto slc = std::make_shared<SLC>(this);
+    auto slc1 = std::make_shared<SLC>(this);
+    auto slc2 = std::make_shared<SLC>(this);
     auto tuition = std::make_shared<Tuition>();
     auto needlesHall = std::make_shared<NeedlesHall>();
     auto needlesHall1 = std::make_shared<NeedlesHall>();
@@ -319,18 +320,35 @@ int Board::roll() {
     return (dice1 + dice2);
 }
 
-void Board::move() {
+void Board::moveBy(int diceRoll) {
 	int i = currPlayer;
 	int playerPosition = players[i]->getPosition();
-	std::cout << "Player " << (i+1) << " is at position " << playerPosition << std::endl;
+	std::cout << players[i]->getPlayerName() << " is at position " << playerPosition << std::endl;
 	board[playerPosition]->leave(players[i]);
-	int diceRoll = roll();
-	std::cout << "Player " << (i+1) << " rolled a " << diceRoll << std::endl;
+	//int diceRoll = roll();
+	std::cout << players[i]->getPlayerName() << " rolled a " << diceRoll << std::endl;
 	players[i]->move(diceRoll);
+
 	playerPosition = players[i]->getPosition();
-	std::cout << "Player " << (i+1) << " is at position " << playerPosition << std::endl;
+	std::cout << players[i]->getPlayerName() << " is at position " << playerPosition << std::endl;
+
+	//BoardDisplay temp(*this);
+	//temp.display();
+
 	board[playerPosition]->action(players[i], false);
+}
+
+void Board::move(){
+	int diceRoll = roll();
+	moveBy(diceRoll);
 	currPlayer = (currPlayer + 1) % playerNum;
+}
+
+void Board::moveTo(int loc){
+	int i = currPlayer;
+	board[players[i]->getPosition()]->leave(players[i]);
+	players[i]->moveTo(loc);
+	board[loc]->action(players[i], false);
 }
 
 void Board::playRound() {

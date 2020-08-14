@@ -9,7 +9,8 @@ int middleSpace = ((width + 1) * 8) + width;
 int logoWidth = 46;
 int logoSpace = ((middleSpace - logoWidth) / 2) - 1;
 
-BoardDisplay::BoardDisplay() {}
+
+BoardDisplay::BoardDisplay(Board & game) : game{game} {}
 BoardDisplay::~BoardDisplay() {}
 
 void printMany(char c, int n) {
@@ -198,6 +199,10 @@ void printLogo8() {
 	printMany('_', logoWidth);
     std::cout << "|";
     printMany(' ', logoSpace);
+}
+
+void BoardDisplay::display() {
+	display(game);
 }
 
 void BoardDisplay::display(Board game) {

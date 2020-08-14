@@ -6,13 +6,14 @@
 #include "Cell.h"
 #include "Player.h"
 
+
 class Board {
 	
 	int playerNum;
 	int currPlayer;
 	std::map<int, std::shared_ptr<Player>> players;
 	std::map<int, std::shared_ptr<Cell>> board;
-
+	
 	bool rollDouble;
 
 	public:
@@ -23,6 +24,8 @@ class Board {
 		void initBoard();	
 		int roll();
 		void move();
+		void moveBy(int diceRoll);
+		void moveTo(int loc);
 		void playRound();
 		std::shared_ptr<Player> getCurrPlayer();
 		void save(std::string fileName);

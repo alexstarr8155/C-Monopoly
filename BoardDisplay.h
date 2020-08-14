@@ -4,11 +4,14 @@
 
 class BoardDisplay {
 
+	private:
+		Board & game;
 	public:
-		BoardDisplay();
+		BoardDisplay(Board& game);
 		~BoardDisplay();
 
 		void display(Board game);
+		void display();
 
 };
 
