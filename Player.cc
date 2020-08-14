@@ -70,7 +70,6 @@ void Player::addMoney(int amount) {
 
 void Player::removeMoney(int amount) {
 	if (amount > money) {
-		money -= amount;
 		throw BankruptException(amount - money, nullptr);
 	}
 	money -= amount;
@@ -121,7 +120,6 @@ void Player::buy(Property * p) {
 
 void Player::pay(std::shared_ptr<Player> other, int amount) {
 	if (amount > money) {
-		money -= amount;
 		throw BankruptException(amount - money, other);
 	} else {
 		removeMoney(amount);

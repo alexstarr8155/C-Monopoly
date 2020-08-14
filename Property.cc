@@ -57,12 +57,20 @@ void Property::downgrade (){
 }
 
 void Property::setOwner(Player* p) {
-	owned = true;
+	if (p == nullptr) {
+		owned = false;
+	} else {
+		owned = true;
+	}
 	owner = std::make_shared<Player>(*p);
 }
 
 void Property::setOwner (shared_ptr<Player> p) {
-	owned = true;
+	if (p == nullptr) {
+		owned = false;
+	} else {
+		owned = true;
+	}
 	owner = p;
 }
 

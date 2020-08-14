@@ -435,6 +435,18 @@ void Board::setCurrPlayer (int i) {
 	currPlayer = i;
 }
 
+void Board::removePlayer(std::shared_ptr<Player> player) {
+	int pos = player->getPosition();
+	board[pos]->leave(player);
+
+	for (auto it = players.begin(); it != players.end(); ++it) {
+		if (it->second->getPlayerName().compare(player->getPlayerName()) == 0) {
+			players.erase(it);
+			break;
+		}
+	}
+}
+
 
 void Board::auction(int loc, int from) {
 	std::vector<int> playersInAuc;

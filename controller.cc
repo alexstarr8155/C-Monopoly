@@ -169,21 +169,22 @@ int main(int argc, char *argv[]) {
 
 		std::shared_ptr<Player> curr = board->getCurrPlayer();
 
-		if (curr->getMoney() >= 0 && locked) {
+		if (curr->getMoney() >= amountOwed && locked) {
 			std::cout << "You have raised enough money" << std::endl;
 
 			if (creditor != nullptr) {
-				creditor.addMoney(amountOwed);
+				creditor->addMoney(amountOwed);
 			}
 
 			locked = false;
 		}
 
-		if (curr->allPropertiesAreMortgaged() && curr->getMoney() < 0) {
+		if (curr->allPropertiesAreMortgaged() && curr->getMoney() < amountOwed) {
 			canDeclare = true;
 			std::cout << "You have mortgaged all your properties, unless you can raise enough money through trading, you must declare bankruptcy" << std::endl;
 		} else 	if (locked) {
-			std::cout << "You are in insolvency you may only trade, mortgage, or sell improvements: $" << (-1 * curr->getMoney()) << " still owed" <<  std::endl;
+			std::cout << "You are in insolvency you may only trade, mortgage, or sell improvements" << std::endl; 
+			std::cout << "You have: $" << curr->getMoney() << " and owe: $" << amountOwed << std::endl;
 		}
 
 		//"For testing purposes"
@@ -327,7 +328,29 @@ int main(int argc, char *argv[]) {
 			if (!canDeclare) {
 				std::cout << "You are not allowed to declare bankruptcy as of now" << std::endl;
 			} else {
-				
+			
+				if (creditor == nullptr) {
+					//"Give all back to the Bank"
+					for (auto it = curr->getProperties().begin(); it != curr->getProperties().end(); ++it) {
+						(*it)->setOwner(nullptr);
+					}
+				} else {
+					// "Owed to another player"
+
+					for (auto it = curr->getProperties().begin(); it != curr->getProperties().end(); ++it) {
+						curr->trade(creditor, *it, 0);
+					}
+					curr->pay(creditor, curr->getMoney());
+				}
+				board->removePlayer(curr);
+
+				for (auto it = players.begin(); it != players.end(); ++it) {
+					if (it->second->getPlayerName().compare(curr->getPlayerName()) == 0) {
+						players.erase(it);
+						break;
+					}
+				}
+
 			}
 
 		} 
