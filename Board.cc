@@ -412,11 +412,7 @@ void Board::moveBy(int diceRoll) {
 	//temp.display();
 	try {
 		board[playerPosition]->action(players[i], false);
-	} catch (BankruptException b) {
-		
-		throw b;
-
-	} catch (...) {
+	} catch (std::invalid_argument arg) {
 		auction(playerPosition, currPlayer);
 	}
 }
@@ -425,6 +421,7 @@ void Board::move(){
 	int diceRoll = roll();
 	moveBy(diceRoll);
 	currPlayer = (currPlayer + 1) % playerNum;
+	std::cout << currPlayer << ", " << playerNum << std::endl;
 }
 
 int Board::getCurrPlayerInt () const {
@@ -445,6 +442,7 @@ void Board::removePlayer(std::shared_ptr<Player> player) {
 			break;
 		}
 	}
+	playerNum--;
 }
 
 

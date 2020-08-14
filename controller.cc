@@ -169,30 +169,23 @@ int main(int argc, char *argv[]) {
 
 		std::shared_ptr<Player> curr = board->getCurrPlayer();
 
-		if (curr->getMoney() >= amountOwed && locked) {
-			std::cout << "You have raised enough money" << std::endl;
-
-			if (creditor != nullptr) {
-				creditor->addMoney(amountOwed);
-			}
-
-			locked = false;
-		}
-
-		if (curr->allPropertiesAreMortgaged() && curr->getMoney() < amountOwed) {
-			canDeclare = true;
-			std::cout << "You have mortgaged all your properties, unless you can raise enough money through trading, you must declare bankruptcy" << std::endl;
-		} else 	if (locked) {
-			std::cout << "You are in insolvency you may only trade, mortgage, or sell improvements" << std::endl; 
-			std::cout << "You have: $" << curr->getMoney() << " and owe: $" << amountOwed << std::endl;
-		}
 
 		//"For testing purposes"
 		if (cmd.compare("r") == 0 && !locked) {
 			int n;
 			std::cin >> n;
 
-			board->moveBy(n);
+			try {
+				board->moveBy(n);
+			} catch (BankruptException b) {
+				locked = true;
+				creditor = b.getCreditor();
+				amountOwed = b.getOwed();
+				std::cout << "You are in insolvency, you may only trade, mortgage, or sell improvements" << std::endl; 
+				std::cout << "You have: $" << curr->getMoney() << " and owe: $" << amountOwed << std::endl;
+
+			}
+
 			display.display();
 		} else if (cmd.compare("roll") == 0 && !locked) {
 			
@@ -201,7 +194,17 @@ int main(int argc, char *argv[]) {
 				std::cin >> d1;
 				std::cin >> d2;
 
-				board->moveBy(d1 + d2);
+				try {
+					board->moveBy(d1 + d2);
+				} catch (BankruptException b) {
+					locked = true;
+					creditor = b.getCreditor();
+					amountOwed = b.getOwed();
+
+					std::cout << "You are in insolvency, you may only trade, mortgage, or sell improvements" << std::endl; 
+					std::cout << "You have: $" << curr->getMoney() << " and owe: $" << amountOwed << std::endl;
+
+				}
 				
 				int numPlayers = players.size();
 				int nextPlayer = (board->getCurrPlayerInt() + 1) % numPlayers;
@@ -215,6 +218,9 @@ int main(int argc, char *argv[]) {
 					locked = true;
 					creditor = b.getCreditor();
 					amountOwed = b.getOwed();
+					std::cout << "You are in insolvency, you may only trade, mortgage, or sell improvements" << std::endl; 
+				std::cout << "You have: $" << curr->getMoney() << " and owe: $" << amountOwed << std::endl;
+
 				}
 			}
 
@@ -266,9 +272,14 @@ int main(int argc, char *argv[]) {
 				// "Trade with int version"
 				//std::cout << other->getPlayerName() << std::endl;
 				
+				if (r-g > other->getMoney()) {
+					std::cout << "Not enough money for this trade" << std::endl;
+					break;
+				}
 
 				curr->addMoney(r-g);
 				other->removeMoney(r-g);
+
 			} else if (g != -1) {
 				// "Trade int for Property"
 				curr->trade(other, g, pReceive);
@@ -352,6 +363,14 @@ int main(int argc, char *argv[]) {
 				}
 
 			}
+			
+			int numPlayers = players.size();
+			int nextPlayer = (board->getCurrPlayerInt() + 1) % numPlayers;
+			board->setCurrPlayer(nextPlayer);
+
+			locked = false;
+
+			continue;
 
 		} 
 		else if (cmd.compare("assets") == 0) {
@@ -374,6 +393,25 @@ int main(int argc, char *argv[]) {
 				std::cout << "Invalid command, try again: ";
 			}
 		}
+
+		if (curr->getMoney() >= amountOwed && locked) {
+			std::cout << "You have raised enough money" << std::endl;
+
+			if (creditor != nullptr) {
+				creditor->addMoney(amountOwed);
+			}
+
+			locked = false;
+		}
+
+		if (curr->allPropertiesAreMortgaged() && curr->getMoney() < amountOwed) {
+			canDeclare = true;
+			std::cout << "You have mortgaged all your properties, unless you can raise enough money through trading, you must declare bankruptcy" << std::endl;
+		} else if (locked) {
+			std::cout << "You are in insolvency, you may only trade, mortgage, or sell improvements" << std::endl; 
+			std::cout << "You have: $" << curr->getMoney() << " and owe: $" << amountOwed << std::endl;
+		}
+
 	}
 	delete board;
 }
