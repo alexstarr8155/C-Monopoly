@@ -25,8 +25,9 @@ class Cell {
 
 		std::map<char, bool> who_on_cell ();
 		int getNumImprov () const;
+		void setNumImprov (int num);
 
-		void setOwner (std::shared_ptr<Player> p);
+		virtual void setOwner (std::shared_ptr<Player> p);
                 std::shared_ptr<Player> getOwner ();
 
 };

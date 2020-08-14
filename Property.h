@@ -37,6 +37,8 @@ class Property : public Cell {
 		
 		void upgrade (int num);
                 void downgrade (int num);
+		
+		void setOwner (std::shared_ptr<Player> p) override;
 
 		// Subject methods
 		void attach (Property * neighbour);

@@ -32,9 +32,12 @@ int Cell::getNumImprov () const {
 	return numImprovements;
 }
 
+void Cell::setNumImprov (int num) {
+	numImprovements = num;
+}
+
 void Cell::setOwner (shared_ptr<Player> p){
         owner = p;
-	notifyObservers();
 }
 
 shared_ptr<Player> Cell::getOwner () {
