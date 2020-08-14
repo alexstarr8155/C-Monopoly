@@ -18,7 +18,7 @@ class Board {
 
 	public:
 		Board(std::map<const std::string, std::shared_ptr<Player>> & players, int num);
-		Board(int playerNum);
+		Board(std::string fileName);
 		~Board();
 	
 		void initBoard();	

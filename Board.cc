@@ -83,12 +83,11 @@ Board::Board(std::string fileName) {
 
             std::shared_ptr<Player> player = nullptr;
             for (int i = 0; i < playerNum; i++) {
-                if (players[i]->getName() == owner) {
+                if (players[i]->getPlayerName() == owner) {
                     player = players[i];
                 }
             }
-
-            player->addProperty(board[i]);
+            player->addProperty(static_cast<Property *>(board[i].get()));
             board[i]->setOwner(player);
             board[i]->setNumImprov(improvements);
         }
