@@ -437,6 +437,7 @@ void Board::move(int diceRoll){
         players[currPlayer]->goToTims();
         currPlayer = (currPlayer + 1) % playerNum;
         rollDouble = 0;
+	return;
     }
     moveBy(diceRoll);
     if (rollDouble == 0) {
