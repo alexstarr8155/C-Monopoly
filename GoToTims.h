@@ -1,11 +1,13 @@
 #ifndef _GOTOTIMS_H_
 #define _GOTOTIMS_H_
-
 #include "Cell.h"
 
 class Board;
 
+/* this class represents the Go To Tims Tile of the Board */
+
 class GoToTims : public Cell {
+	
 	Board * owner;
 
 	public:
