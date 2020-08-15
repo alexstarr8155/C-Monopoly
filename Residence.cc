@@ -1,15 +1,14 @@
 #include "Residence.h"
 #include "Player.h"
-
 using namespace std;
 
-Residences::Residences (const string &name, vector<string> set): 
+Residences::Residences(const string &name, vector<string> set): 
 	Property{name, 200, set} {
-	
 	numImprovements = -2;
 }
 
-int Residences::getRent () const {
+// returns the cost of rent (dependent on how many other residence properties the player has)
+int Residences::getRent() const {
 	int numOwned = 0;
 	
 	if (!owner){

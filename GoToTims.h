@@ -11,8 +11,8 @@ class GoToTims : public Cell {
 	Board * owner;
 
 	public:
-		GoToTims (Board * owner);
-		virtual void action (std::shared_ptr<Player> p, bool b) override;
+		GoToTims(Board * owner);
+		virtual void action(std::shared_ptr<Player> p, bool b) override;
 };
 
 #endif

@@ -3,7 +3,7 @@
 using namespace std;
 
 /* initial construction of the Cell class where there is no one on the cell */
-Cell::Cell (const string & name): name{name} {
+Cell::Cell(const string & name): name{name} {
 	numImprovements = -2;
 	on_cell = {
 		{'G', false},
@@ -38,23 +38,23 @@ void Cell::leave(shared_ptr<Player> p){
 }
 
 // sets the number of improvements that Cell should have
-void Cell::setNumImprov (int num) {
+void Cell::setNumImprov(int num) {
 	this->numImprovements = num;
 }
 
 // returns the number of improvements on such cell
 // Note: really only applicable for improvableProperty
-int Cell::getNumImprov () const {
+int Cell::getNumImprov() const {
 	return numImprovements;
 }
 
 /// set player 'p' to be the owner of Cell
-void Cell::setOwner (std::shared_ptr<Player> p) {
+void Cell::setOwner(std::shared_ptr<Player> p) {
 	this->owner = p;
 }
 
 // returns the owner of Cell
-shared_ptr<Player> Cell::getOwner () {
+shared_ptr<Player> Cell::getOwner() {
 	return owner;
 }
 
@@ -64,7 +64,7 @@ void Cell::setMortgage(bool isMortgaged) {
 }
 
 // returns if Cell is mortgaged or not
-bool Cell::is_mortgaged () const {
+bool Cell::is_mortgaged() const {
 	return mortgaged;
 }
 

@@ -1,12 +1,11 @@
-#include "Property.h"
-#include "Player.h"
-
 #include <iostream>
 #include <stdexcept>
+#include "Property.h"
+#include "Player.h"
 using namespace std;
 
-Property::Property (const string & name, int purchase, vector<string> set):
-       	Cell{name}, purchase_cost{purchase} {
+// contructor for the Property class
+Property::Property(const string & name, int purchase, vector<string> set) : Cell{name}, purchase_cost{purchase} {
 
 	owned = false;
 	mortgaged = false;
@@ -17,75 +16,39 @@ Property::Property (const string & name, int purchase, vector<string> set):
 	numImprovements = 0;
 }
 
-int Property::getPrice () const {
-	return purchase_cost;
-}
-
-/* the commented is moved to Cell
-void Property::setOwner (shared_ptr<Player> p){
-	owner = p;
-}
-
-shared_ptr<Player> Property::getOwner () {
-	return owner;
-}
-*/
-
-void Property::mortgage () {
+// mortgages the property
+void Property::mortgage() {
 	if (!mortgaged) {
 		std::cout << owner->getMoney() << std::endl;
-		//owner->addMoney(purchase_cost/2);
-//		std::cout << ", " << owner.get() << std::endl;
 		mortgaged = true;
 	} else {
 		throw " is already mortgaged";
 	}
 }
 
-void Property::unmortgage () {
-	if (!mortgaged) {
-		std::cout << name << "is already unmortgaged" << std::endl;
-		return;
-	}
-
-	if (owner->getMoney() < purchase_cost * 0.6) {
-		std::cout << "You do not have enough money to unmortgage this property" << std::endl;
-		return;
-	}
-//	owner->removeMoney(purchase_cost*0.6);
-	mortgaged = false;
-}
-
-int Property::getValue () const {
+// returns the price of the property (for net worth calculation)
+// Note: overridden in the improvableProperty class
+int Property::getValue() const {
 	return purchase_cost;
 }
 
-void Property::upgrade (){
-        cout << name << " Cannot be upgraded" << endl;
+// states that the property (gym or residence) cannot have an improvement upgrade
+// Note: overridden in the improvableProperty class
+void Property::upgrade() {
+	cout << name << " Cannot be upgraded" << endl;
 }
 
-void Property::downgrade (){
-        cout << name << " Cannont be downgraded" << endl;
+// states that the property (gym or residence) cannot have an improvement downgrade
+// Note: overridden in the improvableProperty class
+void Property::downgrade() {
+	cout << name << " Cannot be downgraded" << endl;
 }
 
-void Property::setOwner(Player* p) {
-	if (p == nullptr) {
-		owned = false;
-	} else {
-		owned = true;
-	}
-	owner = std::make_shared<Player>(*p);
-}
-
-void Property::setOwner (shared_ptr<Player> p) {
-	if (p == nullptr) {
-		owned = false;
-	} else {
-		owned = true;
-	}
-	owner = p;
-}
-
+// updates the on_cell member that there is a player on such cell
+// if the property is not owned will ask the player that landed on it if they would like to buy the property
+// if the property is not bought it will be auctioned
+// if the property is owned by the player landing on it, do nothing
+// if the property is owned by a player other than the player landing on it, the player landing must pay the owner
 void Property::action (shared_ptr<Player> p, bool b) {
 	on_cell.at(p->getPlayerChar()) = true;
 
@@ -121,12 +84,49 @@ void Property::action (shared_ptr<Player> p, bool b) {
 		return;
 	}
 	else {
-		cout << p->getPlayerName () << " is paying " << owner->getPlayerName() << " $" << getRent() << endl;
+		cout << p->getPlayerName() << " is paying " << owner->getPlayerName() << " $" << getRent() << endl;
 		p->pay(owner, getRent());
 	}
 }
 
+// returns the price of the property
+int Property::getPrice() const {
+	return purchase_cost;
+}
 
+// will unmortgage the property only if the property is mortgaged in the first place
+void Property::unmortgage() {
+	if (!mortgaged) {
+		std::cout << name << "is already unmortgaged" << std::endl;
+		return;
+	}
+
+	if (owner->getMoney() < purchase_cost * 0.6) {
+		std::cout << "You do not have enough money to unmortgage this property" << std::endl;
+		return;
+	}
+	mortgaged = false;
+}
+
+// sets the owner of the property given a Player pointer
+void Property::setOwner(Player* p) {
+	if (p == nullptr) {
+		owned = false;
+	} else {
+		owned = true;
+	}
+	owner = std::make_shared<Player>(*p);
+}
+
+// sets the owner of the property given a Player shared pointer
+void Property::setOwner(shared_ptr<Player> p) {
+	if (p == nullptr) {
+		owned = false;
+	} else {
+		owned = true;
+	}
+	owner = p;
+}
 
 // Observer and Subject method implementations
 void Property::attach(Property * o) {
@@ -140,6 +140,6 @@ void Property::notifyObservers() {
 	}
 }
 
-void Property::notify (Property & whoNotified) {
+void Property::notify(Property & whoNotified) {
 	set_ownership.at(whoNotified.getName()) = whoNotified.getOwner()->getPlayerChar();
 }
