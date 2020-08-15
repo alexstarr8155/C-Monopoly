@@ -100,7 +100,7 @@ Board::Board(std::string fileName) {
             }
             board[i]->setOwner(player);
             if (improvements != -1) {
-                board->setMortgage(true);
+                board[i]->setMortgage(true);
             }
             else {
                 board[i]->setNumImprov(improvements);
