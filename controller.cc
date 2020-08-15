@@ -7,6 +7,7 @@
 #include "Property.h"
 #include "BoardDisplay.h"
 #include "BankruptException.h"
+#include <sstream>
 
 Property* getProperty(std::string, std::shared_ptr<Player>);
 
@@ -222,7 +223,12 @@ int main(int argc, char *argv[]) {
 					std::string d;
 					std::cin >> d;
 
-					if (testingMode) {
+					std::string temp;
+					std::getline(std::cin, temp);
+
+					std::stringstream s(temp);
+
+					if (testingMode && temp.length() != 0) {
 						int num1;
 						int num2;
 
@@ -311,35 +317,36 @@ int main(int argc, char *argv[]) {
 		//	board->move();
 		}
 	
+/*
+		std::string temp;
+		std::getline(std::cin, temp);
+	
+		if (temp.length() == 0) {
+			continue;
+		}
 
-
+		std::stringstream s(temp);
+*/
 		std::string cmd;
 		std::cin >> cmd;
 
-		std::cout << cmd.length() << std::endl;
-
-		if (cmd.compare("r") == 0 && !locked) {
-			int n;
-			std::cin >> n;
-
-			try {
-				board->moveBy(n);
-			} catch (BankruptException b) {
-				locked = true;
-				creditor = b.getCreditor();
-				amountOwed = b.getOwed();
-				std::cout << "You are in insolvency, you may only trade, mortgage, or sell improvements" << std::endl; 
-				std::cout << "You have: $" << curr->getMoney() << " and owe: $" << amountOwed << std::endl;
+		//std::cout << cmd << ", " << temp << std::endl;
+	
+		
+		if (cmd.compare("roll") == 0 && !locked) {
+			
+			std::string temp = "";
+			if (testingMode) {
+				std::getline(std::cin, temp);
 
 			}
 
-			display.display();
-		} else if (cmd.compare("roll") == 0 && !locked) {
-			
-			if (testingMode) {
+			if (testingMode && temp.length() != 0) {
+				std::stringstream s(temp);
+				
 				int d1, d2;
-				std::cin >> d1;
-				std::cin >> d2;
+				s >> d1;
+				s >> d2;
 
 				try {
 					if (d1 == d2) {
@@ -444,6 +451,7 @@ int main(int argc, char *argv[]) {
 
 		} 
 		else if (cmd.compare("improve") == 0) {
+			
 			std::string propName;
 			std::cin >> propName;
 
