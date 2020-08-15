@@ -320,11 +320,15 @@ int main(int argc, char *argv[]) {
 			
 			std::cout << ", " << curr.get() << std::endl;	
 
+			
 			try {
 				p->mortgage();
 			} catch (...) {
-				std::cout << "There are improvements on this property, sell them before mortgaging" << std::endl;
+				std::cout << prop << " is already mortgaged" << std::endl;
+				continue;
 			}
+			curr->addMoney(p->getValue());
+			
 			
 		} 
 		else if (cmd.compare("unmortgage") == 0 && !locked) {
