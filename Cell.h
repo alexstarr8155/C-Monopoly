@@ -15,7 +15,6 @@ class Cell {
 		std::string name; // name of cell
 		int numImprovements; // number of improvements on a cell
 		bool mortgaged; // bool representing if a cell is mortgaged or not
-		
 		std::map<char, bool> on_cell; // a map representing who is on the cell and who is not on the cell
 		std::shared_ptr<Player> owner; // represents which player owns the cell
 
