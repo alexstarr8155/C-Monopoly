@@ -9,7 +9,7 @@ Gym::Gym (const string &name, vector<string> set) : Property{name, 150, set} {
 	numImprovements = -2;
 }
 
-// returns the cost of landing on the gym
+// returns the cost of landing on the gym (dependent on dice roll and if set is complete)
 int Gym::getRent() const {
 	
 	srand ((unsigned int)time(NULL));
@@ -33,6 +33,4 @@ int Gym::getRent() const {
 		case 2:
 			return sum * 10;
 	}
-	
-
 }
