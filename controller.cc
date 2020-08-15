@@ -197,6 +197,9 @@ int main(int argc, char *argv[]) {
 				std::cin >> d2;
 
 				try {
+					if (d1 == d2) {
+						board->incRollDouble();
+					}
 					board->moveBy(d1 + d2);
 				} catch (BankruptException b) {
 					locked = true;
