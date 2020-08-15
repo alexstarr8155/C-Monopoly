@@ -250,7 +250,7 @@ int main(int argc, char *argv[]) {
 
 					if (board->getRollDouble() > 0) {
 						board->setRollDouble(0);
-						std::cerr << "Moving" << std::endl;
+			//			std::cerr << "Moving" << std::endl;
 						board->move(roll);
 
 						display.display();
@@ -277,12 +277,14 @@ int main(int argc, char *argv[]) {
 						std::cout << "You are being moved according to you last doubles attempt" << std::endl;
 						done = true;
 						board->move(lastRoll);
+						curr->setTurnsInTims(0);
 						display.display();
 						break;
 					} else {
 						curr->removeMoney(50);
 						std::cout << "You are now free, continue your turn as desired" << std::endl;
 						done = true;
+						curr->setTurnsInTims(0);
 						break;
 					}
 				} else if (c == 'T') {
@@ -295,6 +297,7 @@ int main(int argc, char *argv[]) {
 						curr->setTimsCups(curr->getTimsCards() - 1);
 						std::cout << "You are now free, continue you turn as desired" << std::endl;
 						done = true;
+						curr->setTurnsInTims(0);
 						break;
 					}
 			
@@ -539,7 +542,7 @@ int main(int argc, char *argv[]) {
 				}
 				canDeclare = false;
 	
-				std::cout << board->getCurrPlayerInt() << std::endl;	
+				//std::cout << board->getCurrPlayerInt() << std::endl;	
 				int nextPlayer = board->getCurrPlayerInt();
 				
 				if (nextPlayer >= numPlayers) {

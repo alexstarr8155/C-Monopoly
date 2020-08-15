@@ -596,7 +596,7 @@ void Board::save(std::string fileName) {
                 outfile << playerName << " " << playerChar << " " << timsCups << " " << money << " " << position << " " << 1 << " " << players[i]->getTurnsInTims() << std::endl;
             }
             else {
-                outfile << playerName << " " << playerChar << " " << timsCups << " " << money << position << 0 << std::endl;
+                outfile << playerName << " " << playerChar << " " << timsCups << " " << money << " " << position << 0 << std::endl;
             }
         }
         else {
@@ -613,10 +613,10 @@ void Board::save(std::string fileName) {
 
         if (position == 10) {
             if (players[i]->getInTims()) {
-                outfile << playerName << " " << playerChar << " " << timsCups << " " << money << position << 1 << players[i]->getTurnsInTims() << std::endl;
+                outfile << playerName << " " << playerChar << " " << timsCups << " " << money << " " << position << " " << 1 << " " << players[i]->getTurnsInTims() << std::endl;
             }
             else {
-                outfile << playerName << " " << playerChar << " " << timsCups << " " << money << position << 0 << std::endl;
+                outfile << playerName << " " << playerChar << " " << timsCups << " " << money << " " << position << " " << 0 << std::endl;
             }
         }
         else {
