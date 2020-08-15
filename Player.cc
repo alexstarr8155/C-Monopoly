@@ -23,7 +23,8 @@ void Player::getOutOfTims(bool bail) {
 
 	if (bail && (hasTimsCard > 0)) {
 		hasTimsCard--;
-	} else if (bail) {
+	}
+	else if (bail) {
 		removeMoney(50);
 	}
 	inTims = false;
@@ -104,7 +105,8 @@ void Player::buy(Property * p) {
 void Player::pay(std::shared_ptr<Player> other, int amount) {
 	if (amount > money) {
 		throw BankruptException(amount - money, other);
-	} else {
+	}
+	else {
 		removeMoney(amount);
 		other->money += amount;
 	}
@@ -116,9 +118,11 @@ void Player::trade(std::shared_ptr<Player> other, int money, Property* others) {
 
 	if (money > this->money) { // "Checking if the current player has enough money for the trade"
 		//"Throw some exception to disallow this trade"
-	} else if (it == other->owned.end()) {// "Checking if other play owns this property"
+	}
+	else if (it == other->owned.end()) {// "Checking if other play owns this property"
 		// "Throw some exception since other person does not own this property"
-	} else {
+	}
+	else {
 		pay(other, money);
 		owned.push_back(others);
 		other->owned.erase(it);
@@ -132,9 +136,11 @@ void Player::trade(std::shared_ptr<Player> other, Property* mine, int money) {
 
 	if (money > other->money) { // "Checking if the current player has enough money for the trade"
 		//"Throw some exception to disallow this trade"
-	} else if (it == owned.end()) {// "Checking if other play owns this property"
+	}
+	else if (it == owned.end()) {// "Checking if other play owns this property"
 		// "Throw some exception since other person does not own this property"
-	} else {
+	}
+	else {
 		other->removeMoney(money);
 		this->money += money;
 		other->owned.push_back(*it);
@@ -152,10 +158,12 @@ void Player::trade(std::shared_ptr<Player> other, Property* mine, Property* othe
 	if (first == owned.end()) {
 		//"Throw some exception, since this player does not have the property to trade"
 //		std::cout << "First = ownded.end()" << std::endl;
-	} else if (second == other->owned.end()) {
+	}
+	else if (second == other->owned.end()) {
 		//"Throw some exception, since other player does own its property ro trade"
 //		std::cout << "Second = other->owned.end()" << std::endl;
-	} else {
+	}
+	else {
 	
 	//	std::cout << (*first)->getName() << ", " << (*second)->getName() << std::endl;
 
