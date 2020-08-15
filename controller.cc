@@ -87,15 +87,15 @@ void setupPlayers(std::map<const std::string, std::shared_ptr<Player>> & players
 }
 
 void printAssets (std::shared_ptr<Player> p){
-	std::cout << p->getPlayerName() << ":" << std::endl;
+	std::cout << p->getPlayerName() << ": ";
 	std::cout << "$" << p->getMoney() << std::endl;
 	
-	std::cout << "Properties:" << std::endl;
+	std::cout << "  Properties:" << std::endl;
 	auto prop = p->getProperties();
 	for (auto it = prop.begin(); it != prop.end(); ++it){
-		std::cout << (*it)->getName() << std::endl;
+		std::cout << "   " << (*it)->getName() << std::endl;
 	}
-	std::cout << "Number of Roll up the Rim Cards: " << p->getTimsCards() << std::endl;
+	std::cout << "  Number of Roll up the Rim Cards: " << p->getTimsCards() << std::endl;
 }
 
 Property* getProperty(std::string propName, Board& board) {
@@ -213,7 +213,7 @@ int main(int argc, char *argv[]) {
 		
 		}
 
-	
+		std::cout << curr->getPlayerName() << "'s turn. Enter a command: ";	
 		std::string cmd;
 		std::cin >> cmd;
 	
@@ -613,12 +613,14 @@ int main(int argc, char *argv[]) {
 		else if (cmd.compare("assets") == 0) {
 			// "Display the assets of the current player"
 			printAssets(board->getCurrPlayer());
+			std::cout << std::endl;
 		} 
 		else if (cmd.compare("all") == 0) {
 			//"Display the assets of all players"
 			for (auto it = players.begin(); it != players.end(); ++it){
 				printAssets(it->second);
 			}
+			std::cout << std::endl;
 		} 
 		else if (cmd.compare("save") == 0) {
 			std::string filename;
