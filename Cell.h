@@ -15,6 +15,7 @@ class Cell {
 		std::map<char, bool> on_cell;
 		int numImprovements;
 		std::shared_ptr<Player> owner;
+		bool mortgaged; // moved from Property
 	public:
 		Cell (const std::string &name);
 
@@ -31,6 +32,8 @@ class Cell {
 		std::shared_ptr<Player> getOwner ();
 
 		void setOnCell(char playerChar);
+		bool is_mortgaged () const; // moved from Property
+		void setMortgage(bool isMortgaged);
 };
 
 #endif

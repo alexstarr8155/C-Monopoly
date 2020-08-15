@@ -99,7 +99,12 @@ Board::Board(std::string fileName) {
                 player->addProperty(static_cast<Property *>(board[i].get()));
             }
             board[i]->setOwner(player);
-            board[i]->setNumImprov(improvements);
+            if (improvements != -1) {
+                board->setMortgage(true);
+            }
+            else {
+                board[i]->setNumImprov(improvements);
+            }
         }
     }
 }
@@ -596,6 +601,11 @@ void Board::save(std::string fileName) {
 			std::string cellName = board[i]->getName();
 			std::shared_ptr<Player> cellOwner =  board[i]->getOwner();
 			int cellImprovements = board[i]->getNumImprov();
+            bool isMortgaged = board[i]->is_mortgaged();
+
+            if (isMortgaged) {
+                cellImprovements = -1;
+            }
 
 			if (cellOwner == nullptr) {
 				outfile << cellName << " BANK " << cellImprovements << std::endl;

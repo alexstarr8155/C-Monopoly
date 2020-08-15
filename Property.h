@@ -14,7 +14,6 @@ class Property : public Cell {
 		int purchase_cost; //the price to buy this property
 		int up_cost;
 		bool owned;
-		bool mortgaged;
 		//std::shared_ptr<Player> owner; moved to cell
 		std::map<std::string, char> set_ownership; // string is property name, char is player on property
 
@@ -26,7 +25,6 @@ class Property : public Cell {
 		
 		int getPrice () const;
 		virtual int getRent () const = 0;
-		bool is_mortgaged () const;
 		//void setOwner (std::shared_ptr<Player> p); moved to cell
 		//std::shared_ptr<Player> getOwner (); moved to cell
 

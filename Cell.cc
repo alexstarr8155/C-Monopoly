@@ -48,3 +48,12 @@ shared_ptr<Player> Cell::getOwner () {
 void Cell::setOnCell(char playerChar) {
 	on_cell[playerChar] = true;
 }
+
+/* moved from property */
+bool Cell::is_mortgaged () const {
+	return mortgaged;
+}
+
+void Cell::setMortgage(bool isMortgaged) {
+	this->mortgaged = isMortgaged;
+}

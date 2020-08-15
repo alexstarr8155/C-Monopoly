@@ -20,10 +20,6 @@ int Property::getPrice () const {
 	return purchase_cost;
 }
 
-bool Property::is_mortgaged () const {
-	return mortgaged;
-}
-
 /* the commented is moved to Cell
 void Property::setOwner (shared_ptr<Player> p){
 	owner = p;
