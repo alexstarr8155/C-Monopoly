@@ -77,7 +77,7 @@ void printTopLine() {
 void printData(std::string name, int nameSize, int houses, std::map<char, bool> players, int line) {
     int extraSpace = 0;
 
-    if (line == 0 && houses != -1) {
+    if (line == 0 && houses != -2) {
 	extraSpace = width - houses;
         std::cout << "|";
 	    printMany('I', houses);
@@ -90,7 +90,7 @@ void printData(std::string name, int nameSize, int houses, std::map<char, bool> 
         std::cout << "|" << name;
         printMany(' ', extraSpace);
     }
-    else if (line == 1 && houses != -1) {
+    else if (line == 1 && houses != -2) {
         std::cout << "|";
         printMany('-', width);
     }
@@ -101,7 +101,7 @@ void printData(std::string name, int nameSize, int houses, std::map<char, bool> 
         std::cout << "|" << name;
         printMany(' ', extraSpace);
     }
-    else if (line == 2 && houses != -1) {
+    else if (line == 2 && houses != -2) {
         extraSpace = width - nameSize;
         std::cout << "|" << name;
         printMany(' ', extraSpace);
