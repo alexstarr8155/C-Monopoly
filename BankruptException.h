@@ -5,9 +5,11 @@
 class Player;
 
 class BankruptException {
+	
 	private:
 		int owed;
 		std::shared_ptr<Player> creditor;
+		
 	public:
 		BankruptException(int owed, std::shared_ptr<Player> creditor);
 		int getOwed();

@@ -3,20 +3,21 @@
 #include <string>
 #include "BoardDisplay.h"
 
+/* below are some initial size constants that we can modify to change the height and width of the game */
 int width = 8;
 int topWidth = ((width + 1) * 11) + 1;
 int middleSpace = ((width + 1) * 8) + width;
 int logoWidth = 46;
 int logoSpace = ((middleSpace - logoWidth) / 2) - 1;
 
-
 BoardDisplay::BoardDisplay(Board & game) : game{game} {}
-BoardDisplay::~BoardDisplay() {}
 
+// will print 'c' 'n' amount of times
 void printMany(char c, int n) {
 	std::cout << std::string(n, c);
 }
 
+/* the below prints are used to help display board */
 void printEmptyTopBottom() {
     for (int i = 0; i < 11; ++i) {
     std::cout << "|";
@@ -74,6 +75,7 @@ void printTopLine() {
     std::cout << "\n";
 }
 
+/* the below code is here help showcases the different features of Cell (improvements, improvableProperty vs Non-improvableProperty) */
 void printData(std::string name, int nameSize, int houses, std::map<char, bool> players, int line) {
     int extraSpace = 0;
 
@@ -123,6 +125,7 @@ void printData(std::string name, int nameSize, int houses, std::map<char, bool> 
     }
 }
 
+/* the below prints help display the logo in the middle of the board */
 void printLogo1() {
 	printMany(' ', logoSpace + 1);
 	printMany('_', logoWidth);
@@ -202,210 +205,210 @@ void printLogo8() {
 }
 
 void BoardDisplay::display() {
-	display(game);
-}
-
-void BoardDisplay::display(Board game) {
-	
 	printTopLine();
-	
-	for (int i = 0; i < 4; ++i) {
-		for (int j = 20; j <= 30; ++j) {
-			std::string name = (game.board[j])->getName();
-			int nameSize = name.length();
-			int houses = (game.board[j])->getNumImprov();
-			std::map<char, bool> players = (game.board[j])->who_on_cell();
+    
+    /* the below prints the first row of display */
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 20; j <= 30; ++j) {
+            std::string name = (game.board[j])->getName();
+            int nameSize = name.length();
+            int houses = (game.board[j])->getNumImprov();
+            std::map<char, bool> players = (game.board[j])->who_on_cell();
 
-            		printData(name, nameSize, houses, players, i);
-		}
-		std::cout << "|\n";
-	} 
-	printEndTopBottom();
-	
-	for (int i = 0; i < 3; ++i) {
-		int index = 0;
-		std::string name = "";
-		int nameSize = 0;
-		int houses = 0;
-		std::map<char, bool> players = {};
+                    printData(name, nameSize, houses, players, i);
+        }
+        std::cout << "|\n";
+    } 
+    printEndTopBottom();
+    
+    /* the below prints all the Cells until the beginning of logo */
+    for (int i = 0; i < 3; ++i) {
+        int index = 0;
+        std::string name = "";
+        int nameSize = 0;
+        int houses = 0;
+        std::map<char, bool> players = {};
 
-		for (int j = 0; j < 4; ++j) {
+        for (int j = 0; j < 4; ++j) {
             index = (-1 * i) + 19;
-			name = (game.board[index])->getName();
-			nameSize = name.length();
-			houses = (game.board[index])->getNumImprov();
-			players = (game.board[index])->who_on_cell();
-
-			printData(name, nameSize, houses, players, j);
-			std::cout << "|";
-			printMany(' ', middleSpace);
-
-			index = 50 - ((-1 * i) + 19);
             name = (game.board[index])->getName();
             nameSize = name.length();
             houses = (game.board[index])->getNumImprov();
-			players = (game.board[index])->who_on_cell();
+            players = (game.board[index])->who_on_cell();
+
+            printData(name, nameSize, houses, players, j);
+            std::cout << "|";
+            printMany(' ', middleSpace);
+
+            index = 50 - ((-1 * i) + 19);
+            name = (game.board[index])->getName();
+            nameSize = name.length();
+            houses = (game.board[index])->getNumImprov();
+            players = (game.board[index])->who_on_cell();
 
             printData(name, nameSize, houses, players, j);
             std::cout << "|\n";
-		}
-		printEndMiddle();
-	}
-	
-	for (int j = 0; j < 4; ++j) {
-		int index = 0;
-        	std::string name = "";
-        	int nameSize = 0;
-        	int houses = 0;
-        	std::map<char, bool> players = {};
+        }
+        printEndMiddle();
+    }
+    
+    /* the below prints the Cells that are in the logo, as well as prints the logo */
+    for (int j = 0; j < 4; ++j) {
+        int index = 0;
+        std::string name = "";
+        int nameSize = 0;
+        int houses = 0;
+        std::map<char, bool> players = {};
 
-        	index = 16;
-        	name = (game.board[index])->getName();
-        	nameSize = name.length();
-        	houses = (game.board[index])->getNumImprov();
-        	players = (game.board[index])->who_on_cell();
+        index = 16;
+        name = (game.board[index])->getName();
+        nameSize = name.length();
+        houses = (game.board[index])->getNumImprov();
+        players = (game.board[index])->who_on_cell();
 
-        	printData(name, nameSize, houses, players, j);
-        	std::cout << "|";
+        printData(name, nameSize, houses, players, j);
+        std::cout << "|";
 
-        	if (j == 3) {
-            		printLogo1();
-        	}
-       		else {
-            		printMany(' ', middleSpace);
-        	}
+        if (j == 3) {
+                printLogo1();
+        }
+        else {
+                printMany(' ', middleSpace);
+        }
 
-        	index = 34;
-        	name = (game.board[index])->getName();
-        	nameSize = name.length();
-        	houses = (game.board[index])->getNumImprov();
-        	players = (game.board[index])->who_on_cell();
+        index = 34;
+        name = (game.board[index])->getName();
+        nameSize = name.length();
+        houses = (game.board[index])->getNumImprov();
+        players = (game.board[index])->who_on_cell();
 
-        	printData(name, nameSize, houses, players, j);
-        	std::cout << "|\n";
-    	}		
-	printLogo2();
-	
-	for (int j = 0; j < 4; ++j) {
-        	int index = 0;
-        	std::string name = "";
-        	int nameSize = 0;
-        	int houses = 0;
-        	std::map<char, bool> players = {};
+        printData(name, nameSize, houses, players, j);
+        std::cout << "|\n";
+    }       
+    printLogo2();
+    
+    for (int j = 0; j < 4; ++j) {
+        int index = 0;
+        std::string name = "";
+        int nameSize = 0;
+        int houses = 0;
+        std::map<char, bool> players = {};
 
-        	index = 15;
-        	name = (game.board[index])->getName();
-        	nameSize = name.length();
-        	houses = (game.board[index])->getNumImprov();
-        	players = (game.board[index])->who_on_cell();
+        index = 15;
+        name = (game.board[index])->getName();
+        nameSize = name.length();
+        houses = (game.board[index])->getNumImprov();
+        players = (game.board[index])->who_on_cell();
 
-        	printData(name, nameSize, houses, players, j);
-        	std::cout << "|";
+        printData(name, nameSize, houses, players, j);
+        std::cout << "|";
                         
-		if (j == 0) {
-			printLogo3();
-		}
-		else if (j == 1) {
-			printLogo4();
-		}
-		else if (j == 2) {
-			printLogo5();
-		}
-        	else {
-            		printLogo6();
-        	}
+        if (j == 0) {
+            printLogo3();
+        }
+        else if (j == 1) {
+            printLogo4();
+        }
+        else if (j == 2) {
+            printLogo5();
+        }
+        else {
+                printLogo6();
+        }
 
-        	index = 35;
-        	name = (game.board[index])->getName();
-        	nameSize = name.length();
-        	houses = (game.board[index])->getNumImprov();
-        	players = (game.board[index])->who_on_cell();
+        index = 35;
+        name = (game.board[index])->getName();
+        nameSize = name.length();
+        houses = (game.board[index])->getNumImprov();
+        players = (game.board[index])->who_on_cell();
 
-        	printData(name, nameSize, houses, players, j);
-        	std::cout << "|\n";
-    	}
-	printLogo7();
-	
-	for (int j = 0; j < 4; ++j) {
-        	int index = 0;
-        	std::string name = "";
-        	int nameSize = 0;
-        	int houses = 0;
-        	std::map<char, bool> players = {};
-	
-        	index = 14;
-        	name = (game.board[index])->getName();
-        	nameSize = name.length();
-        	houses = (game.board[index])->getNumImprov();
-        	players = (game.board[index])->who_on_cell();
-	
-        	printData(name, nameSize, houses, players, j);
-        	std::cout << "|";
-	
-        	if (j == 0) {
-            		printLogo8();
-        	}
-        	else {
-            		printMany(' ', middleSpace);
-        	}
+        printData(name, nameSize, houses, players, j);
+        std::cout << "|\n";
+    }
+    printLogo7();
+    
+    for (int j = 0; j < 4; ++j) {
+        int index = 0;
+        std::string name = "";
+        int nameSize = 0;
+        int houses = 0;
+        std::map<char, bool> players = {};
 
-        	index = 36;
-        	name = (game.board[index])->getName();
-        	nameSize = name.length();
-        	houses = (game.board[index])->getNumImprov();
-        	players = (game.board[index])->who_on_cell();
-	
-        	printData(name, nameSize, houses, players, j);
-        	std::cout << "|\n";
-    	}
-	printEndMiddle();
-	
-    	for (int i = 0; i < 3; ++i) {
-        	int index = 0;
-        	std::string name = "";
-        	int nameSize = 0;
-        	int houses = 0;
-        	std::map<char, bool> players = {};
+        index = 14;
+        name = (game.board[index])->getName();
+        nameSize = name.length();
+        houses = (game.board[index])->getNumImprov();
+        players = (game.board[index])->who_on_cell();
 
-        	for (int j = 0; j < 4; ++j) {
-            		index = (-1 * i) + 13; 
-            		name = (game.board[index])->getName();
-            		nameSize = name.length();
-            		houses = (game.board[index])->getNumImprov();
-            		players = (game.board[index])->who_on_cell();
-		
-            		printData(name, nameSize, houses, players, j);
-            		std::cout << "|";
-            		printMany(' ', middleSpace);
-		
-            		index = 50 - ((-1 * i) + 13);
-            		name = (game.board[index])->getName();
-            		nameSize = name.length();
-            		houses = (game.board[index])->getNumImprov();
-            		players = (game.board[index])->who_on_cell();
-		
-            		printData(name, nameSize, houses, players, j);
-            		std::cout << "|\n";
-        	}
-        	if (i == 2) {
-            		printEndEndMiddle();
-        	}
-		else {
-            		printEndMiddle();
-        	}
-    	}
-	
-    	for (int i = 0; i < 4; ++i) {
-        	for (int j = 10; j >= 0; --j) {
-            		std::string name = (game.board[j])->getName();
-            		int nameSize = name.length();
-            		int houses = (game.board[j])->getNumImprov();
-            		std::map<char, bool> players = (game.board[j])->who_on_cell();
-		
-            		printData(name, nameSize, houses, players, i);
-        	}
-        	std::cout << "|\n";
-    	}	 
-    	printEndTopBottom();
+        printData(name, nameSize, houses, players, j);
+        std::cout << "|";
+
+        if (j == 0) {
+                printLogo8();
+        }
+        else {
+                printMany(' ', middleSpace);
+        }
+
+        index = 36;
+        name = (game.board[index])->getName();
+        nameSize = name.length();
+        houses = (game.board[index])->getNumImprov();
+        players = (game.board[index])->who_on_cell();
+
+        printData(name, nameSize, houses, players, j);
+        std::cout << "|\n";
+    }
+    printEndMiddle();
+    
+    /* the below prints the all the Cells after the logo */
+    for (int i = 0; i < 3; ++i) {
+        int index = 0;
+        std::string name = "";
+        int nameSize = 0;
+        int houses = 0;
+        std::map<char, bool> players = {};
+
+        for (int j = 0; j < 4; ++j) {
+            index = (-1 * i) + 13; 
+            name = (game.board[index])->getName();
+            nameSize = name.length();
+            houses = (game.board[index])->getNumImprov();
+            players = (game.board[index])->who_on_cell();
+
+            printData(name, nameSize, houses, players, j);
+            std::cout << "|";
+            printMany(' ', middleSpace);
+
+            index = 50 - ((-1 * i) + 13);
+            name = (game.board[index])->getName();
+            nameSize = name.length();
+            houses = (game.board[index])->getNumImprov();
+            players = (game.board[index])->who_on_cell();
+
+            printData(name, nameSize, houses, players, j);
+            std::cout << "|\n";
+        }
+        if (i == 2) {
+            printEndEndMiddle();
+        }
+        else {
+            printEndMiddle();
+        }
+    }
+    
+    /* the below prints out the last row of board */
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 10; j >= 0; --j) {
+            std::string name = (game.board[j])->getName();
+            int nameSize = name.length();
+            int houses = (game.board[j])->getNumImprov();
+            std::map<char, bool> players = (game.board[j])->who_on_cell();
+
+            printData(name, nameSize, houses, players, i);
+        }
+        std::cout << "|\n";
+    }    
+    printEndTopBottom();
 }
 
