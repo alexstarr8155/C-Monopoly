@@ -56,6 +56,10 @@ int Player::getTimsCards() {
 	return hasTimsCard;
 }
 
+void Player::addTimsCard (){
+	hasTimsCard++;
+}
+
 bool Player::getInTims() {
 	return inTims;
 }

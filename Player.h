@@ -32,6 +32,7 @@ public:
 	void getOutOfTims(bool b);
 	int getTimsCards();
 	bool getInTims();
+	void addTimsCard();
 	int getTurnsInTims();
 
 	void addMoney(int amount);
