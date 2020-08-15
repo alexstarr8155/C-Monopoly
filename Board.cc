@@ -390,7 +390,7 @@ int Board::roll() {
     
     int dice1 = 1 + (std::rand() % 6);
     int dice2 = 1 + (std::rand() % 6);
-
+	std::cout << dice1 << " " << dice2 << std::endl;
     if (dice1 == dice2) {
         ++rollDouble;
     }
@@ -408,14 +408,14 @@ void Board::incRollDouble() {
 void Board::moveBy(int diceRoll) {
 	int i = currPlayer;
 	int playerPosition = players[i]->getPosition();
-	std::cout << players[i]->getPlayerName() << " is at position " << board[playerPosition]->getName() << std::endl;
+	std::cout << players[i]->getPlayerName() << " is at " << board[playerPosition]->getName() << std::endl;
 	board[playerPosition]->leave(players[i]);
 	//int diceRoll = roll();
 	std::cout << players[i]->getPlayerName() << " rolled a " << diceRoll << std::endl;
 	players[i]->move(diceRoll);
 
 	playerPosition = players[i]->getPosition();
-	std::cout << players[i]->getPlayerName() << " is at position " << board[playerPosition]->getName() << std::endl;
+	std::cout << players[i]->getPlayerName() << " is at " << board[playerPosition]->getName() << std::endl;
 
 	//BoardDisplay temp(*this);
 	//temp.display();
@@ -432,14 +432,14 @@ void Board::move() {
 }
 
 void Board::move(int diceRoll){
-    
+	std::cout << rollDouble << std::endl;
     if (rollDouble == 3) {
         players[currPlayer]->goToTims();
         currPlayer = (currPlayer + 1) % playerNum;
-        diceRoll = 0;
+        rollDouble = 0;
     }
     moveBy(diceRoll);
-    if (diceRoll == 0) {
+    if (rollDouble == 0) {
         currPlayer = (currPlayer + 1) % playerNum;
     }
 	std::cout << currPlayer << ", " << playerNum << std::endl;
