@@ -55,7 +55,7 @@ void Property::unmortgage () {
 		std::cout << "You do not have enough money to unmortgage this property" << std::endl;
 		return;
 	}
-	owner->removeMoney(purchase_cost*0.6);
+//	owner->removeMoney(purchase_cost*0.6);
 	mortgaged = false;
 }
 

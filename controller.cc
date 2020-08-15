@@ -318,16 +318,22 @@ int main(int argc, char *argv[]) {
 			std::cin >> prop;
 			Property* p = getProperty(prop, *board);
 			
-			std::cout << ", " << curr.get() << std::endl;	
+			//std::cout << ", " << curr.get() << std::endl;	
 
+			if (p == nullptr) {
+				std::cout << "You do no own that property, and cannot mortgage it" << std::endl;
+	
+			}
 			
 			try {
 				p->mortgage();
+			} catch (int num) {
+				std::cout << "There are " << num << " improvements on this property, sell them before mortgaging" << std::endl;
 			} catch (...) {
 				std::cout << prop << " is already mortgaged" << std::endl;
 				continue;
 			}
-			curr->addMoney(p->getValue());
+			curr->addMoney(p->getValue()/2);
 			
 			
 		} 
@@ -335,8 +341,17 @@ int main(int argc, char *argv[]) {
 			std::string prop;
 			std::cin >> prop;
 			Property * p = getProperty(prop, *board);
+			
+			if (p == nullptr) {
+				std::cout << "You do not own that property, so you can't unmortgage it" << std::endl;
+			}
 
-			p->unmortgage();
+			try {
+				p->unmortgage();
+			} catch (...) {
+				std::cout << prop << " is currently unmortgaged, you cannot unmortgage it" << std::endl;
+			}
+			curr->removeMoney(p->getValue()/2);
 			//"unmortgage property
 		} 
 		else if (cmd.compare("bankrupt") == 0) {

@@ -92,7 +92,7 @@ int ImprovableProperty::getRent () const {
 void ImprovableProperty::mortgage() {
 	
 	if (getNumImprov() > 0) {
-		throw "There are improvements on the property, sell them before mortgaging";
+		throw numImprovements;
 	}
 	Property::mortgage();
 
