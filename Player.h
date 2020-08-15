@@ -23,10 +23,10 @@ class Player {
 		std::vector<Property *> owned; // represents the properites owned by the player
 	
 	public:
-		Player (const std::string &name, char playerChar, int money);
+		Player(const std::string &name, char playerChar, int money);
 
 		void goToTims();
-		void getOutOfTims(bool b);		
+		void getOutOfTims(bool b);
 		void addTimsCard();
 		void addMoney(int amount);
 		void removeMoney(int amount);
