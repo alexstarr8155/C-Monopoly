@@ -357,7 +357,7 @@ int main(int argc, char *argv[]) {
 		} 
 		else if (cmd.compare("bankrupt") == 0) {
 			
-			if (false) {
+			if (!canDeclare) {
 				std::cout << "You are not allowed to declare bankruptcy as of now" << std::endl;
 			} else {
 			
