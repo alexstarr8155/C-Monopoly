@@ -314,7 +314,7 @@ int main(int argc, char *argv[]) {
 			display.display();
 			
 		} 
-		else if (cmd.compare("mortgage") == 0 && !locked) {
+		else if (cmd.compare("mortgage") == 0) {
 			std::string prop;
 			std::cin >> prop;
 			Property* p = getProperty(prop, *board);
@@ -326,7 +326,7 @@ int main(int argc, char *argv[]) {
 			}
 			
 		} 
-		else if (cmd.compare("unmortgage") == 0) {
+		else if (cmd.compare("unmortgage") == 0 && !locked) {
 			std::string prop;
 			std::cin >> prop;
 			Property * p = getProperty(prop, *board);
