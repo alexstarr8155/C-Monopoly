@@ -36,8 +36,9 @@ shared_ptr<Player> Property::getOwner () {
 
 void Property::mortgage () {
 	if (!mortgaged) {
-		std::cout << owner->getPlayerName() << std::endl;
+		std::cout << owner->getMoney() << std::endl;
 		owner->addMoney(purchase_cost/2);
+		std::cout << ", " << owner.get() << std::endl;
 		mortgaged = true;
 	} else {
 		std::cout << name << " is already mortgaged" << std::endl;
@@ -45,6 +46,11 @@ void Property::mortgage () {
 }
 
 void Property::unmortgage () {
+	if (!mortgaged) {
+		std::cout << name << "is already unmortgaged" << std::endl;
+		return;
+	}
+
 	if (owner->getMoney() < purchase_cost * 0.6) {
 		std::cout << "You do not have enough money to unmortgage this property" << std::endl;
 		return;

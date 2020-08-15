@@ -168,7 +168,6 @@ int main(int argc, char *argv[]) {
 		std::cin >> cmd;
 
 		std::shared_ptr<Player> curr = board->getCurrPlayer();
-		std::cout << board->getCurrPlayerInt() << std::endl;
 
 		//"For testing purposes"
 		if (cmd.compare("r") == 0 && !locked) {
@@ -318,6 +317,8 @@ int main(int argc, char *argv[]) {
 			std::string prop;
 			std::cin >> prop;
 			Property* p = getProperty(prop, *board);
+			
+			std::cout << ", " << curr.get() << std::endl;	
 
 			try {
 				p->mortgage();
@@ -364,6 +365,7 @@ int main(int argc, char *argv[]) {
 						break;
 					}
 				}
+				canDeclare = false;
 
 			}
 			
@@ -402,13 +404,19 @@ int main(int argc, char *argv[]) {
 			std::cout << "You have raised enough money" << std::endl;
 
 			if (creditor != nullptr) {
-				creditor->addMoney(amountOwed);
+				curr->pay(creditor, amountOwed);
 			}
 
+			canDeclare = false;
 			locked = false;
-		}
+			amountOwed = 0;
+		
+			int numPlayers = players.size();
+			int nextPlayer = (board->getCurrPlayerInt() + 1) % numPlayers;
+			board->setCurrPlayer(nextPlayer);
 
-		if (curr->allPropertiesAreMortgaged() && curr->getMoney() < amountOwed) {
+
+		} else if (curr->allPropertiesAreMortgaged() && curr->getMoney() < amountOwed) {
 			canDeclare = true;
 			std::cout << "You have mortgaged all your properties, unless you can raise enough money through trading, you must declare bankruptcy" << std::endl;
 		} else if (locked) {
