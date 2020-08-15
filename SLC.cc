@@ -2,10 +2,11 @@
 #include "Board.h"
 #include <stdlib.h>
 
-SLC::SLC () : Cell{"SLC"} {}
+SLC::SLC() : Cell{"SLC"} {}
+SLC::SLC(Board* owner) : Cell{"SLC"}, owner{owner} {}
 
-SLC::SLC (Board* owner) : Cell{"SLC"}, owner{owner} {}
-
+// updates the on_cell member that there is a player on such cell
+// adds or removes a certain amount to the landing player's position (dependent on the probability)
 void SLC::action(std::shared_ptr<Player> p, bool b) {
 	
 	std::cout << "You landed on SLC!" << std::endl;

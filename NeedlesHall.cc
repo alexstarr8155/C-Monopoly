@@ -2,8 +2,10 @@
 #include "Player.h"
 #include <stdlib.h>
 
-NeedlesHall::NeedlesHall (): Cell{"NEEDLES HALL"} {}
+NeedlesHall::NeedlesHall(): Cell{"NEEDLES HALL"} {}
 
+// updates the on_cell member that there is a player on such cell
+// adds or removes a certain amount of money from the player landing (dependent on the probability)
 void NeedlesHall::action(std::shared_ptr<Player> p, bool b) {
 	on_cell.at(p->getPlayerChar()) = true;	
 
@@ -26,5 +28,4 @@ void NeedlesHall::action(std::shared_ptr<Player> p, bool b) {
 	} else {
 		throw "Random Number failed";
 	}
-
 }
