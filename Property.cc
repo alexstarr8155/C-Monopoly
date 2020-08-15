@@ -77,6 +77,7 @@ void Property::action (shared_ptr<Player> p, bool b) {
 			}
 			else {
 				cout << "Please enter Y/N" << endl;
+				cin >> in;
 			}
 		}
 	}
