@@ -8,7 +8,6 @@ class Tuition : public Cell {
 	public:
 		Tuition();
 		virtual void action(std::shared_ptr<Player> p, bool b) override;
-
 };
 
 #endif
