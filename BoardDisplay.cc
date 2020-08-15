@@ -11,6 +11,7 @@ int logoWidth = 46;
 int logoSpace = ((middleSpace - logoWidth) / 2) - 1;
 
 BoardDisplay::BoardDisplay(Board & game) : game{game} {}
+BoardDisplay::~BoardDisplay() {}
 
 // will print 'c' 'n' amount of times
 void printMany(char c, int n) {
