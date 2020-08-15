@@ -7,7 +7,7 @@
 class BoardDisplay {
 
 	private:
-		Board & game;
+		Board& game;
 
 	public:
 		BoardDisplay(Board& game);
