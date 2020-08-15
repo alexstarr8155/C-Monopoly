@@ -36,7 +36,7 @@ void Player::updateNetWorth() {
 
 void Player::goToTims() {
 	inTims = true;
-	moveTo(10);	
+	//moveTo(10);	
 }
 void Player::getOutOfTims(bool bail) {
 
