@@ -162,12 +162,15 @@ int main(int argc, char *argv[]) {
 	std::shared_ptr<Player> creditor = nullptr;
 	int amountOwed = 0;
 
-	while (players.size() > 1 && !std::cin.eof()) {
+	int numPlayers = players.size();
+	std::shared_ptr<Player> curr = board->getCurrPlayer();
+
+	while (numPlayers > 1 && !std::cin.eof()) {
 		
 		std::string cmd;
 		std::cin >> cmd;
 
-		std::shared_ptr<Player> curr = board->getCurrPlayer();
+		curr = board->getCurrPlayer();
 
 		//"For testing purposes"
 		if (cmd.compare("r") == 0 && !locked) {
@@ -205,7 +208,6 @@ int main(int argc, char *argv[]) {
 
 				}
 				
-				int numPlayers = players.size();
 				int nextPlayer = (board->getCurrPlayerInt() + 1) % numPlayers;
 				board->setCurrPlayer(nextPlayer);
 				
@@ -227,7 +229,6 @@ int main(int argc, char *argv[]) {
 
 		} else if (cmd.compare("next") == 0 && !locked) {
 			
-			int numPlayers = players.size();
 			int nextPlayer = (board->getCurrPlayerInt() + 1) % numPlayers;
 			board->setCurrPlayer(nextPlayer);
 
@@ -360,6 +361,7 @@ int main(int argc, char *argv[]) {
 			if (!canDeclare) {
 				std::cout << "You are not allowed to declare bankruptcy as of now" << std::endl;
 			} else {
+
 			
 				if (creditor == nullptr) {
 					//"Give all back to the Bank"
@@ -369,10 +371,10 @@ int main(int argc, char *argv[]) {
 				} else {
 					// "Owed to another player"
 
-					std::cout << curr->getProperties().size() << std::endl;
-
-					for (auto it = curr->getProperties().begin(); it != curr->getProperties().end(); ++it) {
-						curr->trade(creditor, *it, 0);
+					int n = curr->getProperties().size();
+					
+					for (int i = n - 1; i >= 0; i--) {
+						creditor->addProperty(curr->getProperties()[i]);
 					}
 					curr->pay(creditor, curr->getMoney());
 				}
@@ -388,17 +390,21 @@ int main(int argc, char *argv[]) {
 					}
 				}
 				canDeclare = false;
+	
+				std::cout << board->getCurrPlayerInt() << std::endl;	
+				int nextPlayer = board->getCurrPlayerInt();
+				
+				if (nextPlayer >= numPlayers) {
+					nextPlayer = 0;
+				}
 
+				//std::cout << numPlayers << std::endl;
+				board->setCurrPlayer(nextPlayer);
+				locked = false;
+				numPlayers--;
+
+				continue;
 			}
-			
-			int numPlayers = players.size();
-			//std::cout << numPlayers << std::endl;
-			int nextPlayer = (board->getCurrPlayerInt() + 1) % numPlayers;
-			board->setCurrPlayer(nextPlayer);
-
-			locked = false;
-
-			continue;
 
 		} 
 		else if (cmd.compare("assets") == 0) {
@@ -447,6 +453,9 @@ int main(int argc, char *argv[]) {
 		}
 
 	}
+
+	std::cout << curr->getPlayerName() << " has won the game!" << std::endl;
+
 	delete board;
 }
 
