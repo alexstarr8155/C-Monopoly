@@ -405,6 +405,10 @@ void Board::incRollDouble() {
 	rollDouble++;
 }
 
+void Board::setRollDouble(int num) {
+	rollDouble = num;
+}
+
 void Board::moveBy(int diceRoll) {
 	int i = currPlayer;
 	int playerPosition = players[i]->getPosition();
@@ -434,7 +438,7 @@ void Board::move() {
 void Board::move(int diceRoll){
 	std::cout << rollDouble << std::endl;
     if (rollDouble == 3) {
-        players[currPlayer]->goToTims();
+        moveTo(10);
         currPlayer = (currPlayer + 1) % playerNum;
         rollDouble = 0;
 	return;

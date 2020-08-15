@@ -201,6 +201,9 @@ int main(int argc, char *argv[]) {
 				try {
 					if (d1 == d2) {
 						board->incRollDouble();
+						
+					} else {
+						board->setRollDouble(0);
 					}
 					board->move(d1 + d2);
 				} catch (BankruptException b) {
