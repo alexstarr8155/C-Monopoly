@@ -118,6 +118,8 @@ Property* getProperty(std::string propName, std::shared_ptr<Player> currPlayer) 
 
 int main(int argc, char *argv[]) {
 
+	std::cout << argc << std::endl;
+
 	Board *board;
 
 	std::vector<std::string> args;
@@ -200,7 +202,7 @@ int main(int argc, char *argv[]) {
 					if (d1 == d2) {
 						board->incRollDouble();
 					}
-					board->moveBy(d1 + d2);
+					board->move(d1 + d2);
 				} catch (BankruptException b) {
 					locked = true;
 					creditor = b.getCreditor();
