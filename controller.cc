@@ -133,10 +133,34 @@ int main(int argc, char *argv[]) {
 //	Board board;
 	std::map<const std::string, std::shared_ptr<Player>> players;
 	bool testingMode = false;
+
+	if (argc == 1) {
+		setupPlayers(players);
+		board = new Board(players, players.size());
+	} else if (argc == 2 && args[1].compare("-testing") == 0) {
+		testingMode = true;
+		setupPlayers(players);
+		board = new Board(players, players.size());
+	} else if (argc == 3 && args[1].compare("-load") == 0) {
+		std::string filename = args[2];
+		board = new Board(filename);
+		players = board->getPlayers();
+	} else if (argc == 4 && args[1].compare("-testing") == 0 && args[2].compare("-load") == 0) {
+		testingMode = true;
+
+		std::string filename = args[3];
+		board = new Board(filename);
+		players = board->getPlayers();
+	} else {
+		std::cout << "Invalid combination of command line arguments try again" << std::endl;
+		return 1;
+	}
+
+	/*
 	if (argc > 1 && args[1].compare("-testing") == 0) {
 		testingMode = true;
 	}
-	if ((argc > 2 && args[1].compare("-testing") == 0) || (argc > 1 && args[1].compare("-testing") != 0)) {
+	if ((argc == 4 && args[1].compare("-testing") == 0) || (argc == 2 && args[1].compare("-testing") != 0)) {
 		
 		std::string filename;
 		if (argc > 2) {
@@ -150,11 +174,9 @@ int main(int argc, char *argv[]) {
 
 	} else {
 		// "Starting game input needed"
-		setupPlayers(players);
-		board = new Board(players, players.size());
 	}
 
-	
+	*/
 	BoardDisplay display(*board);
 	display.display();
 
