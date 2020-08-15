@@ -99,7 +99,7 @@ Board::Board(std::string fileName) {
                 player->addProperty(static_cast<Property *>(board[i].get()));
             }
             board[i]->setOwner(player);
-            if (improvements != -1) {
+            if (improvements == -1) {
                 board[i]->setMortgage(true);
             }
             else {
