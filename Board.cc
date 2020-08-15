@@ -440,7 +440,7 @@ void Board::move() {
 }
 
 void Board::move(int diceRoll){
-	std::cout << rollDouble << std::endl;
+	//std::cout << rollDouble << std::endl;
 
 	std::shared_ptr<Player> curr = getCurrPlayer();
 /*
@@ -505,7 +505,7 @@ void Board::move(int diceRoll){
     if (rollDouble == 0) {
         currPlayer = (currPlayer + 1) % playerNum;
     }
-	std::cout << currPlayer << ", " << playerNum << std::endl;
+//	std::cout << currPlayer << ", " << playerNum << std::endl;
 }
 
 int Board::getCurrPlayerInt () const {

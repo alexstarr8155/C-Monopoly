@@ -186,6 +186,7 @@ int main(int argc, char *argv[]) {
 
 			char c = 0;
 			bool done = false;
+			int lastRoll = -1;
 			while (done || (c != 'D' && c != 'B' && c != 'T')) {
 				std::cin >> c;
 	
@@ -221,6 +222,7 @@ int main(int argc, char *argv[]) {
 					if (curr->getTurnsInTims() == 2 && board->getRollDouble() == 0) {
 						std::cout << "This was your last turn in jail, and you failed to get doubles, you must pay bail, or use a RollUp the Rim Cup" << std::endl;
 						c = 0;
+						lastRoll = roll;
 						continue;
 					}
 
@@ -248,15 +250,31 @@ int main(int argc, char *argv[]) {
 					if (curr->getMoney() < 50) {
 						std::cout << "Not enough money to pay bail, try T for Tims Cup or D for roll for Doubles" << std::endl;
 						c = 0;
+					} else if (lastRoll != -1) {
+						curr->removeMoney(50);
+						std::cout << "You are being moved according to you last doubles attempt" << std::endl;
+						done = true;
+						board->move(lastRoll);
+						display.display();
+						break;
 					} else {
 						curr->removeMoney(50);
 						std::cout << "You are now free, continue your turn as desired" << std::endl;
 						done = true;
 						break;
 					}
-				} else if (c == 'T' && curr->getTimsCards() > 0) {
+				} else if (c == 'T') {
 					//"Use Card"
-					//currPlayer->decTimsCards();
+					
+					if (curr->getTimsCards() <= 0) {
+						std::cout << "You do not have a RollUp the Rim Cup, try again" << std::endl;
+						c = 0;
+					} else {
+						curr->setTimsCups(curr->getTimsCard() - 1);
+						std::cout << "You are now free, continue you turn as desired" << std::endl;
+						done = true;
+						break;
+					}
 			
 				} else {
 					std::cout << "Please select one of D, B or T" << std::endl;
