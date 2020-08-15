@@ -24,7 +24,9 @@ class Board {
 
 		void initBoard();	
 		int roll();
+		void incRollDouble();
 		void move();
+		void move(int diceRoll);
 		void moveBy(int diceRoll);
 		void moveTo(int loc);
 		void playRound();

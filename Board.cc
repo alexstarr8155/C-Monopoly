@@ -401,6 +401,10 @@ int Board::roll() {
     return (dice1 + dice2);
 }
 
+void Board::incRollDouble() {
+	rollDouble++;
+}
+
 void Board::moveBy(int diceRoll) {
 	int i = currPlayer;
 	int playerPosition = players[i]->getPosition();
@@ -422,8 +426,13 @@ void Board::moveBy(int diceRoll) {
 	}
 }
 
-void Board::move(){
+void Board::move(int num) {
 	int diceRoll = roll();
+	move(diceRoll);
+}
+
+void Board::move(int diceRoll){
+    
     if (rollDouble == 3) {
         players[currPlayer]->goToTims();
         currPlayer = (currPlayer + 1) % playerNum;
