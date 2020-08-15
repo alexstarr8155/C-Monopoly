@@ -38,7 +38,7 @@ public:
 	void removeMoney(int amount);
 
 	void updateNetWorth();
-	int getNetWorth () const;
+	int getNetWorth ();
 	int getPosition() const;
 	void move(int amount);
 	void moveTo(int pos);

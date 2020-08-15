@@ -75,7 +75,8 @@ void Player::removeMoney(int amount) {
 	money -= amount;
 }
 
-int Player::getNetWorth () const {
+int Player::getNetWorth () {
+	updateNetWorth();
 	return netWorth;
 }
 
