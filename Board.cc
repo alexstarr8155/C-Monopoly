@@ -426,7 +426,7 @@ void Board::moveBy(int diceRoll) {
 	}
 }
 
-void Board::move(int num) {
+void Board::move() {
 	int diceRoll = roll();
 	move(diceRoll);
 }
