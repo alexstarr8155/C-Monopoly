@@ -476,27 +476,6 @@ void Board::moveTo(int loc){
     }
 }
 
-void Board::playRound() {
-    std::cout << "Starting Round" << std::endl;
-    std::cout << "Playing with " << playerNum << " players" << std::endl;
-
-    for (int i = 0; i < playerNum; ++i) {
-        int playerPosition = players[i]->getPosition();
-        std::cout << "Player " << (i+1) << " is at position " << playerPosition << std::endl;
-        board[playerPosition]->leave(players[i]);
-        int diceRoll = roll();
-        std::cout << "Player " << (i+1) << " rolled a " << diceRoll << std::endl;
-        players[i]->move(diceRoll);
-        playerPosition = players[i]->getPosition();
-        std::cout << "Player " << (i+1) << " is at position " << playerPosition << std::endl;
-        try {
-            board[playerPosition]->action(players[i], false);
-        }
-        catch (std::invalid_argument){
-            auction(playerPosition, currPlayer);
-        }
-    }
-}
 
 // will remove a player from the board
 void Board::removePlayer(std::shared_ptr<Player> player) {
