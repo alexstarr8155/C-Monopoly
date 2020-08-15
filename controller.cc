@@ -270,7 +270,7 @@ int main(int argc, char *argv[]) {
 						std::cout << "You do not have a RollUp the Rim Cup, try again" << std::endl;
 						c = 0;
 					} else {
-						curr->setTimsCups(curr->getTimsCard() - 1);
+						curr->setTimsCups(curr->getTimsCards() - 1);
 						std::cout << "You are now free, continue you turn as desired" << std::endl;
 						done = true;
 						break;
