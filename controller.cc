@@ -95,6 +95,7 @@ void printAssets (std::shared_ptr<Player> p){
 	for (auto it = prop.begin(); it != prop.end(); ++it){
 		std::cout << (*it)->getName() << std::endl;
 	}
+	std::cout << "Number of Roll up the Rim Cards: " << p->getTimsCards() << std::endl;
 }
 
 Property* getProperty(std::string propName, Board& board) {
