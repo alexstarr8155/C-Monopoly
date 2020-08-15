@@ -42,6 +42,8 @@ void SLC::action(std::shared_ptr<Player> p, bool b) {
 		owner->moveBy(3);
 	} else if (chance == 22) {
 		owner->moveTo(10);
+		p->setInTims(true);
+		owner->setRollDouble(0);
 	} else if (chance == 23) {
 		owner->moveTo(0);
 	} else {
