@@ -443,7 +443,7 @@ void Board::move(int diceRoll){
 	std::cout << rollDouble << std::endl;
 
 	std::shared_ptr<Player> curr = getCurrPlayer();
-
+/*
     if (curr->getInTims()) {
 	 //"Make choices"
 	
@@ -493,7 +493,7 @@ void Board::move(int diceRoll){
 	}
 
     }
-
+*/
     if (rollDouble == 3) {
 	curr->goToTims();
         moveTo(10);
