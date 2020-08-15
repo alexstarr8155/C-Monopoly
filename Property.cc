@@ -76,6 +76,9 @@ void Property::action (shared_ptr<Player> p, bool b) {
 				throw invalid_argument("Auction time!");
 			}
 			else {
+				if ( cin.fail () ) {
+					break;
+				}
 				cout << "Please enter Y/N" << endl;
 				cin >> in;
 			}
