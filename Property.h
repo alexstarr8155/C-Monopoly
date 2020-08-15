@@ -33,7 +33,7 @@ class Property : public Cell {
 		void setOwner(std::shared_ptr<Player> p) override;
 
 		// Subject methods
-		void attach (Property * neighbour);
+		void attach(Property * neighbour);
 		void notifyObservers();
 		// Observer methods
 		virtual void notify(Property & whoNotified);
