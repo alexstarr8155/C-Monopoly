@@ -16,9 +16,10 @@ void NeedlesHall::action(std::shared_ptr<Player> p, bool b) {
 		try {
 			owner->addTimsCard();
 			p->addTimsCard();
+			std::cout << "You got a Roll up the Rim Cup!" << std::endl;
 		}
 		catch(...){
-			std::cout << "You could have gotten a Get Out Of Tims Line card, but there are too many in circulation" << std::endl;
+			std::cout << "You could have gotten a Roll up the Rim Cup, but there are too many in circulation" << std::endl;
 		}
 		return;
 	}
@@ -27,18 +28,25 @@ void NeedlesHall::action(std::shared_ptr<Player> p, bool b) {
 
 	if (chance < 1) {
 		p->removeMoney(200);
+		std::cout << "You lost $200" << std::endl;
 	} else if (chance < 3) {
 		p->removeMoney(100);
+		std::cout << "You lost $100" << std::endl;
 	} else if (chance < 6) {
 		p->removeMoney(50);
+		std::cout << "You lost $50" << std::endl;
 	} else if (chance < 12) {
 		p->addMoney(25);
+		std::cout << "You got $25" << std::endl;
 	} else if (chance < 15) {
 		p->addMoney(50);
+		std::cout << "You got $50" << std::endl;
 	} else if (chance < 17) {
 		p->addMoney(100);
+		std::cout << "You got $100" << std::endl;
 	} else if (chance < 18) {
 		p->addMoney(200);
+		std::cout << "You got $200" << std::endl;
 	} else {
 		throw "Random Number failed";
 	}

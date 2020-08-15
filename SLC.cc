@@ -19,9 +19,10 @@ void SLC::action(std::shared_ptr<Player> p, bool b) {
 		try {
 			owner->addTimsCard();
 			p->addTimsCard();
+			std::cout << "You got a Roll up the Rim Cup!" << std::endl;
 		}
 		catch (...){
-			std::cout << "You could have gotten a Get Out Of Tims Line card, but there are too many in circulation" << std::endl;
+			std::cout << "You could have gotten a Roll up the Rim Cup , but there are too many in circulation" << std::endl;
 		}
 		return;
 	}
