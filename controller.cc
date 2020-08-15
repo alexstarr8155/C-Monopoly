@@ -233,8 +233,8 @@ int main(int argc, char *argv[]) {
 				int num1;
 				int num2;
 
-				std::cin >> num1;
-				std::cin >> num2;
+				s >> num1;
+				s >> num2;
 
 				if (num1 == num2) {
 					board->incRollDouble();	
@@ -612,8 +612,10 @@ int main(int argc, char *argv[]) {
 		}
 
 	}
-
-	std::cout << curr->getPlayerName() << " has won the game!" << std::endl;
+	
+	if (numPlayers == 1) {
+		std::cout << curr->getPlayerName() << " has won the game!" << std::endl;
+	}
 
 	delete board;
 }
