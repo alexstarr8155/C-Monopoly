@@ -5,9 +5,13 @@
 
 /* this class represents the Needle Hall Tiles of the Board */
 
+class Board;
+
 class NeedlesHall : public Cell {
+	Board * owner;
+
 	public:
-		NeedlesHall();
+		NeedlesHall(Board * owner);
 		virtual void action(std::shared_ptr<Player> p, bool b) override;
 };
 

@@ -1,13 +1,27 @@
 #include "NeedlesHall.h"
 #include "Player.h"
+#include "Board.h"
 #include <stdlib.h>
 
-NeedlesHall::NeedlesHall(): Cell{"NEEDLES HALL"} {}
+NeedlesHall::NeedlesHall(Board * owner): Cell{"NEEDLES HALL"}, owner{owner} {}
 
 // updates the on_cell member that there is a player on such cell
 // adds or removes a certain amount of money from the player landing (dependent on the probability)
 void NeedlesHall::action(std::shared_ptr<Player> p, bool b) {
 	on_cell.at(p->getPlayerChar()) = true;	
+
+	int timsChance = rand() % 100;
+	
+	if (timsChance == 1) {
+		try {
+			owner->addTimsCard();
+			p->addTimsCard();
+		}
+		catch(...){
+			std::cout << "You could have gotten a Get Out Of Tims Line card, but there are too many in circulation" << std::endl;
+		}
+		return;
+	}
 
 	int chance = rand() % 18;
 

@@ -328,9 +328,9 @@ void Board::initBoard() {
     auto slc1 = std::make_shared<SLC>(this);
     auto slc2 = std::make_shared<SLC>(this);
     auto tuition = std::make_shared<Tuition>();
-    auto needlesHall = std::make_shared<NeedlesHall>();
-    auto needlesHall1 = std::make_shared<NeedlesHall>();
-    auto needlesHall2 = std::make_shared<NeedlesHall>();
+    auto needlesHall = std::make_shared<NeedlesHall>(this);
+    auto needlesHall1 = std::make_shared<NeedlesHall>(this);
+    auto needlesHall2 = std::make_shared<NeedlesHall>(this);
     auto DCTimsLine = std::make_shared<Tims>();
     auto gooseNesting = std::make_shared<GooseNesting>();
     auto goToTims = std::make_shared<GoToTims>(this);
@@ -443,57 +443,6 @@ void Board::move(int diceRoll){
 	//std::cout << rollDouble << std::endl;
 
 	std::shared_ptr<Player> curr = getCurrPlayer();
-/*
-    if (curr->getInTims()) {
-	 //"Make choices"
-	
-	std::cout << "You are in jail, you can either roll for doubles, pay the bail or use a RollUp the Rim Cup" << std::endl;
-
-	std::cout << "You have: " << curr->getTimsCards() << " RollUp the Rim Cups" << std::endl;
-	std::cout << "You have: $" << curr->getMoney() << std::endl;
-	
-	std::cout << "Enter D to roll doubles, B to pay bail, T to use Tim's Cup" << std::endl;
-
-	char c = 0;
-
-	while (c != 'D' && c != 'B' && c != 'T') {
-		std::cin >> c;
-	
-		if (c == 'D') {
-			//"Do something with doubles"
-			if (curr->getTurnsInTims() == 3 && rollDouble == 0) {
-				std::cout << "This was your last turn in jail, and you failed to get doubles, you must pay bail, or use a RollUp the Rim Cup" << std::endl;
-				c = 0;
-				continue;
-			}
-			if (rollDouble > 0) {
-				rollDouble = 0;
-				break;
-			} else {
-				// 
-				curr->setTurnsInTims(curr->getTurnsInTims() + 1);
-				currPlayer = (currPlayer + 1) % playerNum;		
-				return;
-			}
-		} else if (c == 'B'){
-			// "Pay bail"
-			curr->removeMoney(50);
-			break;
-		} else if (c == 'T' && curr->getTimsCards() > 0) {
-			//"Use Card"
-			//currPlayer->decTimsCards();
-			
-		} else {
-			std::cout << "Please select one of D, B or T" << std::endl;
-			c = 0;
-			
-		}
-		   	
-	
-	}
-
-    }
-*/
     if (rollDouble == 3) {
 	curr->goToTims();
         moveTo(10);

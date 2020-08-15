@@ -14,6 +14,8 @@ void SLC::action(std::shared_ptr<Player> p, bool b) {
 	int timsChance = rand() % 100;
 
 	if (timsChance == 1) {
+		on_cell.at(p->getPlayerChar()) = true;
+
 		try {
 			owner->addTimsCard();
 			p->addTimsCard();
