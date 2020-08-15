@@ -196,145 +196,140 @@ int main(int argc, char *argv[]) {
 		curr = board->getCurrPlayer();
 
 		//"For testing purposes"
-
+		bool inJail = curr->getInTims();
+		int lastRoll = -1;
 		if (curr->getInTims()) {
 			//"Make choices"
 	
-			std::cout << "You are in jail, you can either roll for doubles, pay the bail or use a RollUp the Rim Cup" << std::endl;
+			std::cout << curr->getPlayerName() << " is in jail, you can either roll for doubles, pay the bail or use a RollUp the Rim Cup" << std::endl;
 
 			std::cout << "You have: " << curr->getTimsCards() << " RollUp the Rim Cups" << std::endl;
 			std::cout << "You have: $" << curr->getMoney() << std::endl;
 	
 			std::cout << "Enter D to roll doubles, B to pay bail, T to use Tim's Cup" << std::endl;
-
-			char c = 0;
-			bool done = false;
-			int lastRoll = -1;
-			while (done || (c != 'D' && c != 'B' && c != 'T')) {
-				std::cin >> c;
-	
-				if (c == 'D') {
-					//"Do something with doubles"
-					
-					
-					std::cout << "Type roll, to roll the dice" << std::endl;
-					int roll = 0;
-
-					std::string d;
-					std::cin >> d;
-
-					std::string temp;
-					std::getline(std::cin, temp);
-
-					std::stringstream s(temp);
-
-					if (testingMode && temp.length() != 0) {
-						int num1;
-						int num2;
-
-						std::cin >> num1;
-						std::cin >> num2;
-
-						if (num1 == num2) {
-							board->incRollDouble();	
-						} else {
-							board->setRollDouble(0);
-						}
-						roll = num1 + num2;	
-
-
-					} else {
-						roll = board->roll();
-					}
-
-					if (curr->getTurnsInTims() == 2 && board->getRollDouble() == 0) {
-						std::cout << "This was your last turn in jail, and you failed to get doubles, you must pay bail, or use a RollUp the Rim Cup" << std::endl;
-						c = 0;
-						lastRoll = roll;
-						continue;
-					}
-
-					if (board->getRollDouble() > 0) {
-						board->setRollDouble(0);
-			//			std::cerr << "Moving" << std::endl;
-						board->move(roll);
-
-						display.display();
-
-						done = true;
-						break;
-					} else {
-						std::cout << "You did not get doubles, are still in jail" << std::endl;
-						curr->setTurnsInTims(curr->getTurnsInTims() + 1);
-
-						int nextPlayer = (board->getCurrPlayerInt() + 1) % numPlayers;
-						board->setCurrPlayer(nextPlayer);
-						//currPlayer = (currPlayer + 1) % playerNum;		
-						
-						break;
-					}
-				} else if (c == 'B'){
-					// "Pay bail"
-					if (curr->getMoney() < 50) {
-						std::cout << "Not enough money to pay bail, try T for Tims Cup or D for roll for Doubles" << std::endl;
-						c = 0;
-					} else if (lastRoll != -1) {
-						curr->removeMoney(50);
-						std::cout << "You are being moved according to you last doubles attempt" << std::endl;
-						done = true;
-						board->move(lastRoll);
-						curr->setTurnsInTims(0);
-						display.display();
-						break;
-					} else {
-						curr->removeMoney(50);
-						std::cout << "You are now free, continue your turn as desired" << std::endl;
-						done = true;
-						curr->setTurnsInTims(0);
-						break;
-					}
-				} else if (c == 'T') {
-					//"Use Card"
-					
-					if (curr->getTimsCards() <= 0) {
-						std::cout << "You do not have a RollUp the Rim Cup, try again" << std::endl;
-						c = 0;
-					} else {
-						curr->setTimsCups(curr->getTimsCards() - 1);
-						std::cout << "You are now free, continue you turn as desired" << std::endl;
-						done = true;
-						curr->setTurnsInTims(0);
-						break;
-					}
-			
-				} else {
-					std::cout << "Please select one of D, B or T" << std::endl;
-					c = 0;
-	
-				}		
-			}
-
-		//	board->move();
-		}
-	
-/*
-		std::string temp;
-		std::getline(std::cin, temp);
-	
-		if (temp.length() == 0) {
-			continue;
+		
+			//int lastRoll = -1;
+		
 		}
 
-		std::stringstream s(temp);
-*/
+	
 		std::string cmd;
 		std::cin >> cmd;
-
-		//std::cout << cmd << ", " << temp << std::endl;
 	
-		
-		if (cmd.compare("roll") == 0 && !locked) {
-			
+		if (cmd.compare("D") == 0 && inJail) {
+
+			std::cout << "Type roll, to roll the dice" << std::endl;
+			int roll = 0;
+
+			std::string d;
+			std::cin >> d;
+
+			std::string temp;
+			std::getline(std::cin, temp);
+
+			std::stringstream s(temp);
+
+			if (testingMode && temp.length() != 0) {
+				int num1;
+				int num2;
+
+				std::cin >> num1;
+				std::cin >> num2;
+
+				if (num1 == num2) {
+					board->incRollDouble();	
+				} else {
+					board->setRollDouble(0);
+				}
+				roll = num1 + num2;	
+
+
+			} else {
+				roll = board->roll();
+			}
+
+			if (curr->getTurnsInTims() == 2 && board->getRollDouble() == 0) {
+				std::cout << "This was your last turn in jail, and you failed to get doubles, you must pay bail, or use a RollUp the Rim Cup" << std::endl;
+				//c = 0;
+				lastRoll = roll;
+				continue;;
+			}
+
+			if (board->getRollDouble() > 0) {
+				board->setRollDouble(0);
+	//			std::cerr << "Moving" << std::endl;
+	
+				std::cout << "You rolled doubles and are free to go" << std::endl;
+				board->move(roll);
+
+				curr->setTurnsInTims(0);
+				curr->setInTims(false);
+
+				display.display();
+
+				//done = true;
+				continue;
+			} else {
+				std::cout << "You did not get doubles, are still in jail" << std::endl;
+				curr->setTurnsInTims(curr->getTurnsInTims() + 1);
+
+				int nextPlayer = (board->getCurrPlayerInt() + 1) % numPlayers;
+				board->setCurrPlayer(nextPlayer);
+				//currPlayer = (currPlayer + 1) % playerNum;		
+						
+				continue;
+			}
+
+
+		} else if (cmd.compare("B") == 0 && inJail) {
+			if (curr->getMoney() < 50) {
+				std::cout << "Not enough money to pay bail, try T for Tims Cup or D for roll for Doubles" << std::endl;
+				//c = 0;
+			} else if (lastRoll != -1) {
+				curr->removeMoney(50);
+				std::cout << "You are being moved according to you last doubles attempt" << std::endl;
+				//done = true;
+				board->move(lastRoll);
+				curr->setTurnsInTims(0);
+				curr->setInTims(false);
+				display.display();
+				continue;
+			} else {
+				curr->removeMoney(50);
+				std::cout << "You are now free, continue your turn as desired" << std::endl;
+				//done = true;
+				curr->setTurnsInTims(0);
+				curr->setInTims(false);
+				continue;
+			}
+
+		} else if (cmd.compare("T") == 0 && inJail) {
+
+			if (curr->getTimsCards() <= 0) {
+				std::cout << "You do not have a RollUp the Rim Cup, try again" << std::endl;
+				//c = 0;
+			} else if (lastRoll == -1) {
+				curr->setTimsCups(curr->getTimsCards() - 1);
+				std::cout << "You are being moved according to you last doubles attempt" << std::endl;
+				//done = true;
+				board->move(lastRoll);
+				curr->setTurnsInTims(0);
+				curr->setInTims(false);
+				display.display();
+				continue;
+
+			} else {
+				curr->setTimsCups(curr->getTimsCards() - 1);
+				std::cout << "You are now free, continue you turn as desired" << std::endl;
+				//done = true;
+				curr->setTurnsInTims(0);
+				curr->setInTims(false);
+				continue;
+			}
+
+
+		} else if (cmd.compare("roll") == 0 && !locked && !inJail) {
+
 			std::string temp = "";
 			if (testingMode) {
 				std::getline(std::cin, temp);
@@ -385,7 +380,7 @@ int main(int argc, char *argv[]) {
 
 			display.display();
 
-		} else if (cmd.compare("next") == 0 && !locked) {
+		} else if (cmd.compare("next") == 0 && !locked && !inJail) {
 			
 			int nextPlayer = (board->getCurrPlayerInt() + 1) % numPlayers;
 			board->setCurrPlayer(nextPlayer);
@@ -497,7 +492,7 @@ int main(int argc, char *argv[]) {
 			
 			
 		} 
-		else if (cmd.compare("unmortgage") == 0 && !locked) {
+		else if (cmd.compare("unmortgage") == 0) {
 			std::string prop;
 			std::cin >> prop;
 			Property * p = getProperty(prop, *board);
@@ -581,11 +576,16 @@ int main(int argc, char *argv[]) {
 			std::cin >> filename;
 			board->save(filename);
 			break;
+			
+		} else if (inJail){
+			std::cout << "You are in Jail, use D to roll Doubles, B to pay Bail, or T to use RollUp the Rim Cup" << std::endl;
 		} else {
 			if (!std::cin.eof()) {
 				std::cout << "Invalid command, try again: ";
 			}
 		}
+
+		
 
 		if (curr->getMoney() >= amountOwed && locked) {
 			std::cout << "You have raised enough money" << std::endl;
