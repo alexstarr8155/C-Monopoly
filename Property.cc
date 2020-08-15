@@ -139,7 +139,7 @@ void Property::attach(Property * o) {
 
 void Property::notifyObservers() {
 
-	for (int i = 0; i < observers.size(); i++) {
+	for (unsigned i = 0; i < observers.size(); i++) {
 		observers[i]->notify(*this);
 	}
 }

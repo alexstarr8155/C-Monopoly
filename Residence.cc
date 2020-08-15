@@ -31,5 +31,6 @@ int Residences::getRent() const {
 		case 4:
 			return 200;
 	}
+	return -1;
 }
 

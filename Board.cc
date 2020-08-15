@@ -336,7 +336,7 @@ void Board::initBoard() {
     auto goToTims = std::make_shared<GoToTims>(this);
     auto coopFee = std::make_shared<CoopFee>();
 
-    for (int i = 0; i < players.size(); i++) {
+    for (unsigned i = 0; i < players.size(); i++) {
         collectOsap->setOnCell(players[i]->getPlayerChar());
     }
     
@@ -390,6 +390,8 @@ int Board::roll() {
     
     int dice1 = 1 + (std::rand() % 6);
     int dice2 = 1 + (std::rand() % 6);
+	
+    std::cout << players[currPlayer]->getPlayerName() << " rolled a " << dice1 << " and a " << dice2 << std::endl;
 
     if (dice1 == dice2) {
         ++rollDouble;
@@ -416,11 +418,11 @@ void Board::setRollDouble(int num) {
 void Board::moveBy(int diceRoll) {
 	int i = currPlayer;
 	int playerPosition = players[i]->getPosition();
-	std::cout << players[i]->getPlayerName() << " is at " << board[playerPosition]->getName() << std::endl;
+//	std::cout << players[i]->getPlayerName() << " is at " << board[playerPosition]->getName() << std::endl;
 	board[playerPosition]->leave(players[i]);
 	
 	players[i]->move(diceRoll);
-	std::cout << players[i]->getPlayerName() << " rolled a " << diceRoll << std::endl;
+	std::cout << players[i]->getPlayerName() << " moved " << diceRoll << " spaces" << std::endl;
 
 	playerPosition = players[i]->getPosition();
 	std::cout << players[i]->getPlayerName() << " is at " << board[playerPosition]->getName() << std::endl;
@@ -465,15 +467,7 @@ void Board::removePlayer(std::shared_ptr<Player> player) {
 	int pos = player->getPosition();
 	board[pos]->leave(player);
 
-	/*
-	for (auto it = players.begin(); it != players.end(); ++it) {
-		if (it->second->getPlayerName().compare(player->getPlayerName()) == 0) {
-			players.erase(it);
-			break;
-		}
-	}
-
-*/
+	
 	//std::cout << currPlayer << ", " << players.size() << std::endl;
 	for (int i = currPlayer; i < playerNum; i = i+1) {
 	//	std::cout << "D" << std::endl;
@@ -486,12 +480,12 @@ void Board::removePlayer(std::shared_ptr<Player> player) {
 
 void Board::auction(int loc, int from) {
 	std::vector<int> playersInAuc;
-	for (int i = 0; i < players.size(); ++i) {
+	for (unsigned i = 0; i < players.size(); ++i) {
 		playersInAuc.emplace_back(i);
 	}
 
 	int currentPlayer = playersInAuc.at(0);
-	int currPlayerIndex = 0;
+	unsigned currPlayerIndex = 0;
 	int currentBid = 0;
 	while (playersInAuc.size() > 1){
 

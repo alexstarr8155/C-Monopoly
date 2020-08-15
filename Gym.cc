@@ -33,4 +33,6 @@ int Gym::getRent() const {
 		case 2:
 			return sum * 10;
 	}
+
+	return -1;
 }

@@ -25,6 +25,9 @@ void Tuition::action(shared_ptr<Player> p, bool b) {
 			break;
 		}
 		else {
+			if (cin.fail ()) {
+				break;
+			}
 			cout << "Please enter M or W" << endl;
 		}
 	}

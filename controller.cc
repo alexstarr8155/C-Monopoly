@@ -63,7 +63,7 @@ void setupPlayers(std::map<const std::string, std::shared_ptr<Player>> & players
 				} else {
 					std::cout << "Invalid or Duplicate piece, choose one of: ";
 
-					for (int i = 0; i < allowedPieces.size(); i++) {
+					for (unsigned i = 0; i < allowedPieces.size(); i++) {
 						if (find(takenPieces.begin(), takenPieces.end(), allowedPieces[i]) == takenPieces.end()) {
 							std::cout << allowedPieces[i] << " ";
 						}
@@ -305,8 +305,7 @@ int main(int argc, char *argv[]) {
 			}
 
 		} else if (cmd.compare("T") == 0 && inJail) {
-
-			if (curr->getTimsCards() <= 0) {
+			if (curr->getTimsCards() == 0) {
 				std::cout << "You do not have a RollUp the Rim Cup, try again" << std::endl;
 				//c = 0;
 			} else if (lastRoll == -1) {
@@ -426,70 +425,111 @@ int main(int argc, char *argv[]) {
 				// "Trade with int version"
 				//std::cout << other->getPlayerName() << std::endl;
 				
-				if (r-g > other->getMoney()) {
+				std::cout << "You cannot trade money for money!" << std::endl;
+
+				/*if (r-g > other->getMoney()) {
 					std::cout << "Not enough money for this trade" << std::endl;
 					break;
 				}
 
 				std::cout << other->getPlayerName() << ", do accept the trade to give $" << r << " to " << curr->getPlayerName() << 
-					" in exchange for $" << g << "? Enter Y to accept ";
+					" in exchange for $" << g << "? Enter accept or reject ";
 
-				char reply;
+				std::string reply;
 				std::cin >> reply;
 
-				if (reply == 'Y') {
+				if (reply == "accept") {
 					std::cout << "Trade accepted" << std::endl;			
 					curr->addMoney(r-g);
 					other->removeMoney(r-g);
 	
 				} else {
 					std::cout << "Trade rejected" << std::endl;
-				}
+				}*/
 
 				
 			} else if (g != -1) {
 				// "Trade int for Property"
 				
 				std::cout << other->getPlayerName() << ", do accept the trade to give " << pReceive->getName() << " to " << curr->getPlayerName() << 
-					" in exchange for $" << g << "? Enter Y to accept: ";
+					" in exchange for $" << g << "? Enter accept or reject: ";
 
-				char reply;
-				std::cin >> reply;
+				std::string reply;
+				
+				while (true) {
+					std::cin >> reply;
+					if (reply == "accept") {
+						curr->trade(other, g, pReceive);
+						std::cout << "Trade accepted" << std::endl;
+						break;
+					} 
+					else if (reply == "reject"){
+						std::cout << "Trade rejected" << std::endl;
+						break;
+					}
+					else {
+						if (std::cin.fail()) {
+							break;
+						}
 
-				if (reply == 'Y') {
-					std::cout << "Trade accepted" << std::endl;	
-					curr->trade(other, g, pReceive);
-				} else {
-					std::cout << "Trade rejected" << std::endl;
+						std::cout << "Enter accept or reject: ";
+					}
 				}
 				
-			} else if (r != -1) {
+			} 
+			else if (r != -1) {
 				// "Trade Property with int"
 				
 				std::cout << other->getPlayerName() << ", do accept the trade to give $" << r << " to " << curr->getPlayerName() << 
-					" in exchange for " << pGive->getName() << "? Enter Y to accept: ";
+					" in exchange for " << pGive->getName() << "? Enter accept or reject: ";
 
-				char reply;
-				std::cin >> reply;
+				std::string reply;
+				
+				while (true) {
+					std::cin >> reply;
+					if (reply == "accept") {
+						curr->trade(other, pGive, r);
+						std::cout << "Trade accepted" << std::endl;
+						break;
+					}
+					else if (reply == "reject") {
+						std::cout << "Trade rejected" << std::endl;
+						break;
+					}
+					else {
+						if (std::cin.fail()) {
+							break;
+						}
 
-				if (reply == 'Y') {
-					std::cout << "Trade accepted" << std::endl;
-					curr->trade(other, pGive, r);
-				} else {
-					std::cout << "Trade rejected" << std::endl;
+						std::cout << "Enter accept or reject: ";
+					}
 				}
-			} else {
+			} 
+			else {
 				std::cout << other->getPlayerName() << ", do accept the trade to give " << pReceive->getName() << " to " << curr->getPlayerName() << 
-					" in exchange for " << pGive->getName() << "? Enter Y to accept: ";
+					" in exchange for " << pGive->getName() << "? Enter accept or reject: ";
 
-				char reply;
-				std::cin >> reply;
+				std::string reply;
+				
+				while (true) {
+					std::cin >> reply;
+					if (reply == "accept") {
+						curr->trade(other, pGive, pReceive);
+						std::cout << "Trade accepted" << std::endl;			
+						break;
+					}
+					else if (reply == "reject") {
+						std::cout << "Trade rejected" << std::endl;
+						break;
+					}
+					else {
+						if (std::cin.fail ()) {
+							break;
+						}
 
-				if (reply == 'Y') {
-					std::cout << "Trade accepted" << std::endl;			
-					curr->trade(other, pGive, pReceive);
-				} else {
-					std::cout << "Trade rejected" << std::endl;
+						std::cout << "Enter accept or reject: ";
+					}
+
 				}
 			}
 
