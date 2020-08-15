@@ -7,8 +7,8 @@
 class Gym : public Property {
 
 	public:
-		Gym (const std::string &name, std::vector<std::string> set);
-		virtual int getRent () const override;
+		Gym(const std::string &name, std::vector<std::string> set);
+		virtual int getRent() const override;
 };
 
 #endif
