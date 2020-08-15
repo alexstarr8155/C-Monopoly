@@ -333,7 +333,7 @@ void Board::initBoard() {
     auto needlesHall2 = std::make_shared<NeedlesHall>();
     auto DCTimsLine = std::make_shared<Tims>();
     auto gooseNesting = std::make_shared<GooseNesting>();
-    auto goToTims = std::make_shared<GoToTims>();
+    auto goToTims = std::make_shared<GoToTims>(this);
     auto coopFee = std::make_shared<CoopFee>();
 
     for (int i = 0; i < players.size(); i++) {

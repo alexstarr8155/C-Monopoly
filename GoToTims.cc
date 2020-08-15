@@ -1,14 +1,15 @@
 #include "GoToTims.h"
 #include "Player.h"
+#include "Board.h"
 
 using namespace std;
 
-GoToTims::GoToTims (): Cell{"GO TO TIMS"} {}
+GoToTims::GoToTims (Board * owner): Cell{"GO TO TIMS"}, owner{owner} {}
 
 void GoToTims::action (shared_ptr<Player> p, bool b) {
-
-	cout << "This is a temp msg to let you know you landed on GoToTims" << endl;
-
+	cout << "You landed on GoToTims!" << endl;
+	
+	owner->moveBy(20);
 	p->goToTims();
 	//probably add a reference to the Tims Cell 
 }

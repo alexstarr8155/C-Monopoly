@@ -3,10 +3,13 @@
 
 #include "Cell.h"
 
+class Board;
+
 class GoToTims : public Cell {
-	
+	Board * owner;
+
 	public:
-		GoToTims ();
+		GoToTims (Board * owner);
 		virtual void action (std::shared_ptr<Player> p, bool b) override;
 };
 
