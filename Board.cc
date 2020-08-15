@@ -390,7 +390,7 @@ int Board::roll() {
     
     int dice1 = 1 + (std::rand() % 6);
     int dice2 = 1 + (std::rand() % 6);
-	std::cout << dice1 << " " << dice2 << std::endl;
+
     if (dice1 == dice2) {
         ++rollDouble;
     }
@@ -418,15 +418,13 @@ void Board::moveBy(int diceRoll) {
 	int playerPosition = players[i]->getPosition();
 	std::cout << players[i]->getPlayerName() << " is at " << board[playerPosition]->getName() << std::endl;
 	board[playerPosition]->leave(players[i]);
-	//int diceRoll = roll();
-	std::cout << players[i]->getPlayerName() << " rolled a " << diceRoll << std::endl;
+	
 	players[i]->move(diceRoll);
+	std::cout << players[i]->getPlayerName() << " rolled a " << diceRoll << std::endl;
 
 	playerPosition = players[i]->getPosition();
 	std::cout << players[i]->getPlayerName() << " is at " << board[playerPosition]->getName() << std::endl;
 
-	//BoardDisplay temp(*this);
-	//temp.display();
 	try {
 		board[playerPosition]->action(players[i], false);
 	} catch (std::invalid_argument arg) {
@@ -440,7 +438,6 @@ void Board::move() {
 }
 
 void Board::move(int diceRoll){
-	//std::cout << rollDouble << std::endl;
 
 	std::shared_ptr<Player> curr = getCurrPlayer();
     if (rollDouble == 3) {
@@ -454,7 +451,6 @@ void Board::move(int diceRoll){
     if (rollDouble == 0) {
         currPlayer = (currPlayer + 1) % playerNum;
     }
-//	std::cout << currPlayer << ", " << playerNum << std::endl;
 }
 
 int Board::getCurrPlayerInt () const {
