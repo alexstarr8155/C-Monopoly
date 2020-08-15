@@ -11,6 +11,19 @@ void SLC::action(std::shared_ptr<Player> p, bool b) {
 	
 	std::cout << "You landed on SLC!" << std::endl;
 	
+	int timsChance = rand() % 100;
+
+	if (timsChance == 1) {
+		try {
+			owner->addTimsCard();
+			p->addTimsCard();
+		}
+		catch (...){
+			std::cout << "You could have gotten a Get Out Of Tims Line card, but there are too many in circulation" << std::endl;
+		}
+		return;
+	}
+
 	int chance = rand() % 24;
 
 	if (chance < 3) {

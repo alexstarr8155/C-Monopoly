@@ -696,3 +696,14 @@ void Board::save(std::string fileName) {
 	}
 }
 
+
+void Board::addTimsCard () {
+	if (numTimsCard == 4){
+		throw "Too many tims cards";
+	}
+	numTimsCard++;
+}
+
+void Board::removeTimsCard () {
+	numTimsCard--;
+}

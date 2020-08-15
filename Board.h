@@ -14,6 +14,7 @@ class Board {
 	std::map<int, std::shared_ptr<Player>> players;
 	std::map<int, std::shared_ptr<Cell>> board;
 	int rollDouble = 0;
+	int numTimsCard = 0;
 
 	public:
 		Board(std::map<const std::string, std::shared_ptr<Player>> & players, int num);
@@ -34,7 +35,8 @@ class Board {
 		void playRound();
 		int getCurrPlayerInt() const;
 		void setCurrPlayer (int i);
-		
+		void addTimsCard ();
+		void removeTimsCard ();
 		void removePlayer(std::shared_ptr<Player> player);
 
 		void auction (int loc, int from);
