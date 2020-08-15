@@ -21,6 +21,7 @@
 #include "CollectOSAP.h"
 #include "BankruptException.h"
 
+// board's constructor that helps create a board by loading information from a file 'fileName'
 Board::Board(std::string fileName) {
 
     std::ifstream infile{fileName};
@@ -73,9 +74,9 @@ Board::Board(std::string fileName) {
 
         board[position]->setOnCell(players[i]->getPlayerChar());
 
-	for (int i = 0; i < playerNum; ++i) {
-		board[0]->leave(players[i]);
-	}
+    	for (int i = 0; i < playerNum; ++i) {
+    		board[0]->leave(players[i]);
+    	}
     }
 
     for (int i = 0; i < 40; i++) {
@@ -109,28 +110,21 @@ Board::Board(std::string fileName) {
     }
 }
 
-std::map<const std::string, std::shared_ptr<Player>> Board::getPlayers() {
-	
-	std::map<const std::string, std::shared_ptr<Player>> map;
-
-	for (auto it = players.begin(); it != players.end(); it++) {
-		map[it->second->getPlayerName()] = it->second;
-	}
-	return map;
-
-}
-
+// board's constructor that helps create a board from scratch
 Board::Board(std::map<const std::string, std::shared_ptr<Player>> & p, int num) : playerNum{num} {
 
-	int count = 0;
-	for (auto it = p.begin(); it != p.end(); it++) {
-		players[count] = it->second;
-		count++;
-	}
+    int count = 0;
+    for (auto it = p.begin(); it != p.end(); it++) {
+        players[count] = it->second;
+        count++;
+    }
 
-	initBoard();
+    initBoard();
 }
 
+Board::~Board() {}
+
+// initializes the entire game by giving all of the Cells their default values
 void Board::initBoard() {
 
     currPlayer = 0;
@@ -382,15 +376,15 @@ void Board::initBoard() {
     board[39] = DC;
 }
 
-Board::~Board() {}
-
+// will emulate a dice roll by getting two numbers from the range 1-6
+// if the values of the two number are the same, player rolls doubles, the function increments the memeber rollDouble by 1
 int Board::roll() {
     
     std::srand((unsigned int)std::time(NULL));
     
     int dice1 = 1 + (std::rand() % 6);
     int dice2 = 1 + (std::rand() % 6);
-	
+    
     std::cout << players[currPlayer]->getPlayerName() << " rolled a " << dice1 << " and a " << dice2 << std::endl;
 
     if (dice1 == dice2) {
@@ -403,51 +397,39 @@ int Board::roll() {
     return (dice1 + dice2);
 }
 
+// increments the member rollDouble by 1
 void Board::incRollDouble() {
-	rollDouble++;
+    rollDouble++;
 }
 
-int Board::getRollDouble() {
-	return rollDouble;
-}
-
+// sets the rember of rollDouble to the value 'num'
 void Board::setRollDouble(int num) {
-	rollDouble = num;
+    rollDouble = num;
 }
 
-void Board::moveBy(int diceRoll) {
-	int i = currPlayer;
-	int playerPosition = players[i]->getPosition();
-//	std::cout << players[i]->getPlayerName() << " is at " << board[playerPosition]->getName() << std::endl;
-	board[playerPosition]->leave(players[i]);
-	
-	players[i]->move(diceRoll);
-	std::cout << players[i]->getPlayerName() << " moved " << diceRoll << " spaces" << std::endl;
-
-	playerPosition = players[i]->getPosition();
-	std::cout << players[i]->getPlayerName() << " is at " << board[playerPosition]->getName() << std::endl;
-
-	try {
-		board[playerPosition]->action(players[i], false);
-	} catch (std::invalid_argument arg) {
-		auction(playerPosition, currPlayer);
-	}
+// returns the number of double that have been rolled consecutively
+int Board::getRollDouble() {
+    return rollDouble;
 }
 
+// will roll the dice and call the move function with value of the roll as a parameter
 void Board::move() {
-	int diceRoll = roll();
-	move(diceRoll);
+    int diceRoll = roll();
+    move(diceRoll);
 }
 
+// will move the player to the appropriate spot on the board by calling moveTo or moveBy
+// if the player rolled double the currPlayer member will not be updated unless rolled double 3 times in a row
+// if the player did not roll doubles will update the currPlayer member to represent the next player's turn
 void Board::move(int diceRoll){
 
-	std::shared_ptr<Player> curr = getCurrPlayer();
+    std::shared_ptr<Player> curr = getCurrPlayer();
     if (rollDouble == 3) {
-	curr->goToTims();
+        curr->goToTims();
         moveTo(10);
         currPlayer = (currPlayer + 1) % playerNum;
         rollDouble = 0;
-	return;
+        return;
     }
     moveBy(diceRoll);
     if (rollDouble == 0) {
@@ -455,29 +437,122 @@ void Board::move(int diceRoll){
     }
 }
 
+// will move the current player according to the value of 'diceRoll'
+// player will leave from their current tile, update their position, and land on their new tile
+// will perform the cell action that the current player is on, and if that cell is a property will attempt to buy
+// if player does not want to purchase the property will attempt to auction the property
+void Board::moveBy(int diceRoll) {
+    int i = currPlayer;
+    int playerPosition = players[i]->getPosition();
+    //std::cout << players[i]->getPlayerName() << " is at " << board[playerPosition]->getName() << std::endl;
+    board[playerPosition]->leave(players[i]);
+    
+    players[i]->move(diceRoll);
+    std::cout << players[i]->getPlayerName() << " moved " << diceRoll << " spaces" << std::endl;
+
+    playerPosition = players[i]->getPosition();
+    std::cout << players[i]->getPlayerName() << " is at " << board[playerPosition]->getName() << std::endl;
+
+    try {
+        board[playerPosition]->action(players[i], false);
+    } catch (std::invalid_argument arg) {
+        auction(playerPosition, currPlayer);
+    }
+}
+
+// will move the current player to a specific location on the board
+// will perform the cell action that the current player is on, and if that cell is a property will attempt to buy
+// if player does not want to purchase the property will attempt to auction the property
+void Board::moveTo(int loc){
+    int i = currPlayer;
+    board[players[i]->getPosition()]->leave(players[i]);
+    players[i]->moveTo(loc);
+    try {
+        board[loc]->action(players[i], false);
+    }
+    catch (std::invalid_argument){
+        auction(loc, i);
+    }
+}
+
+void Board::playRound() {
+    std::cout << "Starting Round" << std::endl;
+    std::cout << "Playing with " << playerNum << " players" << std::endl;
+
+    for (int i = 0; i < playerNum; ++i) {
+        int playerPosition = players[i]->getPosition();
+        std::cout << "Player " << (i+1) << " is at position " << playerPosition << std::endl;
+        board[playerPosition]->leave(players[i]);
+        int diceRoll = roll();
+        std::cout << "Player " << (i+1) << " rolled a " << diceRoll << std::endl;
+        players[i]->move(diceRoll);
+        playerPosition = players[i]->getPosition();
+        std::cout << "Player " << (i+1) << " is at position " << playerPosition << std::endl;
+        try {
+            board[playerPosition]->action(players[i], false);
+        }
+        catch (std::invalid_argument){
+            auction(playerPosition, currPlayer);
+        }
+    }
+}
+
+// will remove a player from the board
+void Board::removePlayer(std::shared_ptr<Player> player) {
+    int pos = player->getPosition();
+    board[pos]->leave(player);
+
+    //std::cout << currPlayer << ", " << players.size() << std::endl;
+    for (int i = currPlayer; i < playerNum; i = i+1) {
+    //  std::cout << "D" << std::endl;
+        players[i] = std::move(players[i+1]);
+    //  std::cout << "E" << std::endl;
+    }
+    playerNum--;
+}
+
+// returns a map of the players on board currently
+std::map<const std::string, std::shared_ptr<Player>> Board::getPlayers() {
+	
+	std::map<const std::string, std::shared_ptr<Player>> map;
+
+	for (auto it = players.begin(); it != players.end(); it++) {
+		map[it->second->getPlayerName()] = it->second;
+	}
+	return map;
+
+}
+
+// sets the board memeber, currPlayer
+void Board::setCurrPlayer (int i) {
+    currPlayer = i;
+}
+
+// returns the index of the current player
 int Board::getCurrPlayerInt () const {
 	return currPlayer;
 }
 
-void Board::setCurrPlayer (int i) {
-	currPlayer = i;
+// returns the actual current player
+std::shared_ptr<Player> Board::getCurrPlayer() {
+    return players[currPlayer];
 }
 
-void Board::removePlayer(std::shared_ptr<Player> player) {
-	int pos = player->getPosition();
-	board[pos]->leave(player);
-
-	
-	//std::cout << currPlayer << ", " << players.size() << std::endl;
-	for (int i = currPlayer; i < playerNum; i = i+1) {
-	//	std::cout << "D" << std::endl;
-		players[i] = std::move(players[i+1]);
-	//	std::cout << "E" << std::endl;
-	}
-	playerNum--;
+// will add a Tims cards in circulation if the number of Tims cards in circulation is less than 4
+void Board::addTimsCard () {
+    if (numTimsCard == 4){
+        throw "Too many tims cards";
+    }
+    numTimsCard++;
 }
 
+// removes a Tims cards from circulation
+void Board::removeTimsCard () {
+    numTimsCard--;
+}
 
+// function will occur if a player chooses not to buy a certain property
+// will auction a specific Property and the winner of the auction must purchase the Property for the auctioned price
 void Board::auction(int loc, int from) {
 	std::vector<int> playersInAuc;
 	for (unsigned i = 0; i < players.size(); ++i) {
@@ -528,47 +603,7 @@ void Board::auction(int loc, int from) {
 	players[currentPlayer]->addProperty(static_cast<Property *>(board[loc].get()));
 }
 
-
-
-
-void Board::moveTo(int loc){
-	int i = currPlayer;
-	board[players[i]->getPosition()]->leave(players[i]);
-	players[i]->moveTo(loc);
-	try {
-		board[loc]->action(players[i], false);
-	}
-	catch (std::invalid_argument){
-		auction(loc, i);
-	}
-}
-
-void Board::playRound() {
-	std::cout << "Starting Round" << std::endl;
-	std::cout << "Playing with " << playerNum << " players" << std::endl;
-
-	for (int i = 0; i < playerNum; ++i) {
-		int playerPosition = players[i]->getPosition();
-		std::cout << "Player " << (i+1) << " is at position " << playerPosition << std::endl;
-		board[playerPosition]->leave(players[i]);
-		int diceRoll = roll();
-		std::cout << "Player " << (i+1) << " rolled a " << diceRoll << std::endl;
-		players[i]->move(diceRoll);
-		playerPosition = players[i]->getPosition();
-		std::cout << "Player " << (i+1) << " is at position " << playerPosition << std::endl;
-		try {
-			board[playerPosition]->action(players[i], false);
-		}
-		catch (std::invalid_argument){
-			auction(playerPosition, currPlayer);
-		}
-	}
-}
-
-std::shared_ptr<Player> Board::getCurrPlayer() {
-	return players[currPlayer];
-}
-
+// will save all the board info as well as the player info into a file called 'fileName'
 void Board::save(std::string fileName) {
 	
 	std::ofstream outfile{fileName};
@@ -633,16 +668,4 @@ void Board::save(std::string fileName) {
 			}
 		}
 	}
-}
-
-
-void Board::addTimsCard () {
-	if (numTimsCard == 4){
-		throw "Too many tims cards";
-	}
-	numTimsCard++;
-}
-
-void Board::removeTimsCard () {
-	numTimsCard--;
 }
