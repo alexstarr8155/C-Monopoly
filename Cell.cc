@@ -3,7 +3,7 @@
 using namespace std;
 
 Cell::Cell (const string & name): name{name} {
-	numImprovements = -1;
+	numImprovements = -2;
 	on_cell = {
 		{'G', false},
 		{'B', false},

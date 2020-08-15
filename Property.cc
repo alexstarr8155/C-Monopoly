@@ -14,6 +14,7 @@ Property::Property (const string & name, int purchase, vector<string> set):
 	for (auto it = set.begin(); it != set.end(); ++it){
 		set_ownership.emplace ((*it), 'z'); //'z' is the default/null owner
 	}
+	numImprovements = 0;
 }
 
 int Property::getPrice () const {

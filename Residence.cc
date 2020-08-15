@@ -6,7 +6,7 @@ using namespace std;
 Residences::Residences (const string &name, vector<string> set): 
 	Property{name, 200, set} {
 	
-	numImprovements = -1;
+	numImprovements = -2;
 }
 
 int Residences::getRent () const {
