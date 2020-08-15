@@ -53,7 +53,7 @@ void Player::removeMoney(int amount) {
 void Player::updateNetWorth() {
 	int worth = 0;
 
-	for (int i = 0; i < owned.size(); i++) {
+	for (unsigned i = 0; i < owned.size(); i++) {
 		worth += owned[i]->getValue();
 	}
 	netWorth = worth + money;
