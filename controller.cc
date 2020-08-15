@@ -322,7 +322,7 @@ int main(int argc, char *argv[]) {
 
 			if (p == nullptr) {
 				std::cout << "You do no own that property, and cannot mortgage it" << std::endl;
-	
+				break;	
 			}
 			
 			try {
@@ -344,6 +344,7 @@ int main(int argc, char *argv[]) {
 			
 			if (p == nullptr) {
 				std::cout << "You do not own that property, so you can't unmortgage it" << std::endl;
+				break;
 			}
 
 			try {
@@ -356,7 +357,7 @@ int main(int argc, char *argv[]) {
 		} 
 		else if (cmd.compare("bankrupt") == 0) {
 			
-			if (!canDeclare) {
+			if (false) {
 				std::cout << "You are not allowed to declare bankruptcy as of now" << std::endl;
 			} else {
 			
@@ -367,6 +368,8 @@ int main(int argc, char *argv[]) {
 					}
 				} else {
 					// "Owed to another player"
+
+					std::cout << curr->getProperties().size() << std::endl;
 
 					for (auto it = curr->getProperties().begin(); it != curr->getProperties().end(); ++it) {
 						curr->trade(creditor, *it, 0);

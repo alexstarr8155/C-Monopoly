@@ -38,7 +38,7 @@ void Property::mortgage () {
 	if (!mortgaged) {
 		std::cout << owner->getMoney() << std::endl;
 		//owner->addMoney(purchase_cost/2);
-		std::cout << ", " << owner.get() << std::endl;
+//		std::cout << ", " << owner.get() << std::endl;
 		mortgaged = true;
 	} else {
 		throw " is already mortgaged";
