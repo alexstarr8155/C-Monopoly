@@ -431,18 +431,66 @@ int main(int argc, char *argv[]) {
 					break;
 				}
 
-				curr->addMoney(r-g);
-				other->removeMoney(r-g);
+				std::cout << other->getPlayerName() << ", do accept the trade to give $" << r << " to " << curr->getPlayerName() << 
+					" in exchange for $" << g << "? Enter Y to accept ";
 
+				char reply;
+				std::cin >> reply;
+
+				if (reply == 'Y') {
+					std::cout << "Trade accepted" << std::endl;			
+					curr->addMoney(r-g);
+					other->removeMoney(r-g);
+	
+				} else {
+					std::cout << "Trade rejected" << std::endl;
+				}
+
+				
 			} else if (g != -1) {
 				// "Trade int for Property"
-				curr->trade(other, g, pReceive);
+				
+				std::cout << other->getPlayerName() << ", do accept the trade to give " << pReceive->getName() << " to " << curr->getPlayerName() << 
+					" in exchange for $" << g << "? Enter Y to accept: ";
+
+				char reply;
+				std::cin >> reply;
+
+				if (reply == 'Y') {
+					std::cout << "Trade accepted" << std::endl;	
+					curr->trade(other, g, pReceive);
+				} else {
+					std::cout << "Trade rejected" << std::endl;
+				}
+				
 			} else if (r != -1) {
 				// "Trade Property with int"
-				curr->trade(other, pGive, r);
-			} else {
+				
+				std::cout << other->getPlayerName() << ", do accept the trade to give $" << r << " to " << curr->getPlayerName() << 
+					" in exchange for " << pGive->getName() << "? Enter Y to accept: ";
 
-				curr->trade(other, pGive, pReceive);
+				char reply;
+				std::cin >> reply;
+
+				if (reply == 'Y') {
+					std::cout << "Trade accepted" << std::endl;
+					curr->trade(other, pGive, r);
+				} else {
+					std::cout << "Trade rejected" << std::endl;
+				}
+			} else {
+				std::cout << other->getPlayerName() << ", do accept the trade to give " << pReceive->getName() << " to " << curr->getPlayerName() << 
+					" in exchange for " << pGive->getName() << "? Enter Y to accept: ";
+
+				char reply;
+				std::cin >> reply;
+
+				if (reply == 'Y') {
+					std::cout << "Trade accepted" << std::endl;			
+					curr->trade(other, pGive, pReceive);
+				} else {
+					std::cout << "Trade rejected" << std::endl;
+				}
 			}
 
 		} 
