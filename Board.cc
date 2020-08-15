@@ -405,6 +405,10 @@ void Board::incRollDouble() {
 	rollDouble++;
 }
 
+int Board::getRollDouble() {
+	return rollDouble;
+}
+
 void Board::setRollDouble(int num) {
 	rollDouble = num;
 }
@@ -441,8 +445,7 @@ void Board::move(int diceRoll){
 	std::shared_ptr<Player> curr = getCurrPlayer();
 
     if (curr->getInTims()) {
-    	
-	//"Make choices"
+	 //"Make choices"
 	
 	std::cout << "You are in jail, you can either roll for doubles, pay the bail or use a RollUp the Rim Cup" << std::endl;
 
@@ -485,12 +488,14 @@ void Board::move(int diceRoll){
 			c = 0;
 			
 		}
-		
+		   	
+	
 	}
 
     }
 
     if (rollDouble == 3) {
+	curr->goToTims();
         moveTo(10);
         currPlayer = (currPlayer + 1) % playerNum;
         rollDouble = 0;
