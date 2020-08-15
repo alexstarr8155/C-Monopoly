@@ -118,7 +118,7 @@ Property* getProperty(std::string propName, std::shared_ptr<Player> currPlayer) 
 
 int main(int argc, char *argv[]) {
 
-	std::cout << argc << std::endl;
+//	std::cout << argc << std::endl;
 
 	Board *board;
 
@@ -169,12 +169,112 @@ int main(int argc, char *argv[]) {
 
 	while (numPlayers > 1 && !std::cin.eof()) {
 		
-		std::string cmd;
-		std::cin >> cmd;
 
 		curr = board->getCurrPlayer();
 
 		//"For testing purposes"
+
+		if (curr->getInTims()) {
+			//"Make choices"
+	
+			std::cout << "You are in jail, you can either roll for doubles, pay the bail or use a RollUp the Rim Cup" << std::endl;
+
+			std::cout << "You have: " << curr->getTimsCards() << " RollUp the Rim Cups" << std::endl;
+			std::cout << "You have: $" << curr->getMoney() << std::endl;
+	
+			std::cout << "Enter D to roll doubles, B to pay bail, T to use Tim's Cup" << std::endl;
+
+			char c = 0;
+			bool done = false;
+			while (done || (c != 'D' && c != 'B' && c != 'T')) {
+				std::cin >> c;
+	
+				if (c == 'D') {
+					//"Do something with doubles"
+					
+					
+					std::cout << "Type roll, to roll the dice" << std::endl;
+					int roll = 0;
+
+					std::string d;
+					std::cin >> d;
+
+					if (testingMode) {
+						int num1;
+						int num2;
+
+						std::cin >> num1;
+						std::cin >> num2;
+
+						if (num1 == num2) {
+							board->incRollDouble();	
+						} else {
+							board->setRollDouble(0);
+						}
+						roll = num1 + num2;	
+
+
+					} else {
+						roll = board->roll();
+					}
+
+					if (curr->getTurnsInTims() == 2 && board->getRollDouble() == 0) {
+						std::cout << "This was your last turn in jail, and you failed to get doubles, you must pay bail, or use a RollUp the Rim Cup" << std::endl;
+						c = 0;
+						continue;
+					}
+
+					if (board->getRollDouble() > 0) {
+						board->setRollDouble(0);
+						std::cerr << "Moving" << std::endl;
+						board->move(roll);
+
+						display.display();
+
+						done = true;
+						break;
+					} else {
+						std::cout << "You did not get doubles, are still in jail" << std::endl;
+						curr->setTurnsInTims(curr->getTurnsInTims() + 1);
+
+						int nextPlayer = (board->getCurrPlayerInt() + 1) % numPlayers;
+						board->setCurrPlayer(nextPlayer);
+						//currPlayer = (currPlayer + 1) % playerNum;		
+						
+						break;
+					}
+				} else if (c == 'B'){
+					// "Pay bail"
+					if (curr->getMoney() < 50) {
+						std::cout << "Not enough money to pay bail, try T for Tims Cup or D for roll for Doubles" << std::endl;
+						c = 0;
+					} else {
+						curr->removeMoney(50);
+						std::cout << "You are now free, continue your turn as desired" << std::endl;
+						done = true;
+						break;
+					}
+				} else if (c == 'T' && curr->getTimsCards() > 0) {
+					//"Use Card"
+					//currPlayer->decTimsCards();
+			
+				} else {
+					std::cout << "Please select one of D, B or T" << std::endl;
+					c = 0;
+	
+				}		
+			}
+
+		//	board->move();
+		}
+	
+
+
+		std::string cmd;
+		std::cin >> cmd;
+
+		std::cout << cmd.length() << std::endl;
+
 		if (cmd.compare("r") == 0 && !locked) {
 			int n;
 			std::cin >> n;
@@ -342,7 +442,7 @@ int main(int argc, char *argv[]) {
 				std::cout << prop << " is already mortgaged" << std::endl;
 				continue;
 			}
-			curr->addMoney(p->getValue()/2);
+			curr->addMoney(p->getValue() * 0.6);
 			
 			
 		} 
