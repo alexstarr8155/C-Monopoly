@@ -211,8 +211,8 @@ int main(int argc, char *argv[]) {
 
 				}
 				
-				int nextPlayer = (board->getCurrPlayerInt() + 1) % numPlayers;
-				board->setCurrPlayer(nextPlayer);
+				//int nextPlayer = (board->getCurrPlayerInt() + 1) % numPlayers;
+				//board->setCurrPlayer(nextPlayer);
 				
 
 			} else {
