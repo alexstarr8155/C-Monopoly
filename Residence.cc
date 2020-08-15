@@ -20,7 +20,7 @@ int Residences::getRent() const {
 			numOwned++;
 		}
 	}
-	
+
 	switch (numOwned){
 		case 1:
 			return 25;

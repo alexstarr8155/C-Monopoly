@@ -99,6 +99,7 @@ Board::Board(std::string fileName) {
             if (player != nullptr) {
                 player->addProperty(static_cast<Property *>(board[i].get()));
             }
+	//    std::cout << (player == nullptr) << true << std::endl;
             board[i]->setOwner(player);
             if (improvements == -1) {
                 board[i]->setMortgage(true);

@@ -122,7 +122,7 @@ int main(int argc, char *argv[]) {
 
 //	std::cout << argc << std::endl;
 
-	Board *board;
+	std::shared_ptr<Board> board;
 
 	std::vector<std::string> args;
 
@@ -138,47 +138,27 @@ int main(int argc, char *argv[]) {
 
 	if (argc == 1) {
 		setupPlayers(players);
-		board = new Board(players, players.size());
+		board = std::make_shared<Board>(players, players.size());
 	} else if (argc == 2 && args[1].compare("-testing") == 0) {
 		testingMode = true;
 		setupPlayers(players);
-		board = new Board(players, players.size());
+		board = std::make_shared<Board>(players, players.size());
 	} else if (argc == 3 && args[1].compare("-load") == 0) {
 		std::string filename = args[2];
-		board = new Board(filename);
+		board = std::make_shared<Board>(filename);
 		players = board->getPlayers();
 	} else if (argc == 4 && args[1].compare("-testing") == 0 && args[2].compare("-load") == 0) {
 		testingMode = true;
 
 		std::string filename = args[3];
-		board = new Board(filename);
+		board = std::make_shared<Board>(filename);
 		players = board->getPlayers();
 	} else {
 		std::cout << "Invalid combination of command line arguments try again" << std::endl;
 		return 1;
 	}
 
-	/*
-	if (argc > 1 && args[1].compare("-testing") == 0) {
-		testingMode = true;
-	}
-	if ((argc == 4 && args[1].compare("-testing") == 0) || (argc == 2 && args[1].compare("-testing") != 0)) {
-		
-		std::string filename;
-		if (argc > 2) {
-			filename = args[2];
-		} else {
-			filename = args[1];
-		}
 
-		board = new Board(filename);
-		players = board->getPlayers();
-
-	} else {
-		// "Starting game input needed"
-	}
-
-	*/
 	BoardDisplay display(*board);
 	display.display();
 
@@ -702,13 +682,15 @@ int main(int argc, char *argv[]) {
 			std::cout << "You have: $" << curr->getMoney() << " and owe: $" << amountOwed << std::endl;
 		}
 
+		std::cout << std::endl;
+
 	}
 	
 	if (numPlayers == 1) {
 		std::cout << curr->getPlayerName() << " has won the game!" << std::endl;
 	}
 
-	delete board;
+//	delete board;
 }
 
 

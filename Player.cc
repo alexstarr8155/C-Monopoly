@@ -44,7 +44,7 @@ void Player::addMoney(int amount) {
 // if player does not have enough money to withdraw will thrown an exception
 void Player::removeMoney(int amount) {
 	if (amount > money) {
-		throw BankruptException(amount - money, nullptr);
+		throw BankruptException(amount, nullptr);
 	}
 	money -= amount;
 }
@@ -239,6 +239,8 @@ std::string Player::getPlayerName() const {
 
 // returns the player's character
 char Player::getPlayerChar() const {
+	//std::cout << "A" << std::endl;
+	//std::cout << name << std::endl;
 	return playerChar;
 }
 

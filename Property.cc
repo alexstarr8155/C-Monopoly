@@ -116,20 +116,27 @@ void Property::unmortgage() {
 void Property::setOwner(Player* p) {
 	if (p == nullptr) {
 		owned = false;
+		owner = std::make_shared<Player>(*p);
 	} else {
 		owned = true;
+		owner = std::make_shared<Player>(*p);
+		set_ownership[name] = p->getPlayerChar();
+		notifyObservers();
 	}
-	owner = std::make_shared<Player>(*p);
 }
 
 // sets the owner of the property given a Player shared pointer
 void Property::setOwner(shared_ptr<Player> p) {
 	if (p == nullptr) {
 		owned = false;
+		owner = p;
 	} else {
 		owned = true;
+		owner = p;
+		set_ownership.at(name) = p->getPlayerChar();
+		notifyObservers();
 	}
-	owner = p;
+	//owner = p;
 }
 
 // Observer and Subject method implementations
