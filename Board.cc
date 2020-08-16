@@ -73,10 +73,10 @@ Board::Board(std::string fileName) {
         players[i]->setTurnsInTims(turnsInTims);
 
         board[position]->setOnCell(players[i]->getPlayerChar());
+    }
 
-        if (players[i]->getPosition() != 0) {
-            board[0]->leave(players[i]);
-        }
+    for (int i = 0; i < playerNum; ++i) {
+        board[0]->leave(players[i]);
     }
 
     for (int i = 0; i < 40; i++) {
