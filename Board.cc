@@ -560,6 +560,7 @@ void Board::auction(int loc, int from) {
 					int amount = std::stoi(in);
 					if (amount < currentBid){
 						std::cout << "You need to raise the bid, not lower it!" << std::endl;
+						std::cin >> in;
 					}
 					else {
 						currentBid = amount;
@@ -568,6 +569,7 @@ void Board::auction(int loc, int from) {
 				}
 				catch (...){
 					std::cout << "Please enter one of the options" << std::endl;
+					std::cin >> in;
 				}
 			}
 		}
