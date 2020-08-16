@@ -233,7 +233,7 @@ int main(int argc, char *argv[]) {
 				std::cout << "This was your last turn in jail, and you failed to get doubles, you must pay bail, or use a RollUp the Rim Cup" << std::endl;
 				//c = 0;
 				lastRoll = roll;
-				continue;;
+				continue;
 			}
 
 			if (board->getRollDouble() > 0) {
@@ -263,6 +263,7 @@ int main(int argc, char *argv[]) {
 
 
 		} else if (cmd.compare("B") == 0 && inJail) {
+			//std::cout << lastRoll << std::endl;
 			if (curr->getMoney() < 50) {
 				std::cout << "Not enough money to pay bail, try T for Tims Cup or D for roll for Doubles" << std::endl;
 				//c = 0;
@@ -687,7 +688,7 @@ int main(int argc, char *argv[]) {
 	}
 	
 	if (numPlayers == 1) {
-		std::cout << curr->getPlayerName() << " has won the game!" << std::endl;
+		std::cout << board->getCurrPlayer()->getPlayerName() << " has won the game!" << std::endl;
 	}
 
 //	delete board;

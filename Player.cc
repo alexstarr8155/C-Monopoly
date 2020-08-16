@@ -46,6 +46,7 @@ void Player::removeMoney(int amount) {
 	if (amount > money) {
 		throw BankruptException(amount, nullptr);
 	}
+	//std::cout << amount << std::endl;
 	money -= amount;
 }
 

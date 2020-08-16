@@ -21,6 +21,7 @@ void Tuition::action(shared_ptr<Player> p, bool b) {
 			break;
 		}
 		else if (in == "W" || in == "w"){
+			//std::cout << p->getNetWorth() << p->getNetWorth()/10 << std::endl;
 			p->removeMoney(p->getNetWorth()/10);
 			break;
 		}
