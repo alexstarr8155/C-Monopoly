@@ -104,7 +104,7 @@ void Player::buy(Property * p) {
 // if they cannot will throw an exception
 void Player::pay(std::shared_ptr<Player> other, int amount) {
 	if (amount > money) {
-		throw BankruptException(amount - money, other);
+		throw BankruptException(amount, other);
 	}
 	else {
 		removeMoney(amount);
