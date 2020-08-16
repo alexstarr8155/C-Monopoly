@@ -34,8 +34,6 @@ class Board {
 		void moveBy(int diceRoll);
 		void moveTo(int loc);
 
-		void playRound();
-
 		void removePlayer(std::shared_ptr<Player> player);
 		std::map<const std::string, std::shared_ptr<Player>> getPlayers();
 		
